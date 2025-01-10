@@ -717,7 +717,8 @@ section,
 --------------------------------------------------------------*/
 .hero {
   position: relative;
-  padding-top: 160px;
+  height: 100vh;
+  padding-top: 180px;
   background: linear-gradient(135deg, color-mix(in srgb, var(--accent-color), transparent 95%) 50%, color-mix(in srgb, var(--accent-color), transparent 98%) 25%, transparent 50%);
 }
 

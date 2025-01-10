@@ -41,7 +41,7 @@
             </ul>
         </nav>
 
-        <a class="btn-getstarted" href="{{ route('login') }}">Masuk</a>
+        <a class="btn-getstarted" href="{{ url('login') }}">Masuk</a>
     </div>
 </header>
 
@@ -69,7 +69,7 @@
                         </p>
 
                         <div class="hero-buttons">
-                            <a href="#about" class="btn btn-primary me-0 me-sm-2 mx-1">Masuk</a>
+                            <a href="{{ url('login') }}" class="btn btn-primary me-0 me-sm-2 mx-1">Masuk</a>
                             <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
                                 class="btn btn-link mt-2 mt-sm-0 glightbox">
                                 <i class="bi bi-play-circle me-1"></i>
