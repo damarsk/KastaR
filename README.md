@@ -35,8 +35,6 @@ Projek ini adalah sebuah aplikasi kasir pintar yang dibuat untuk Uji Kompetensi 
 3. Jalankan perintah berikut untuk menginstal dependensi:
     ```bash
     composer install
-    npm install
-    npm run dev
     ```
 4. Salin file `.env.example` menjadi `.env` dan konfigurasi koneksi database di file `.env`.
 5. Jalankan perintah berikut untuk membuat kunci aplikasi:
