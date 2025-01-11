@@ -23,14 +23,13 @@
                         <div class="row g-0">
                             <div class="col-lg-6">
                                 <div class="card-body p-md-5 mx-md-4">
-                                    <a href="{{ url('/') }}">Kembali</a>
                                     <div class="text-center">
                                         <img src="{{ asset('land_css/img/logo.png') }}" style="width: 145px;"
                                             alt="logo">
                                         <h4 class="mt-1 mb-5 pb-1">KastaR | Kasir Pintar</h4>
                                     </div>
                                     @if ($errors->any())
-                                        <div class="alert alert-danger">
+                                        <div class="alert alert-danger" style="padding-bottom: 0px;">
                                             <ul>
                                                 @foreach ($errors->all() as $error)
                                                     <li>{{ $error }}</li>
@@ -38,7 +37,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <form class="md-form" method="POST" action="{{ route('login.store') }}">  
+                                    <form class="md-form" method="POST" action="{{ route('auth.store') }}">  
                                         @csrf  
                                         <div class="form-outline mb-4">  
                                             <label class="form-label" for="email">Email</label>  
