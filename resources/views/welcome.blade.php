@@ -2,8 +2,8 @@
 @section('title', 'KastaR - Solusi Kasir Pintar')
 @section('styles')
 <!-- Favicons -->
-<link href="{{ asset('land_css/img/favicon.png') }}" rel="icon">
-<link href="{{ asset('land_css/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+<link href="{{ asset('land_style/img/favicon.png') }}" rel="icon">
+<link href="{{ asset('land_style/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -13,14 +13,14 @@
     rel="stylesheet">
 
 <!-- Vendor CSS Files -->
-<link href="{{ asset('land_css/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-<link href="{{ asset('land_css/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-<link href="{{ asset('land_css/vendor/aos/aos.css') }}" rel="stylesheet">
-<link href="{{ asset('land_css/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-<link href="{{ asset('land_css/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+<link href="{{ asset('land_style/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ asset('land_style/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+<link href="{{ asset('land_style/vendor/aos/aos.css') }}" rel="stylesheet">
+<link href="{{ asset('land_style/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+<link href="{{ asset('land_style/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
 <!-- Main CSS File -->
-<link href="{{ asset('land_css/css/main.css') }}" rel="stylesheet">
+<link href="{{ asset('land_style/css/main.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -29,7 +29,7 @@
         class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
         <a href="{{ url('/') }}" class="logo d-flex align-items-center me-auto me-xl-0">
-            <img src="{{ asset('land_css/img/logo.png') }}" alt="">
+            <img src="{{ asset('land_style/img/logo.png') }}" alt="">
             <h1 class="sitename">KastaR | Kasir Pintar</h1>
         </a>
 
@@ -81,7 +81,7 @@
 
                 <div class="col-lg-6">
                     <div class="hero-image" data-aos="zoom-out" data-aos-delay="300">
-                        <img src="{{ asset('land_css/img/illustration-1.webp') }}" alt="Hero Image" class="img-fluid">
+                        <img src="{{ asset('land_style/img/illustration-1.webp') }}" alt="Hero Image" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -134,13 +134,13 @@
 
 @section('scripts')
     <!-- Vendor JS Files -->
-    <script src="{{ asset('land_css/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('land_css/vendor/php-email-form/validate.js') }}"></script>
-    <script src="{{ asset('land_css/vendor/aos/aos.js') }}"></script>
-    <script src="{{ asset('land_css/vendor/glightbox/js/glightbox.min.js') }}"></script>
-    <script src="{{ asset('land_css/vendor/swiper/swiper-bundle.min.js') }}"></script>
-    <script src="{{ asset('land_css/vendor/purecounter/purecounter_vanilla.js') }}"></script>
+    <script src="{{ asset('land_style/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('land_style/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ asset('land_style/vendor/aos/aos.js') }}"></script>
+    <script src="{{ asset('land_style/vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('land_style/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('land_style/vendor/purecounter/purecounter_vanilla.js') }}"></script>
 
     <!-- Main JS File -->
-    <script src="{{ asset('land_css/js/main.js') }}"></script>
+    <script src="{{ asset('land_style/js/main.js') }}"></script>
 @endsection

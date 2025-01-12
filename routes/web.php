@@ -14,13 +14,12 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-// INDEX
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // LOGIN
 Route::middleware('guest')->group(function () {
+    // HOME
+    Route::get('/', function () {
+        return view('welcome');
+    });
 Route::get('/login', [AuthController::class, 'index'])->name('auth.index');
 Route::post('/login', [AuthController::class, 'store'])->name('auth.store');
 });

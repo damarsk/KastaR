@@ -1,0 +1,44 @@
+$body-bg: #e5e5e5;
+$white: #ffffff;
+$container-bg: #f5f6fa;
+$primary: #1a73e8;
+
+// Custom SCSS Mixins
+
+// Border Radius
+@mixin roundedCorners($size) {
+	-webkit-border-radius: $size + px;
+	-moz-border-radius: $size + px;
+	border-radius: $size + px;
+}
+
+// body
+body {
+	background: $body-bg;
+}
+
+// Error Screen CSS
+.error-bg {
+	background: $container-bg url(../images/error.svg) no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+.error-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+	max-width: 520px;
+	background: rgba(218, 229, 245, 0.8);
+	backdrop-filter: blur(3px);
+	margin: 3rem auto;
+	@include roundedCorners(20);
+	padding: 3rem;
+	h1 {
+		font-size: 12rem;
+		font-weight: 900;
+		color: $white;
+		text-shadow: 5px 5px 0 $primary;
+	}
+}

@@ -77,12 +77,18 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
         // LOGOUT PROCESS
         {  
             // Logout  
-            Auth::logout();  
+            Auth::logout();
+            
+            // Menghapus session  
+            $request->session()->invalidate();  
+        
+            // Regenerasi session ID  
+            $request->session()->regenerateToken();  
       
             // Redirect ke halaman login  
             return redirect('/login');  

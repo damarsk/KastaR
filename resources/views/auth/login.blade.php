@@ -8,10 +8,11 @@
         }
 
         .container {
-            height: 100vh;
+            min-height: 100vh;
+            height: 100%;
         }
     </style>
-    <link href="{{ asset('land_css/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('land_style/vendor/aos/aos.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -24,7 +25,7 @@
                             <div class="col-lg-6">
                                 <div class="card-body p-md-5 mx-md-4">
                                     <div class="text-center">
-                                        <img src="{{ asset('land_css/img/logo.png') }}" style="width: 145px;"
+                                        <img src="{{ asset('land_style/img/logo.png') }}" style="width: 145px;"
                                             alt="logo">
                                         <h4 class="mt-1 mb-5 pb-1">KastaR | Kasir Pintar</h4>
                                     </div>
@@ -81,7 +82,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('land_css/vendor/aos/aos.js') }}"></script>
+    <script src="{{ asset('land_style/vendor/aos/aos.js') }}"></script>
     <script>
         AOS.init();
     </script>

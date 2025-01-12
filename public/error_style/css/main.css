@@ -1,0 +1,31 @@
+body {
+  background: #e5e5e5;
+}
+
+.error-bg {
+  background: #f5f6fa url(../images/error.svg) no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  max-width: 520px;
+  background: rgba(218, 229, 245, 0.8);
+  backdrop-filter: blur(3px);
+  margin: 3rem auto;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding: 3rem;
+}
+.error-container h1 {
+  font-size: 12rem;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 5px 5px 0 #1a73e8;
+}
