@@ -77,7 +77,8 @@
                         <div class="peer peer-greed"><a class="sidebar-link td-n" href="index.html">
                                 <div class="peers ai-c fxw-nw">
                                     <div class="peer">
-                                        <div class="logo"><img src="{{ asset('land_style/img/logo.png') }}" alt="Logo" width="70px">
+                                        <div class="logo"><img src="{{ asset('land_style/img/logo.png') }}" alt="Logo"
+                                                width="70px">
                                         </div>
                                     </div>
                                     <div class="peer peer-greed">
@@ -95,40 +96,51 @@
                     <li class="nav-item mT-30 actived"><a class="sidebar-link" href="index.html"><span
                                 class="icon-holder"><i class="c-blue-500 ti-home"></i> </span><span
                                 class="title">Dashboard</span></a></li>
-                    <li class="nav-item"><a class="sidebar-link" href="index.html"><span
-                                class="icon-holder"><i class="c-red-500 ti-package"></i> </span><span
-                                class="title">Kategori</span></a></li>
-                    <li class="nav-item"><a class="sidebar-link" href="index.html"><span
-                                class="icon-holder"><i class="c-grey-500 ti-dropbox"></i> </span><span
-                                class="title">Produk</span></a></li>
-                    <li class="nav-item"><a class="sidebar-link" href="index.html"><span
-                                class="icon-holder"><i class="c-green-500 ti-truck"></i> </span><span
-                                class="title">Supplier</span></a></li>
-                    <li class="nav-item"><a class="sidebar-link" href="charts.html"><span class="icon-holder"><i
-                                    class="c-indigo-500 ti-bar-chart"></i> </span><span class="title">Analisis</span></a>
-                    </li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle" href="javascript:void(0);"><span
-                        class="icon-holder"><i class="c-pink-500 ti-id-badge"></i> </span><span
-                        class="title">Users</span> <span class="arrow"><i
-                            class="ti-angle-right"></i></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="sidebar-link" href="basic-table.html"><i class="c-pink-500 ti-user me-2"></i> Manage Petugas Kasir</a></li>
-                            <li><a class="sidebar-link" href="datatable.html"><i class="c-pink-500 ti-user me-2"></i> Manage Admin</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle" href="javascript:void(0);"><span
-                                class="icon-holder"><i class="c-light-blue-500 ti-money"></i> </span><span
-                                class="title">Transaksi</span> <span class="arrow"><i
-                                    class="ti-angle-right"></i></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="sidebar-link" href="basic-table.html"><i class="c-light-blue-500 ti-money me-2"></i> Pengeluaran</a></li>
-                            <li><a class="sidebar-link" href="datatable.html"><i class="c-light-blue-500 ti-download me-2"></i> Pembelian</a></li>
-                            <li><a class="sidebar-link" href="datatable.html"><i class="c-light-blue-500 ti-upload me-2"></i> Penjualan</a></li>
-                            <li><a class="sidebar-link" href="datatable.html"><i class="c-light-blue-500 ti-shopping-cart me-2"></i> Transaksi Aktif</a></li>
-                            <li><a class="sidebar-link" href="datatable.html"><i class="c-light-blue-500 ti-shopping-cart-full me-2"></i> Transaksi Baru</a></li>
-                            
-                        </ul>
-                    </li>
+                                @if (Auth::user()->level == 1)
+                    <li class="nav-item"><a class="sidebar-link" href="index.html"><span class="icon-holder"><i
+                                    class="c-red-500 ti-package"></i> </span><span class="title">Kategori</span></a></li>
+                    <li class="nav-item"><a class="sidebar-link" href="index.html"><span class="icon-holder"><i
+                                    class="c-grey-500 ti-dropbox"></i> </span><span class="title">Produk</span></a></li>
+                        <li class="nav-item"><a class="sidebar-link" href="index.html"><span class="icon-holder"><i
+                                        class="c-green-500 ti-truck"></i> </span><span class="title">Supplier</span></a>
+                        </li>
+                        <li class="nav-item"><a class="sidebar-link" href="charts.html"><span class="icon-holder"><i
+                                        class="c-indigo-500 ti-bar-chart"></i> </span><span
+                                    class="title">Analisis</span></a>
+                        </li>
+                        <li class="nav-item dropdown"><a class="dropdown-toggle" href="javascript:void(0);"><span
+                                    class="icon-holder"><i class="c-pink-500 ti-id-badge"></i> </span><span
+                                    class="title">Users</span> <span class="arrow"><i
+                                        class="ti-angle-right"></i></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="sidebar-link" href="basic-table.html"><i class="c-pink-500 ti-user me-2"></i>
+                                        Manage Petugas Kasir</a></li>
+                                <li><a class="sidebar-link" href="datatable.html"><i class="c-pink-500 ti-user me-2"></i>
+                                        Manage Admin</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown"><a class="dropdown-toggle" href="javascript:void(0);"><span
+                                    class="icon-holder"><i class="c-light-blue-500 ti-money"></i> </span><span
+                                    class="title">Transaksi</span> <span class="arrow"><i
+                                        class="ti-angle-right"></i></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="sidebar-link" href="basic-table.html"><i
+                                            class="c-light-blue-500 ti-money me-2"></i> Pengeluaran</a></li>
+                                <li><a class="sidebar-link" href="datatable.html"><i
+                                            class="c-light-blue-500 ti-download me-2"></i> Pembelian</a></li>
+                                <li><a class="sidebar-link" href="datatable.html"><i
+                                            class="c-light-blue-500 ti-upload me-2"></i> Penjualan</a></li>
+                                <li><a class="sidebar-link" href="datatable.html"><i
+                                            class="c-light-blue-500 ti-shopping-cart me-2"></i> Transaksi Aktif</a></li>
+                                <li><a class="sidebar-link" href="datatable.html"><i
+                                            class="c-light-blue-500 ti-shopping-cart-full me-2"></i> Transaksi Baru</a></li>
+                    @endif
+                    @if (Auth::user()->level == 0)
+                                    <li class="nav-item"><a class="sidebar-link" href="index.html"><span class="icon-holder"><i
+                                        class="c-light-blue-500 ti-shopping-cart-full"></i> </span><span class="title">Transaksi Baru</span></a></li>
+                    @endif
+                </ul>
+                </li>
                 </ul>
             </div>
         </div><!-- #Main ============================ -->
@@ -170,8 +182,8 @@
                                                         src="https://randomuser.me/api/portraits/men/2.jpg"
                                                         alt=""></div>
                                                 <div class="peer peer-greed"><span><span class="fw-500">Moo Doe</span>
-                                                        <span class="c-grey-600">liked your <span
-                                                                class="text-dark">cover image</span></span></span>
+                                                        <span class="c-grey-600">liked your <span class="text-dark">cover
+                                                                image</span></span></span>
                                                     <p class="m-0"><small class="fsz-xs">7 mins ago</small></p>
                                                 </div>
                                             </a></li>
@@ -194,8 +206,7 @@
                             </ul>
                         </li>
                         <li class="notifications dropdown"><span class="counter bgc-blue">3</span> <a href=""
-                                class="dropdown-toggle no-after" data-bs-toggle="dropdown"><i
-                                    class="ti-email"></i></a>
+                                class="dropdown-toggle no-after" data-bs-toggle="dropdown"><i class="ti-email"></i></a>
                             <ul class="dropdown-menu">
                                 <li class="pX-20 pY-15 bdB"><i class="ti-email pR-10"></i> <span
                                         class="fsz-sm fw-600 c-grey-900">Emails</span></li>
@@ -262,8 +273,8 @@
                                                 class="fs-xs ti-angle-right mL-10"></i></a></span></li>
                             </ul>
                         </li>
-                        <li class="dropdown"><a href=""
-                                class="dropdown-toggle no-after peers fxw-nw ai-c lh-1" data-bs-toggle="dropdown">
+                        <li class="dropdown"><a href="" class="dropdown-toggle no-after peers fxw-nw ai-c lh-1"
+                                data-bs-toggle="dropdown">
                                 <div class="peer mR-10"><img class="w-2r bdrs-50p"
                                         src="https://randomuser.me/api/portraits/men/10.jpg" alt=""></div>
                                 <div class="peer"><span class="fsz-sm c-grey-900">{{ Auth::user()->name }}</span></div>
@@ -275,10 +286,11 @@
                                             class="ti-user mR-10"></i> <span>Profile</span></a></li>
                                 <li>
                                     <a href="{{ route('auth.logout') }}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <i class="ti-power-off mR-10"></i> <span>Logout</span>
                                     </a>
-                                    <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"
+                                        style="display: none;">
                                         @csrf
                                     </form>
                                 </li>
@@ -378,9 +390,9 @@
                                                             class="pull-right c-grey-600 fsz-sm">50%</span>
                                                         <div class="progress mT-10">
                                                             <div class="progress-bar bgc-deep-purple-500"
-                                                                role="progressbar" aria-valuenow="50"
-                                                                aria-valuemin="0" aria-valuemax="100"
-                                                                style="width:50%"><span class="visually-hidden">50%
+                                                                role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                                                                aria-valuemax="100" style="width:50%"><span
+                                                                    class="visually-hidden">50%
                                                                     Complete</span></div>
                                                         </div>
                                                     </div>
@@ -390,9 +402,9 @@
                                                         <span class="pull-right c-grey-600 fsz-sm">80%</span>
                                                         <div class="progress mT-10">
                                                             <div class="progress-bar bgc-green-500" role="progressbar"
-                                                                aria-valuenow="50" aria-valuemin="0"
-                                                                aria-valuemax="100" style="width:80%"><span
-                                                                    class="visually-hidden">80% Complete</span></div>
+                                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                                                style="width:80%"><span class="visually-hidden">80%
+                                                                    Complete</span></div>
                                                         </div>
                                                     </div>
                                                     <div class="layer w-100 mT-15">
@@ -401,9 +413,9 @@
                                                         <span class="pull-right c-grey-600 fsz-sm">40%</span>
                                                         <div class="progress mT-10">
                                                             <div class="progress-bar bgc-light-blue-500"
-                                                                role="progressbar" aria-valuenow="50"
-                                                                aria-valuemin="0" aria-valuemax="100"
-                                                                style="width:40%"><span class="visually-hidden">40%
+                                                                role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                                                                aria-valuemax="100" style="width:40%"><span
+                                                                    class="visually-hidden">40%
                                                                     Complete</span></div>
                                                         </div>
                                                     </div>
@@ -412,9 +424,8 @@
                                                             class="fw-600 c-grey-700">Visitors From India</small> <span
                                                             class="pull-right c-grey-600 fsz-sm">90%</span>
                                                         <div class="progress mT-10">
-                                                            <div class="progress-bar bgc-blue-grey-500"
-                                                                role="progressbar" aria-valuenow="50"
-                                                                aria-valuemin="0" aria-valuemax="100"
+                                                            <div class="progress-bar bgc-blue-grey-500" role="progressbar"
+                                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
                                                                 style="width:90%"><span class="visually-hidden">90%
                                                                     Complete</span></div>
                                                         </div>
@@ -673,8 +684,8 @@
                                             <div class="layer w-100 bdT pY-5">
                                                 <div class="peers ai-c jc-sb fxw-nw">
                                                     <div class="peer"><span>Wind</span></div>
-                                                    <div class="peer ta-r"><span
-                                                            class="fw-600 c-grey-800">10km/h</span></div>
+                                                    <div class="peer ta-r"><span class="fw-600 c-grey-800">10km/h</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="layer w-100 bdT pY-5">
@@ -803,11 +814,12 @@
                                             </div>
                                         </div>
                                         <div class="p-20 bdT bgc-white">
-                                            <div class="pos-r"><input type="text"
-                                                    class="form-control bdrs-10em m-0" placeholder="Say something...">
+                                            <div class="pos-r"><input type="text" class="form-control bdrs-10em m-0"
+                                                    placeholder="Say something...">
                                                 <button type="button"
                                                     class="btn btn-primary bdrs-50p w-2r p-0 h-2r pos-a r-1 t-1"><i
-                                                        class="fa fa-paper-plane-o"></i></button></div>
+                                                        class="fa fa-paper-plane-o"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
