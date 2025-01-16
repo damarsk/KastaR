@@ -65,6 +65,7 @@
         }
     </style>
     <link href="{{ asset('dash_style/css/style.css') }}" rel="stylesheet">
+    <script defer="defer" src="{{asset('dash_style/js/main.js')}}"></script>
 </head>
 
 <body class="app font-sans antialiased">
