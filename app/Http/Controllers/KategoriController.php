@@ -12,7 +12,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        return view('kategori.index');
+        $kategoris = Kategori::all();
+        return view('kategori.index', compact('kategoris'));
     }
 
     /**
@@ -28,6 +29,10 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nama_kategori' => 'required|unique:kategori,nama_kategori',
+        ]);
+
         $kategori = new Kategori();
         $kategori->nama_kategori = $request->nama_kategori;
         $kategori->save();

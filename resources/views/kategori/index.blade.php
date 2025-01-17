@@ -13,30 +13,30 @@
                     <div class="col-md-12">
                         <div class="bgc-white bd bdrs-3 p-20 mB-20">
                             <h4 class="c-grey-900 mB-20" style="float: left">Tabel Kategori</h4>
-                            <button onclick="addForm('{{route('kategori.store')}}')" style="float: right"
+                            <button onclick="addForm('{{ route('kategori.store') }}')" style="float: right"
                                 class="btn cur-p btn-success btn-color btn-sm mb-4" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">Tambah Kategori</button>
                             <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
+                                        <th style="width: 50px">No</th>
+                                        <th>Kategori</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
+                                        <th style="width: 50px">No</th>
+                                        <th>Kategori</th>
                                     </tr>
                                 </tfoot>
+                                <tbody>
+                                    @foreach ($kategoris as $index => $kategori)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $kategori->nama_kategori }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -55,33 +55,36 @@
         let table;
 
         $(function() {
+            // Inisialisasi DataTables  
             table = $('#dataTable').DataTable({
                 processing: true,
                 autoWidth: false,
-                // ajax: {    
-                //     url: '{{ route('kategori.data') }}',    
-                // }    
+                // ajax: {      
+                //     url: '{{ route('kategori.data') }}',      
+                // }      
             });
 
+            // Menangani submit form di modal  
             $('#modal-form').validator().on('submit', function(e) {
-                if(! e.preventDefault()) {
+                if (!e.isDefaultPrevented()) {
                     $.ajax({
-                        url: $('#modal-form form').attr('action'),
-                        type: 'post',
-                        data: $('#modal-form form').serialize()
-                    })
-                    .done((response) => {
-                        $('#modal-form').modal('hide');
-                        table.ajax.reload();
-                    })
-                    .fail((errors) => {
-                        alert('Tidak dapat menyimpan data');
-                        return;
-                    })
+                            url: $('#modal-form form').attr('action'),
+                            type: 'post',
+                            data: $('#modal-form form').serialize()
+                        })
+                        .done((response) => {
+                            $('#modal-form').modal('hide');
+                            table.ajax.reload();
+                        })
+                        .fail((errors) => {
+                            alert('Tidak dapat menyimpan data');
+                            return;
+                        });
                 }
-            })
+            });
         });
 
+        // Fungsi untuk menampilkan modal tambah form  
         function addForm(url) {
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').text('Tambah Kategori');
