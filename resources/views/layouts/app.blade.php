@@ -153,17 +153,29 @@
                                     @endif
                                 </ul>   
                             </li>
-                            <li class="nav-item dropdown"><a class="dropdown-toggle" href="javascript:void(0);"><span
-                                        class="icon-holder"><i class="c-brown-500 ti-user"></i> </span><span
-                                        class="title">Profile</span> <span class="arrow"><i
-                                            class="ti-angle-right"></i></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="sidebar-link" href="basic-table.html"><i
-                                                class="c-grey-500 ti-settings me-2"></i> Settings</a></li>
-                                    <li><a class="sidebar-link" href="datatable.html"><i
-                                                class="c-red-500 ti-back-left me-2"></i> Logout</a></li>
-                                </ul>   
-                            </li>
+                            <li class="nav-item dropdown">  
+                                <a class="dropdown-toggle" href="javascript:void(0);">  
+                                    <span class="icon-holder"><i class="c-brown-500 ti-user"></i></span>  
+                                    <span class="title">Profile</span>  
+                                    <span class="arrow"><i class="ti-angle-right"></i></span>  
+                                </a>  
+                                <ul class="dropdown-menu">  
+                                    <li>  
+                                        <a class="sidebar-link" href="basic-table.html">  
+                                            <i class="c-grey-500 ti-settings me-2"></i> Settings  
+                                        </a>  
+                                    </li>  
+                                    <li>  
+                                        <a class="sidebar-link" href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">  
+                                            <i class="c-red-500 ti-back-left me-2"></i> Logout  
+                                        </a>  
+                                        <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" style="display: none;">  
+                                            @csrf  
+                                        </form>  
+                                    </li>  
+                                </ul>  
+                            </li>  
+                            
                         </ul>
                     </div>
                 </div><!-- #Main ============================ -->
