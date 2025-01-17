@@ -146,16 +146,16 @@
                                                 class="c-light-blue-500 ti-shopping-cart me-2"></i> Transaksi Aktif</a></li>
                                     <li><a class="sidebar-link" href="datatable.html"><i
                                                 class="c-light-blue-500 ti-shopping-cart-full me-2"></i> Transaksi Baru</a></li>
-                        @endif
-                        @if (Auth::user()->level == 0)
-                                        <li class="nav-item"><a class="sidebar-link" href="index.html"><span class="icon-holder"><i
-                                            class="c-light-blue-500 ti-shopping-cart-full"></i> </span><span class="title">Transaksi Baru</span></a></li>
-                        @endif
-                    </ul>
-                    </li>
-                    </ul>
-                </div>
-            </div><!-- #Main ============================ -->
+                                    @endif
+                                    @if (Auth::user()->level == 0)
+                                                    <li class="nav-item"><a class="sidebar-link" href="index.html"><span class="icon-holder"><i
+                                                        class="c-light-blue-500 ti-shopping-cart-full"></i> </span><span class="title">Transaksi Baru</span></a></li>
+                                    @endif
+                                </ul>   
+                            </li>
+                        </ul>
+                    </div>
+                </div><!-- #Main ============================ -->
             <div class="page-container"><!-- ### $Topbar ### -->
                 <div class="header navbar">
                     <div class="header-container">
@@ -285,29 +285,13 @@
                                                     class="fs-xs ti-angle-right mL-10"></i></a></span></li>
                                 </ul>
                             </li>
-                            <li class="dropdown"><a href="" class="dropdown-toggle no-after peers fxw-nw ai-c lh-1"
-                                    data-bs-toggle="dropdown">
-                                    <div class="peer mR-10"><img class="w-2r bdrs-50p"
-                                            src="https://randomuser.me/api/portraits/men/10.jpg" alt=""></div>
-                                    <div class="peer"><span class="fsz-sm c-grey-900">{{ Auth::user()->name }}</span></div>
-                                </a>
-                                <ul class="dropdown-menu fsz-sm">
-                                    <li><a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"><i
-                                                class="ti-settings mR-10"></i> <span>Setting</span></a></li>
-                                    <li><a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"><i
-                                                class="ti-user mR-10"></i> <span>Profile</span></a></li>
-                                    <li>
-                                        <a href="{{ route('auth.logout') }}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            <i class="ti-power-off mR-10"></i> <span>Logout</span>
-                                        </a>
-                                        <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"
-                                            style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
+                            <li class="profile-menu">  
+                                <a href="#" class="no-after peers fxw-nw ai-c lh-1">  
+                                    <div class="peer mR-10"><img class="w-2r bdrs-50p"  
+                                            src="https://randomuser.me/api/portraits/men/10.jpg" alt=""></div>  
+                                    <div class="peer"><span class="fsz-sm c-grey-900">{{ Auth::user()->name }}</span></div>  
+                                </a> 
+                            </li>                              
                         </ul>
                     </div>
                 </div><!-- ### $App Screen Content ### -->
