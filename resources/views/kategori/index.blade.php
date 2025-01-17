@@ -13,7 +13,7 @@
                 <div class="col-md-12">  
                     <div class="bgc-white bd bdrs-3 p-20 mB-20">  
                         <h4 class="c-grey-900 mB-20" style="float: left">Tabel Kategori</h4>
-                        <button type="button" style="float: right" class="btn cur-p btn-success btn-color btn-sm mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Kategori</button>  
+                        <button onclick="addForm()" style="float: right" class="btn cur-p btn-success btn-color btn-sm mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Kategori</button>  
                         <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">  
                             <thead>  
                                 <tr>  
@@ -63,7 +63,7 @@
   
     function addForm() {
         $('#modal-form').modal('show');  
-        $('#modal-form .modal-title').text('Tambah Kategori');  
+        $('.modal-title').text('Tambah Kategori');  
     }  
 </script>  
 @endsection  

@@ -153,6 +153,17 @@
                                     @endif
                                 </ul>   
                             </li>
+                            <li class="nav-item dropdown"><a class="dropdown-toggle" href="javascript:void(0);"><span
+                                        class="icon-holder"><i class="c-brown-500 ti-user"></i> </span><span
+                                        class="title">Profile</span> <span class="arrow"><i
+                                            class="ti-angle-right"></i></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="sidebar-link" href="basic-table.html"><i
+                                                class="c-grey-500 ti-settings me-2"></i> Settings</a></li>
+                                    <li><a class="sidebar-link" href="datatable.html"><i
+                                                class="c-red-500 ti-back-left me-2"></i> Logout</a></li>
+                                </ul>   
+                            </li>
                         </ul>
                     </div>
                 </div><!-- #Main ============================ -->
@@ -302,6 +313,7 @@
         <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600"><span>© KastaR 2025 | All rights reserved.</span></footer>
         </div>
     </div>
+    <script src="{{asset('bootstrap/js/bootstrap.js')}}"></script>
     @yield('scripts')
 </body>
 </html>
