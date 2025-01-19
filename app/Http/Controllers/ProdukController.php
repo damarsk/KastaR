@@ -26,6 +26,9 @@ class ProdukController extends Controller
         return datatables()
             ->of($produk)
             ->addIndexColumn()
+            ->addColumn('select_all', function ($produk) {
+                return '<input type="checkbox" name="id_produk[]" value="' . $produk->id_produk . '">';
+            })
             ->addColumn('kode_produk', function ($produk) {
                 return '<span class="badge text-bg-success text-white">' . $produk->kode_produk . '</span>';
             })
@@ -54,7 +57,7 @@ class ProdukController extends Controller
                 </div>
                 ';
             })
-            ->rawColumns(['aksi', 'kode_produk'])
+            ->rawColumns(['aksi', 'select_all', 'kode_produk'])
             ->make(true);
     }
 
@@ -120,5 +123,26 @@ class ProdukController extends Controller
         $produk->delete();
 
         return response(null, 204);
+    }
+
+    public function deleteSelected(Request $request)
+    {
+        foreach ($request->id_produk as $id) {
+            $produk = Produk::find($id);
+            $produk->delete();
+        }
+
+        return response(null, 204);
+    }
+
+    public function cetakBarcode(Request $request)
+    {
+        $dataproduk = array();
+        foreach ($request->id_produk as $id) {
+            $produk = Produk::find($id);
+            $dataproduk[] = $produk;
+        }
+
+        return view('produk.barcode', compact('dataproduk'));
     }
 }
