@@ -143,6 +143,7 @@ class ProdukController extends Controller
             $dataproduk[] = $produk;
         }
 
-        return view('produk.barcode', compact('dataproduk'));
+        $count = 1;
+        return view('produk.barcode', compact('dataproduk', 'count'));
     }
 }
