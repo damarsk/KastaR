@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;  
 use App\Http\Controllers\AuthController;  
 use App\Http\Controllers\KategoriController;  
+use App\Http\Controllers\ProdukController;
   
 /*  
 |--------------------------------------------------------------------------  
@@ -31,9 +32,12 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
         return view('dashboard');  
     })->name('dashboard.index');  
   
-    // DASH KATEGORI  
+    // DASH-KATEGORI
     Route::get('/kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
     Route::resource('kategori', KategoriController::class);
+    // DASH-PRODUK
+    Route::get('/produk/data', [ProdukController::class, 'data'])->name('produk.data');
+    Route::resource('produk', ProdukController::class);
   
     // AUTH  
     Route::post('/logout', [AuthController::class, 'destroy'])->name('auth.logout');  

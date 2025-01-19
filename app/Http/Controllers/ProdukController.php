@@ -4,36 +4,49 @@ namespace App\Http\Controllers;
 
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use App\Models\Produk;
 
-class KategoriController extends Controller
+class ProdukController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('kategori.index');
+        $kategori = Kategori::all()->pluck('nama_kategori', 'id_kategori');
+        return view('produk.index', compact('kategori'));
     }
 
     public function data()
     {
-        $kategori = Kategori::orderBy('id_kategori', 'desc')->get();
+        $produk = Produk::leftJoin('kategori', 'produk.id_kategori', '=', 'kategori.id_kategori')
+        ->select('produk.*', 'kategori.nama_kategori')
+        ->get();
 
         return datatables()
-            ->of($kategori)
+            ->of($produk)
             ->addIndexColumn()
-            ->addColumn('aksi', function ($kategori) {
+            ->addColumn('harga_beli', function ($produk) {
+                return 'Rp. ' . format_uang($produk->harga_beli, 0, ',', '.');
+            })
+            ->addColumn('harga_jual', function ($produk) {
+                return 'Rp. ' . format_uang($produk->harga_jual, 0, ',', '.');
+            })
+            ->addColumn('stok', function ($produk) {
+                return format_uang($produk->stok);
+            })
+            ->addColumn('aksi', function ($produk) {
                 return '
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                 <button onclick="editForm(`' .
-                    route('kategori.update', $kategori->id_kategori) .
+                    route('produk.update', $produk->id_produk) .
                     '`)" class="btn btn-primary btn-sm text-white" id="edit" data-id="' .
-                    $kategori->id_kategori .
+                    $produk->id_produk .
                     '"><i class="fa fa-edit"></i></button>
                 <button onclick="deleteData(`' .
-                    route('kategori.destroy', $kategori->id_kategori) .
+                    route('produk.destroy', $produk->id_produk) .
                     '`)" class="btn btn-danger btn-sm text-white" id="hapus" data-id="' .
-                    $kategori->id_kategori .
+                    $produk->id_produk .
                     '"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
@@ -56,14 +69,15 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kategori' => 'required|unique:kategori,nama_kategori',
+            'nama_produk' => 'required|unique:produk,nama_produk',
         ]);
 
-        $kategori = new Kategori();
-        $kategori->nama_kategori = $request->nama_kategori;
-        $kategori->save();
+        $produk = Produk::latest()->first() ?? new Produk();
+        $request['kode_produk'] = 'P'. tambah_nol_didepan((int)$produk->id_produk + 1, 6);
 
-        return response()->json('Data Berhasil Disimpan', 200);
+        $produk = Produk::create($request->all());
+
+        return response()->json('Data berhasil disimpan', 201);
     }
 
     /**
@@ -71,9 +85,8 @@ class KategoriController extends Controller
      */
     public function show(string $id)
     {
-        $kategori = Kategori::find($id);
-
-        return response()->json($kategori);
+        $produk = Produk::find($id);
+        return response()->json($produk);
     }
 
     /**
@@ -90,12 +103,12 @@ class KategoriController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nama_kategori' => 'required|unique:kategori,nama_kategori',
+            'nama_produk' => 'required|unique:produk,nama_produk',
         ]);
 
-        $kategori = Kategori::find($id);
-        $kategori->nama_kategori = $request->nama_kategori;
-        $kategori->update();
+        $produk = Produk::find($id);
+        $produk->nama_produk = $request->nama_produk;
+        $produk->update();
 
         return response()->json('Data Berhasil Disimpan', 200);
     }
@@ -105,8 +118,8 @@ class KategoriController extends Controller
      */
     public function destroy(string $id)
     {
-        $kategori = Kategori::find($id);
-        $kategori->delete();
+        $produk = Produk::find($id);
+        $produk->delete();
 
         return response(null, 204);
     }

@@ -112,7 +112,7 @@
                                     @if (Auth::user()->level == 1 || Auth::user()->level == 2)
                         <li class="nav-item"><a class="sidebar-link" href="{{ route('kategori.index') }}"><span class="icon-holder"><i
                                         class="c-red-500 ti-package"></i> </span><span class="title">Kategori</span></a></li>
-                        <li class="nav-item"><a class="sidebar-link" href="index.html"><span class="icon-holder"><i
+                        <li class="nav-item"><a class="sidebar-link" href="{{ route('produk.index') }}"><span class="icon-holder"><i
                                         class="c-grey-500 ti-dropbox"></i> </span><span class="title">Produk</span></a></li>
                             <li class="nav-item"><a class="sidebar-link" href="index.html"><span class="icon-holder"><i
                                             class="c-green-500 ti-truck"></i> </span><span class="title">Supplier</span></a>
