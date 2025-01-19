@@ -107,8 +107,7 @@ class ProdukController extends Controller
         ]);
 
         $produk = Produk::find($id);
-        $produk->nama_produk = $request->nama_produk;
-        $produk->update();
+        $produk->update($request->all());
 
         return response()->json('Data Berhasil Disimpan', 200);
     }
