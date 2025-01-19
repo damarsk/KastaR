@@ -18,25 +18,10 @@
                                 data-bs-target="#exampleModal">Tambah Kategori</button>
                             <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
-                                    <tr>
-                                        <th style="width: 50px">No</th>
-                                        <th>Kategori</th>
-                                    </tr>
+                                    <th style="width: 50px">No</th>
+                                    <th>Kategori</th>
+                                    <th width="15%"><i class="fa fa-cog"></i></th>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th style="width: 50px">No</th>
-                                        <th>Kategori</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    @foreach ($kategoris as $index => $kategori)
-                                        <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>{{ $kategori->nama_kategori }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -59,19 +44,28 @@
             table = $('#dataTable').DataTable({
                 processing: true,
                 autoWidth: false,
-                // ajax: {      
-                //     url: '{{ route('kategori.data') }}',      
-                // }      
+                ajax: {
+                    url: '{{ route('kategori.data') }}',
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'nama_kategori'
+                    },
+                    {
+                        data: 'aksi',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
             });
 
-            // Menangani submit form di modal  
             $('#modal-form').validator().on('submit', function(e) {
-                if (!e.isDefaultPrevented()) {
-                    $.ajax({
-                            url: $('#modal-form form').attr('action'),
-                            type: 'post',
-                            data: $('#modal-form form').serialize()
-                        })
+                if (!e.preventDefault()) {
+                    $.post($('#modal-form form').attr('action'), $('#modal-form form').serialize())
                         .done((response) => {
                             $('#modal-form').modal('hide');
                             table.ajax.reload();
@@ -88,11 +82,45 @@
         function addForm(url) {
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').text('Tambah Kategori');
-
             $('#modal-form form').get(0).reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('post');
             $('#modal-form [name=nama_kategori]').focus();
+        }
+
+        function editForm(url) {
+            $('#modal-form').modal('show');
+            $('#modal-form .modal-title').text('Edit Kategori');
+
+            $('#modal-form form').get(0).reset();
+            $('#modal-form form').attr('action', url);
+            $('#modal-form [name=_method]').val('put');
+            $('#modal-form [name=nama_kategori]').focus();
+
+            $.get(url)
+                .done((response) => {
+                    $('#modal-form [name=nama_kategori]').val(response.nama_kategori);
+                })
+                .fail((errors) => {
+                    alert('Tidak dapat menampilkan data');
+                    return;
+                })
+        }
+
+        function deleteData(url) {
+            if(confirm('Apakah anda yakin ingin menghapus kategori ini?')) {
+                $.post(url, {
+                        '_method': 'delete',
+                        '_token': $('meta[name=csrf-token]').attr('content')
+                    })
+                    .done((response) => {
+                        table.ajax.reload();
+                    })
+                    .fail((errors) => {
+                        alert('Tidak dapat menghapus kategori');
+                        return;
+                    })
+            }
         }
     </script>
 @endsection

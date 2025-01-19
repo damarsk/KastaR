@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-form" aria-hidden="true">
+<div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-form">
     <div class="modal-dialog">
         <form action="" method="POST">
           @csrf
