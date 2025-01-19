@@ -26,6 +26,9 @@ class ProdukController extends Controller
         return datatables()
             ->of($produk)
             ->addIndexColumn()
+            ->addColumn('kode_produk', function ($produk) {
+                return '<span class="badge text-bg-success text-white">' . $produk->kode_produk . '</span>';
+            })
             ->addColumn('harga_beli', function ($produk) {
                 return 'Rp. ' . format_uang($produk->harga_beli, 0, ',', '.');
             })
@@ -51,7 +54,7 @@ class ProdukController extends Controller
                 </div>
                 ';
             })
-            ->rawColumns(['aksi'])
+            ->rawColumns(['aksi', 'kode_produk'])
             ->make(true);
     }
 
@@ -102,10 +105,6 @@ class ProdukController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'nama_produk' => 'required|unique:produk,nama_produk',
-        ]);
-
         $produk = Produk::find($id);
         $produk->update($request->all());
 
