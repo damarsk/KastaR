@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;  
 use App\Http\Controllers\KategoriController;  
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\SupplierController;
   
 /*  
 |--------------------------------------------------------------------------  
@@ -40,7 +41,10 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::post('/produk/delete-selected', [ProdukController::class, 'deleteSelected'])->name('produk.deleteSelected');
     Route::post('/produk/cetak-barcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetakBarcode');
     Route::resource('produk', ProdukController::class);
-  
+    // DASH-SUPPLIER
+    Route::get('/supplier/data', [SupplierController::class, 'data'])->name('supplier.data');
+    Route::resource('supplier', SupplierController::class);
+    
     // AUTH  
     Route::post('/logout', [AuthController::class, 'destroy'])->name('auth.logout');  
 });

@@ -133,7 +133,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="sidebar-link" href="index.html">
+                                <a class="sidebar-link" href="{{ route('supplier.index') }}">
                                     <span class="icon-holder"><i class="c-green-500 ti-truck"></i></span>
                                     <span class="title">Supplier</span>
                                 </a>
