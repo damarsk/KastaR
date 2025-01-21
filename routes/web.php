@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KategoriController;  
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\PengeluaranController;
   
 /*  
 |--------------------------------------------------------------------------  
@@ -44,6 +45,9 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     // DASH-SUPPLIER
     Route::get('/supplier/data', [SupplierController::class, 'data'])->name('supplier.data');
     Route::resource('supplier', SupplierController::class);
+    // DASH-PENGELUARAN
+    Route::get('/pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
+    Route::resource('pengeluaran', PengeluaranController::class);
     
     // AUTH  
     Route::post('/logout', [AuthController::class, 'destroy'])->name('auth.logout');  

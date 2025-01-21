@@ -128,7 +128,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="sidebar-link" href="basic-table.html">
+                                        <a class="sidebar-link" href="{{route('pengeluaran.index')}}">
                                             <i class="c-light-blue-500 ti-money me-2"></i>
                                             Pengeluaran
                                         </a>
