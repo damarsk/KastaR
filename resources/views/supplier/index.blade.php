@@ -24,7 +24,6 @@
                                     width="100%">
                                     <thead>
                                         <th style="width: 5%">No</th>
-                                        <th>Kode</th>
                                         <th>Nama</th>
                                         <th>Telepon</th>
                                         <th>Alamat</th>
@@ -54,41 +53,21 @@
                 processing: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route('produk.data') }}',
+                    url: '{{ route('supplier.data') }}',
                 },
                 columns: [{
-                        data: 'select_all',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
                         data: 'DT_RowIndex',
                         orderable: false,
                         searchable: false
                     },
                     {
-                        data: 'kode_produk'
+                        data: 'nama'
                     },
                     {
-                        data: 'nama_produk'
+                        data: 'telepon'
                     },
                     {
-                        data: 'nama_kategori'
-                    },
-                    {
-                        data: 'merk'
-                    },
-                    {
-                        data: 'harga_beli'
-                    },
-                    {
-                        data: 'harga_jual'
-                    },
-                    {
-                        data: 'diskon'
-                    },
-                    {
-                        data: 'stok'
+                        data: 'alamat'
                     },
                     {
                         data: 'aksi',
@@ -117,38 +96,38 @@
             });
         });
 
-        // Fungsi untuk menampilkan modal tambah form  
+        // Fungsi untuk menampilkan modal tambah form    
         function addForm(url) {
             $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Tambah Produk');
+            $('#modal-form .modal-title').text('Tambah Supplier');
             $('#modal-form form').get(0).reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('post');
 
-            // Tambahkan event listener untuk fokus setelah modal ditampilkan  
+            // Tambahkan event listener untuk fokus setelah modal ditampilkan    
             $('#modal-form').on('shown.bs.modal', function() {
-                $('#modal-form [name=nama_produk]').focus();
+                $('#modal-form [name=nama_supplier]').focus();
             });
         }
 
         function editForm(url) {
             $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Edit Produk');
-
-            $('#modal-form form')[0].reset();
+            $('#modal-form .modal-title').text('Edit Supplier'); // Ubah judul menjadi 'Edit Supplier'  
+            $('#modal-form form').get(0).reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('put');
-            $('#modal-form [name=nama_produk]').focus();
+
+            // Tambahkan event listener untuk fokus setelah modal ditampilkan    
+            $('#modal-form').on('shown.bs.modal', function() {
+                $('#modal-form [name=nama]').focus();
+            });
 
             $.get(url)
                 .done((response) => {
-                    $('#modal-form [name=nama_produk]').val(response.nama_produk);
-                    $('#modal-form [name=id_kategori]').val(response.id_kategori);
-                    $('#modal-form [name=merk]').val(response.merk);
-                    $('#modal-form [name=harga_beli]').val(response.harga_beli);
-                    $('#modal-form [name=harga_jual]').val(response.harga_jual);
-                    $('#modal-form [name=diskon]').val(response.diskon);
-                    $('#modal-form [name=stok]').val(response.stok);
+                    $('#modal-form [name=nama]').val(response.nama);
+                    $('#modal-form [name=alamat]').val(response.alamat);
+                    $('#modal-form [name=telepon]').val(response.telepon);
+                    // Tambahkan kolom lain yang ada di tabel supplier jika diperlukan  
                 })
                 .fail((errors) => {
                     alert('Tidak dapat menampilkan data');
@@ -157,7 +136,7 @@
         }
 
         function deleteData(url) {
-            if (confirm('Apakah anda yakin ingin menghapus produk ini?')) {
+            if (confirm('Apakah anda yakin ingin menghapus supplier ini?')) {
                 $.post(url, {
                         '_method': 'delete',
                         '_token': $('meta[name=csrf-token]').attr('content')
@@ -166,27 +145,9 @@
                         table.ajax.reload();
                     })
                     .fail((errors) => {
-                        alert('Tidak dapat menghapus produk');
+                        alert('Tidak dapat menghapus supplier');
                         return;
-                    })
-            }
-        }
-
-        function deleteSelected(url) {
-            if ($('input:checked').length > 0) {
-                if (confirm('Apakah anda yakin ingin menghapus produk ini?')) {
-                    $.post(url, $('.form-produk').serialize())
-                        .done((response) => {
-                            table.ajax.reload();
-                        })
-                        .fail((errors) => {
-                            alert('Tidak dapat menghapus produk');
-                            return;
-                        })
-                }
-            } else {
-                alert('Pilih data yang akan dihapus');
-                return;
+                    });
             }
         }
     </script>
