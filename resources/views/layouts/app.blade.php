@@ -120,51 +120,6 @@
                             </a>
                         </li>
                         @if (Auth::user()->level == 1 || Auth::user()->level == 2)
-                            <li class="nav-item">
-                                <a class="sidebar-link" href="{{ route('kategori.index') }}">
-                                    <span class="icon-holder"><i class="c-red-500 ti-package"></i></span>
-                                    <span class="title">Kategori</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="sidebar-link" href="{{ route('produk.index') }}">
-                                    <span class="icon-holder"><i class="c-grey-500 ti-dropbox"></i></span>
-                                    <span class="title">Produk</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="sidebar-link" href="{{ route('supplier.index') }}">
-                                    <span class="icon-holder"><i class="c-green-500 ti-truck"></i></span>
-                                    <span class="title">Supplier</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="sidebar-link" href="charts.html">
-                                    <span class="icon-holder"><i class="c-indigo-500 ti-bar-chart"></i></span>
-                                    <span class="title">Analisis</span>
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="dropdown-toggle" href="javascript:void(0);">
-                                    <span class="icon-holder"><i class="c-pink-500 ti-id-badge"></i></span>
-                                    <span class="title">Users</span>
-                                    <span class="arrow"><i class="ti-angle-right"></i></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a class="sidebar-link" href="basic-table.html">
-                                            <i class="c-pink-500 ti-user me-2"></i>
-                                            Manage Petugas Kasir
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="sidebar-link" href="datatable.html">
-                                            <i class="c-pink-500 ti-user me-2"></i>
-                                            Manage Admin
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
                             <li class="nav-item dropdown">
                                 <a class="dropdown-toggle" href="javascript:void(0);">
                                     <span class="icon-holder"><i class="c-light-blue-500 ti-money"></i></span>
@@ -193,7 +148,58 @@
                                     <li>
                                         <a class="sidebar-link" href="datatable.html">
                                             <i class="c-light-blue-500 ti-shopping-cart me-2"></i>
+                                            Transaksi Lama
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="sidebar-link" href="datatable.html">
+                                            <i class="c-light-blue-500 ti-shopping-cart me-2"></i>
                                             Transaksi Aktif
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="sidebar-link" href="charts.html">
+                                    <span class="icon-holder"><i class="c-indigo-500 ti-bar-chart"></i></span>
+                                    <span class="title">Analisis</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="sidebar-link" href="{{ route('kategori.index') }}">
+                                    <span class="icon-holder"><i class="c-red-500 ti-package"></i></span>
+                                    <span class="title">Kategori</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="sidebar-link" href="{{ route('produk.index') }}">
+                                    <span class="icon-holder"><i class="c-grey-500 ti-dropbox"></i></span>
+                                    <span class="title">Produk</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="sidebar-link" href="{{ route('supplier.index') }}">
+                                    <span class="icon-holder"><i class="c-green-500 ti-truck"></i></span>
+                                    <span class="title">Supplier</span>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-toggle" href="javascript:void(0);">
+                                    <span class="icon-holder"><i class="c-pink-500 ti-id-badge"></i></span>
+                                    <span class="title">Users</span>
+                                    <span class="arrow"><i class="ti-angle-right"></i></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="sidebar-link" href="basic-table.html">
+                                            <i class="c-pink-500 ti-user me-2"></i>
+                                            Manage Petugas Kasir
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="sidebar-link" href="datatable.html">
+                                            <i class="c-pink-500 ti-user me-2"></i>
+                                            Manage Admin
                                         </a>
                                     </li>
                                 </ul>
