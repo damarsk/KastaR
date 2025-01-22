@@ -28,10 +28,19 @@ class UserSeeder extends Seeder
             ],  
             [  
                 'name' => 'Damar Syahada',  
-                'email' => 'damar.syahada@example.com', // Changed email to be unique  
+                'email' => 'admin@kastar.com',
                 'email_verified_at' => Carbon::now(),  
                 'password' => Hash::make('123'),  
-                'level' => '0',  
+                'level' => '1',  
+                'created_at' => Carbon::now(),  
+                'updated_at' => Carbon::now(),  
+            ],  
+            [  
+                'name' => 'Damar Syahada',  
+                'email' => 'super@kastar.com',
+                'email_verified_at' => Carbon::now(),  
+                'password' => Hash::make('123'),  
+                'level' => '2',  
                 'created_at' => Carbon::now(),  
                 'updated_at' => Carbon::now(),  
             ],  
