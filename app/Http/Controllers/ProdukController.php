@@ -44,12 +44,12 @@ class ProdukController extends Controller
             ->addColumn('aksi', function ($produk) {
                 return '
                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                <button onclick="editForm(`' .
+                <button type="button" onclick="editForm(`' .
                     route('produk.update', $produk->id_produk) .
                     '`)" class="btn btn-primary btn-sm text-white" id="edit" data-id="' .
                     $produk->id_produk .
                     '"><i class="fa fa-edit"></i></button>
-                <button onclick="deleteData(`' .
+                <button type="button" onclick="deleteData(`' .
                     route('produk.destroy', $produk->id_produk) .
                     '`)" class="btn btn-danger btn-sm text-white" id="hapus" data-id="' .
                     $produk->id_produk .
