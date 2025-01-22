@@ -134,7 +134,7 @@
                                         </a>  
                                     </li>  
                                     <li>  
-                                        <a class="sidebar-link" href="datatable.html">  
+                                        <a class="sidebar-link" href="{{route('pembelian.index')}}">  
                                             <i class="c-light-blue-500 ti-download me-2"></i>  
                                             Pembelian  
                                         </a>  

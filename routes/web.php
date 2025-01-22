@@ -6,6 +6,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PengeluaranController;
+use App\Http\Controllers\PembelianController;
   
 /*  
 |--------------------------------------------------------------------------  
@@ -48,6 +49,8 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     // DASH-PENGELUARAN
     Route::get('/pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
     Route::resource('pengeluaran', PengeluaranController::class);
+    // DASH-PEMBELIAN
+    Route::resource('/pembelian', PembelianController::class);
     
     // AUTH  
     Route::post('/logout', [AuthController::class, 'destroy'])->name('auth.logout');  
