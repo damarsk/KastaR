@@ -33,10 +33,10 @@ class ProdukController extends Controller
                 return '<span class="badge text-bg-success text-white">' . $produk->kode_produk . '</span>';
             })
             ->addColumn('harga_beli', function ($produk) {
-                return 'Rp. ' . format_uang($produk->harga_beli, 0, ',', '.');
+                return 'Rp. ' . format_uang($produk->harga_beli);
             })
             ->addColumn('harga_jual', function ($produk) {
-                return 'Rp. ' . format_uang($produk->harga_jual, 0, ',', '.');
+                return 'Rp. ' . format_uang($produk->harga_jual);
             })
             ->addColumn('stok', function ($produk) {
                 return format_uang($produk->stok);
