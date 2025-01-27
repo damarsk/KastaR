@@ -8,27 +8,45 @@
     <main class="main-content bgc-grey-100">
         <div id="mainContent">
             <div class="container-fluid">
-                <h4 class="c-grey-900 mT-10 mB-30">Manage Pembelian</h4>
+                <h4 class="c-grey-900 mT-10 mB-30">Transaksi Pembelian</h4>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="bgc-white bd bdrs-3 p-20 mB-20">
-                            <h4 class="c-grey-900 mB-20" style="float: left">Tabel Pembelian</h4>
-                            <div class="btn-group" style="float: right; margin-bottom: 10px;">
-                                <button onclick="addForm('{{ route('supplier.store') }}')"
-                                    class="btn cur-p btn-success btn-color btn-sm"><i class="fa fa-plus"></i> Transaksi Baru</button>
-                            </div>
+                            <table class="mb-3 c-grey-900">
+                                <tr>
+                                    <td>Supplier</td>
+                                    <td>: {{$supplier->nama}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Telepon</td>
+                                    <td>: {{$supplier->telepon}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Alamat</td>
+                                    <td>: {{$supplier->alamat}}</td>
+                                </tr>
+                            </table>
                             <form action="" method="POST" class="form-supplier">
                                 @csrf
+                                <div class="form-group row">
+                                    <label for="kode_produk" class="col-lg-2 c-grey-900">Kode Produk</label>
+                                    <div class="col-lg-4">
+                                        <div class="input-group">
+                                        <input type="hidden" name="id_produk" id="id_produk">
+                                        <input type="text" class="form-control" name="kode_produk" id="kode_produk">
+                                        <button onclick="tampilProduk()" class="btn btn-secondary text-white" type="button" id="button-addon2"><i class="fa fa-arrow-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <table id="dataTable" class="table table-striped table-bordered" cellspacing="0"
                                     width="100%">
                                     <thead>
                                         <th style="width: 5%">No</th>
-                                        <th>Tanggal</th>
-                                        <th>Supplier</th>
-                                        <th>Total Item</th>
-                                        <th>Total Harga</th>
-                                        <th>Diskon</th>
-                                        <th>Total Bayar</th>
+                                        <th>Kode</th>
+                                        <th>Nama</th>
+                                        <th>Harga</th>
+                                        <th>Jumlah</th>
+                                        <th>Subtotal</th>
                                         <th width="10%"><i class="fa fa-cog"></i></th>
                                     </thead>
                                 </table>
@@ -39,7 +57,7 @@
             </div>
         </div>
     </main>
-    @includeIf('pembelian.supplier')
+    @includeIf('pembelian_detail.produk')
 @endsection
 
 @section('scripts')
@@ -77,36 +95,48 @@
                 //     }
                 // ]
             });
+            table = $('#dataProduk').DataTable({
+                // processing: true,
+                // autoWidth: false,
+                // ajax: {
+                //     url: '{{ route('supplier.data') }}',
+                // },
+                // columns: [{
+                //         data: 'DT_RowIndex',
+                //         orderable: false,
+                //         searchable: false
+                //     },
+                //     {
+                //         data: 'nama'
+                //     },
+                //     {
+                //         data: 'telepon'
+                //     },
+                //     {
+                //         data: 'alamat'
+                //     },
+                //     {
+                //         data: 'aksi',
+                //         searchable: false
+                //     }
+                // ]
+            });
         });
 
         // Fungsi untuk menampilkan modal tambah form    
-        function addForm() {
-            $('#modal-supplier').modal('show');
+        function tampilProduk() {
+            $('#modal-produk').modal('show');
         }
 
-        function editForm(url) {
-            $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Edit Supplier'); // Ubah judul menjadi 'Edit Supplier'  
-            $('#modal-form form').get(0).reset();
-            $('#modal-form form').attr('action', url);
-            $('#modal-form [name=_method]').val('put');
+        function pilihProduk(id, kode) {
+            $('#id_produk').val(id);
+            $('#kode_produk').val(kode);
+            $('#modal-produk').modal('hide');
+            tambahProduk();
+        } 
 
-            // Tambahkan event listener untuk fokus setelah modal ditampilkan    
-            $('#modal-form').on('shown.bs.modal', function() {
-                $('#modal-form [name=nama]').focus();
-            });
-
-            $.get(url)
-                .done((response) => {
-                    $('#modal-form [name=nama]').val(response.nama);
-                    $('#modal-form [name=alamat]').val(response.alamat);
-                    $('#modal-form [name=telepon]').val(response.telepon);
-                    // Tambahkan kolom lain yang ada di tabel supplier jika diperlukan  
-                })
-                .fail((errors) => {
-                    alert('Tidak dapat menampilkan data');
-                    return;
-                });
+        function tambahProduk() {
+            
         }
 
         function deleteData(url) {

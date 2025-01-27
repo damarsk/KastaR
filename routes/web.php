@@ -7,6 +7,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PembelianController;
+use App\Http\Controllers\PembelianDetailController;
   
 /*  
 |--------------------------------------------------------------------------  
@@ -53,7 +54,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('/pembelian/{id}/create', [PembelianController::class, 'create'])->name('pembelian.create');
     Route::resource('/pembelian', PembelianController::class)->except(['create']);
     // PEMBELIAN-DETAIL
-    Route::resource('/pembelian-detail', PembelianDetailController::class)->except(['create', 'show', 'edit']);
+    Route::resource('/pembelian_detail', PembelianDetailController::class)->except(['create', 'show', 'edit']);
 
     // AUTH  
     Route::post('/logout', [AuthController::class, 'destroy'])->name('auth.logout');  

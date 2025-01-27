@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="judul">Judul</h5>
+                <h5 class="modal-title" id="judul">Pilih Supplier</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -22,10 +22,10 @@
                                 <td>{{$item->telepon}}</td>
                                 <td>{{$item->alamat}}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm text-white">
-                                        <i class="fa fa-check"></i>
+                                    <a href="{{ route('pembelian.create', $item->id_supplier) }}" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-check-circle"></i>
                                         Pilih
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
