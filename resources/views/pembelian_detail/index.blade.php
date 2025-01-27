@@ -48,41 +48,10 @@
     <script src="{{ asset('js-lib/validator.min.js') }}"></script>
     <script>
         let table;
-        let modalTable;
 
         $(function() {
             // Inisialisasi DataTables  
             table = $('#dataTable').DataTable({
-                // processing: true,
-                // autoWidth: false,
-                // ajax: {
-                //     url: '{{ route('supplier.data') }}',
-                // },
-                // columns: [{
-                //         data: 'DT_RowIndex',
-                //         orderable: false,
-                //         searchable: false
-                //     },
-                //     {
-                //         data: 'nama'
-                //     },
-                //     {
-                //         data: 'telepon'
-                //     },
-                //     {
-                //         data: 'alamat'
-                //     },
-                //     {
-                //         data: 'aksi',
-                //         searchable: false
-                //     }
-                // ]
-            });
-        });
-
-        $(function() {
-            // Inisialisasi DataTables  
-            table = $('#modalTable').DataTable({
                 // processing: true,
                 // autoWidth: false,
                 // ajax: {

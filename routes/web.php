@@ -50,8 +50,11 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('/pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
     Route::resource('pengeluaran', PengeluaranController::class);
     // DASH-PEMBELIAN
-    Route::resource('/pembelian', PembelianController::class);
-    
+    Route::get('/pembelian/{id}/create', [PembelianController::class, 'create'])->name('pembelian.create');
+    Route::resource('/pembelian', PembelianController::class)->except(['create']);
+    // PEMBELIAN-DETAIL
+    Route::resource('/pembelian-detail', PembelianDetailController::class)->except(['create', 'show', 'edit']);
+
     // AUTH  
     Route::post('/logout', [AuthController::class, 'destroy'])->name('auth.logout');  
 });

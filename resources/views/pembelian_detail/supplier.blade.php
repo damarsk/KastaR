@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <table id="modalTable" class="table table-striped table-bordered">
+                <table class="table table-striped table-bordered">
                     <thead>
                         <th>No</th>
                         <th>Nama</th>
