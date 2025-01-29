@@ -12,4 +12,9 @@ class Pembelian extends Model
     protected $table = 'pembelian';
     protected $primaryKey = 'id_pembelian';
     protected $guarded = [];
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'id_supplier', 'id_supplier');
+    }
 }
