@@ -104,7 +104,6 @@
                     }
                 ]
             });
-
             tableProduk = $('#dataProduk').DataTable();
 
             $(document).on('input', '.quantity', function () {
@@ -122,7 +121,7 @@
                     return;
                 }
 
-                $.post(`{{ url('/pembelian_detail') }}/${id}`, {
+                $.post(`{{ route('pembelian_detail.update', '') }}/${id}`, {
                         '_token': $('[name=csrf-token]').attr('content'),
                         '_method': 'put',
                         'jumlah': jumlah

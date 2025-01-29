@@ -41,7 +41,7 @@ class PembelianDetailController extends Controller
             $row['jumlah']      = '<input type="number" min="1" class="form-control input-sm quantity" data-id="'. $item->id_pembelian_detail .'" value="'. $item->jumlah .'">';
             $row['subtotal']    = 'Rp. '. format_uang($item->subtotal);
             $row['aksi']        = '<div class="btn-group">
-                                    <button onclick="deleteData(`'. route('pembelian_detail.destroy', $item->id_pembelian_detail) .'`)" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i></button>
+                                    <span onclick="deleteData(`'. route('pembelian_detail.destroy', $item->id_pembelian_detail) .'`)" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i></span>
                                 </div>';
             $data[] = $row;
 
