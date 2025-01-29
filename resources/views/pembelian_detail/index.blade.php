@@ -2,6 +2,30 @@
 @section('title', 'KastaR - Pembelian')
 @section('styles')
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
+    <style>
+        .tampil-bayar {
+            font-size: 5em;
+            text-align: center;
+            height: 100px;
+        }
+    
+        .tampil-terbilang {
+            padding: 10px;
+            background: #f0f0f0;
+        }
+    
+        .dataTable tbody tr:last-child {
+            display: none;
+        }
+    
+        @media(max-width: 768px) {
+            .tampil-bayar {
+                font-size: 3em;
+                height: 70px;
+                padding-top: 5px;
+            }
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -40,7 +64,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0"
+                                <table id="dataTable" class="table table-striped table-bordered my-3" cellspacing="0"
                                     width="100%">
                                     <thead>
                                         <th style="width: 5%">No</th>
@@ -52,6 +76,40 @@
                                         <th width="10%"><i class="fa fa-cog"></i></th>
                                     </thead>
                                 </table>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="tampil-bayar bg-primary"></div>
+                                        <div class="tampil-terbilang"></div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <form action="{{ route('pembelian.store') }}" class="form-pembelian" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id_pembelian" value="{{ $id_pembelian }}">
+                                            <input type="hidden" name="total" id="total">
+                                            <input type="hidden" name="total_item" id="total_item">
+                                            <input type="hidden" name="bayar" id="bayar">
+                
+                                            <div class="form-group row">
+                                                <label for="totalrp" class="col-lg-2 control-label">Total</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" id="totalrp" class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="diskon" class="col-lg-2 control-label">Diskon</label>
+                                                <div class="col-lg-8">
+                                                    <input type="number" name="diskon" id="diskon" class="form-control" value="{{ $diskon }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="bayar" class="col-lg-2 control-label">Bayar</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" id="bayarrp" class="form-control">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -101,8 +159,10 @@
                         data: 'aksi',
                         searchable: false,
                         sortable: false,
-                    }
-                ]
+                    },
+                ],
+                dom: 'Brt',
+                bSort: false,
             });
             tableProduk = $('#dataProduk').DataTable();
 
@@ -158,7 +218,7 @@
                 .fail((errors) => {
                     alert('Tidak dapat menyimpan data');
                     return;
-                })
+                });
         }
 
         function deleteData(url) {

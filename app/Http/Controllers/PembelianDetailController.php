@@ -50,8 +50,8 @@ class PembelianDetailController extends Controller
         }
         $data[] = [
             'kode_produk' => '
-                <div class="total hide">'. $total .'</div>
-                <div class="total_item hide">'. $total_item .'</div>',
+                <div class="total d-none">'. $total .'</div>
+                <div class="total_item d-none">'. $total_item .'</div>',
             'nama_produk' => '',
             'harga_beli'  => '',
             'jumlah'      => '',
