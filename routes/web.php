@@ -8,7 +8,8 @@ use App\Http\Controllers\{
     SupplierController,
     PengeluaranController,
     PembelianController,
-    PembelianDetailController
+    PembelianDetailController,
+    ManageKasirController,
 };
   
 /*  
@@ -28,7 +29,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/', function () {  
         return view('welcome');  
     });  
-    Route::get('/login', [AuthController::class, 'index'])->name('auth.index');  
+    Route::get('/login', [AuthController::class, 'index'])->name('auth.index');     
     Route::post('/login', [AuthController::class, 'store'])->name('auth.store');  
 });  
   
@@ -62,6 +63,11 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
         Route::get('/pembelian_detail/loadform/{diskon}/{total}', [PembelianDetailController::class, 'loadForm'])->name('pembelian_detail.load_form');
         Route::resource('/pembelian_detail', PembelianDetailController::class)
             ->except('create', 'show', 'edit', 'update');
+
+    // DASH-MANAGE-KASIR && MANAGE ADMIN
+    Route::prefix('manage')->group(function(){
+        Route::resource('kasir', ManageKasirController::class);
+    });
 
     // AUTH
     Route::post('/logout', [AuthController::class, 'destroy'])->name('auth.logout');  

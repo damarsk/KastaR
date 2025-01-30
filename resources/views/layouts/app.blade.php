@@ -191,13 +191,13 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="sidebar-link" href="basic-table.html">
+                                        <a class="sidebar-link" href="{{ route('kasir.index') }}">
                                             <i class="c-pink-500 ti-user me-2"></i>
-                                            Manage Petugas
+                                            Manage Kasir
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="sidebar-link" href="datatable.html">
+                                        <a class="sidebar-link" href="#">
                                             <i class="c-pink-500 ti-user me-2"></i>
                                             Manage Admin
                                         </a>
