@@ -3,17 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\User;
 
 class ManageKasirController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        return view( 'manage_kasir.index');
+    }
 
-        return view('manage_kasir.index');
+    public function data() {
+        $roleLevel = 0;
+        $users = User::all();
+        $users = $users->filter(function ($user) use ($roleLevel) {
+            return $user->level == $roleLevel;
+        });
+    
+        return datatables()
+            ->of($users)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($users) {
+                return '
+                <div class="btn-group">
+                    <button onclick="showDetail(`'. route('kasir.show', $users->id) .'`)" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></button>
+                    <button onclick="deleteData(`'. route('kasir.destroy', $users->id) .'`)" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i></button>
+                </div>
+                ';
+            })
+            ->rawColumns(['aksi'])
+            ->toJson();
     }
 
     /**
@@ -37,7 +58,8 @@ class ManageKasirController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::find($id);
+        return response()->json($user);
     }
 
     /**
@@ -61,6 +83,13 @@ class ManageKasirController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+
+        if ($user) {
+            $user->delete();
+            return response()->json(['success' => true, 'message' => 'User deleted successfully.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'User not found.'], 404);
     }
 }

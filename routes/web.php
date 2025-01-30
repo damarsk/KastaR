@@ -66,6 +66,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 
     // DASH-MANAGE-KASIR && MANAGE ADMIN
     Route::prefix('manage')->group(function(){
+        Route::get('/kasir/data', [ManageKasirController::class, 'data'])->name('kasir.data');
         Route::resource('kasir', ManageKasirController::class);
     });
 
