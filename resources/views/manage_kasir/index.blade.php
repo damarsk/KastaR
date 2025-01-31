@@ -266,6 +266,7 @@
 
         // Delete data
         function deleteData(url) {
+            event.preventDefault();
             if (confirm('Apakah anda yakin ingin menghapus petugas kasir ini?')) {
                 $.post(url, {
                         '_method': 'delete',

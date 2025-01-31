@@ -433,8 +433,7 @@
                             <li class="profile-menu">
                                 <a href="#" class="no-after peers fxw-nw ai-c lh-1">
                                     <div class="peer mR-10">
-                                        <img class="w-2r bdrs-50p"
-                                            src="https://randomuser.me/api/portraits/men/10.jpg" alt="">
+                                        <img class="w-2r bdrs-50p" src="{{ asset(Auth::user()->foto) }}" alt="Foto Profil">
                                     </div>
                                     <div class="peer">
                                         <span class="fsz-sm c-grey-900">{{ Auth::user()->name }}</span>
