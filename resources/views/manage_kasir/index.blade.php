@@ -22,7 +22,8 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none; /* Awalnya disembunyikan */
+            display: none;
+            /* Awalnya disembunyikan */
         }
 
         .photo-frame input[type="file"] {
@@ -31,7 +32,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0; /* Membuat input file transparan */
+            opacity: 0;
+            /* Membuat input file transparan */
             cursor: pointer;
         }
     </style>
@@ -54,7 +56,8 @@
                             </div>
                             <form method="POST" class="form-kasir">
                                 @csrf
-                                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0"
+                                    width="100%">
                                     <thead>
                                         <tr>
                                             <th style="width: 5%">No</th>
@@ -139,8 +142,7 @@
                 ajax: {
                     url: '{{ route('kasir.data') }}',
                 },
-                columns: [
-                    {
+                columns: [{
                         data: 'DT_RowIndex',
                         orderable: false,
                         searchable: false
@@ -150,8 +152,8 @@
                         orderable: false,
                         searchable: false,
                         render: function(data) {
-                            return data ? 
-                                `<img src="{{ asset('uploads/photos') }}/${data}" class="img-thumbnail rounded-circle" width="50" height="50">` : 
+                            return data ?
+                                `<img src="{{ asset('uploads/photos') }}/${data}" class="img-thumbnail rounded-circle" width="50" height="50">` :
                                 'No Image';
                         }
                     },
@@ -162,9 +164,13 @@
                         data: 'email'
                     },
                     {
-                        data: 'aksi',
+                        data: 'id',
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        render: function(data) {
+                            return `<button onclick="showEdit(${data})" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>
+                                    <button onclick="deleteData('{{ route('kasir.destroy', ':id') }}'.replace(':id', ${data}))" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>`;
+                        }
                     }
                 ]
             });
@@ -175,7 +181,7 @@
                 const form = $(this);
                 const formData = new FormData(form[0]);
                 $.ajax({
-                    url: '{{ route('kasir.store') }}',
+                    url: form.attr('action'),
                     type: 'POST',
                     data: formData,
                     processData: false,
@@ -184,8 +190,19 @@
                         $('#modal-form').modal('hide');
                         table.ajax.reload();
                     },
-                    error: function() {
-                        alert('Tidak dapat menyimpan data');
+                    error: function(xhr) {
+                        if (xhr.status === 422) { // 422 Unprocessable Entity
+                            const errors = xhr.responseJSON.errors;
+                            let errorMessage = 'Kesalahan Validasi:\n';
+                            for (const key in errors) {
+                                if (errors.hasOwnProperty(key)) {
+                                    errorMessage += `${errors[key].join(', ')}\n`;
+                                }
+                            }
+                            alert(errorMessage);
+                        } else {
+                            alert('Tidak dapat menyimpan data');
+                        }
                     }
                 });
             });
@@ -215,8 +232,15 @@
             $('#photo-preview').hide();
         }
 
+        // Show edit form with data
+        function showEdit(id) {
+            const url = `{{ route('kasir.edit', ':id') }}`.replace(':id', id);
+            editForm(url);
+        }
+
         // Edit form
         function editForm(url) {
+            event.preventDefault();
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').text('Edit Petugas Kasir');
             $('#modal-form form')[0].reset();
@@ -230,10 +254,10 @@
                     $('#modal-form [name=email]').val(response.email);
                     if (response.foto) {
                         $('#photo-preview')
-                            .attr('src', response.foto)
+                            .attr('src', `{{ asset('uploads/photos') }}/${response.foto}`)
                             .show();
                     }
-                })
+                })  
                 .fail((errors) => {
                     alert('Tidak dapat menampilkan data');
                     return;
@@ -248,6 +272,7 @@
                         '_token': $('meta[name=csrf-token]').attr('content')
                     })
                     .done((response) => {
+                        alert(response.message);
                         table.ajax.reload();
                     })
                     .fail((errors) => {
