@@ -34,7 +34,7 @@ class ManageKasirController extends Controller
                 ';
             })
             ->rawColumns(['aksi'])
-            ->toJson();
+            ->make(true);
     }
 
     /**
@@ -42,7 +42,7 @@ class ManageKasirController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -50,7 +50,29 @@ class ManageKasirController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->level = 0;
+
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path('uploads/photos'), $photoName);
+            $user->foto = $photoName;
+        }
+
+        $user->save();
+
+        return response()->json(['success' => true, 'message' => 'User created successfully.']);
     }
 
     /**
