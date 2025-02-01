@@ -12,7 +12,7 @@ class ManageKasirController extends Controller
      */
     public function index(Request $request)
     {
-        return view( 'manage_kasir.index');
+        return view('manage_kasir.index');
     }
 
     public function data() {
@@ -21,15 +21,15 @@ class ManageKasirController extends Controller
         $users = $users->filter(function ($user) use ($roleLevel) {
             return $user->level == $roleLevel;
         });
-    
+
         return datatables()
             ->of($users)
             ->addIndexColumn()
-            ->addColumn('aksi', function ($users) {
+            ->addColumn('aksi', function ($user) {
                 return '
                 <div class="btn-group">
-                    <button onclick="showDetail(`'. route('kasir.show', $users->id) .'`)" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></button>
-                    <button onclick="deleteData(`'. route('kasir.destroy', $users->id) .'`)" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i></button>
+                    <button onclick="editForm(`'. route('kasir.edit', $user->id) .'`, `'. route('kasir.update', $user->id) .'`)" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></button>
+                    <button onclick="deleteData(`'. route('kasir.destroy', $user->id) .'`)" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -42,7 +42,7 @@ class ManageKasirController extends Controller
      */
     public function create()
     {
-
+        return view('manage_kasir.create');
     }
 
     /**
@@ -88,9 +88,9 @@ class ManageKasirController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(string $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
         return response()->json($user);
     }
 
@@ -99,7 +99,40 @@ class ManageKasirController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'password_confirmation' => 'nullable|string|min:8|same:password',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
+        if ($request->hasFile('photo')) {
+            // Hapus foto lama jika ada
+            if ($user->foto) {
+                $oldPhotoPath = public_path('uploads/photos/' . $user->foto);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+            }
+
+            $photo = $request->file('photo');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path('uploads/photos'), $photoName);
+            $user->foto = $photoName;
+        }
+
+        $user->save();
+
+        return response()->json('Data Berhasil Disimpan', 200);
     }
 
     /**
@@ -110,6 +143,14 @@ class ManageKasirController extends Controller
         $user = User::find($id);
 
         if ($user) {
+            // Hapus foto jika ada
+            if ($user->foto) {
+                $oldPhotoPath = public_path('uploads/photos/' . $user->foto);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+            }
+
             $user->delete();
             return response()->json(['success' => true, 'message' => 'User deleted successfully.']);
         }

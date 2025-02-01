@@ -76,11 +76,11 @@
         </div>
     </main>
 
-    {{-- MODAL BOX --}}
     <div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-form">
         <div class="modal-dialog modal-dialog-scrollable">
             <form action="" method="POST" class="was-validated" enctype="multipart/form-data">
                 @csrf
+                @method('POST')
                 <input type="hidden" name="_method" id="method" value="POST">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -101,19 +101,19 @@
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" name="password" class="form-control" id="password"
-                                placeholder="Masukkan password" required>
+                                placeholder="Masukkan password">
                         </div>
                         <div class="mb-3">
                             <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                             <input type="password" name="password_confirmation" class="form-control"
-                                id="password_confirmation" placeholder="Konfirmasi password" required>
+                                id="password_confirmation" placeholder="Konfirmasi password">
                         </div>
                         <div class="mb-3">
                             <label for="photo" class="form-label">Pas Foto 4x3 (Untuk Profil)</label>
                             <div class="photo-frame">
                                 <img id="photo-preview" src="#" alt="Pratinjau Pas Foto" class="img-fluid">
                                 <input type="file" name="photo" class="form-control-file" id="photo"
-                                    accept="image/*" required>
+                                    accept="image/*">
                             </div>
                         </div>
                     </div>
@@ -125,6 +125,7 @@
             </form>
         </div>
     </div>
+
 @endsection
 
 @section('scripts')
@@ -135,7 +136,6 @@
         let table;
 
         $(function() {
-            // Initialize DataTables
             table = $('#dataTable').DataTable({
                 processing: true,
                 autoWidth: false,
@@ -164,47 +164,31 @@
                         data: 'email'
                     },
                     {
-                        data: 'id',
+                        data: 'aksi',
                         orderable: false,
-                        searchable: false,
-                        render: function(data) {
-                            return `<button onclick="showEdit(${data})" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>
-                                    <button onclick="deleteData('{{ route('kasir.destroy', ':id') }}'.replace(':id', ${data}))" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>`;
-                        }
+                        searchable: false
                     }
                 ]
             });
 
-            // Handle form submission
-            $('#modal-form form').on('submit', function(e) {
-                e.preventDefault();
-                const form = $(this);
-                const formData = new FormData(form[0]);
-                $.ajax({
-                    url: form.attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        $('#modal-form').modal('hide');
-                        table.ajax.reload();
-                    },
-                    error: function(xhr) {
-                        if (xhr.status === 422) { // 422 Unprocessable Entity
-                            const errors = xhr.responseJSON.errors;
-                            let errorMessage = 'Kesalahan Validasi:\n';
-                            for (const key in errors) {
-                                if (errors.hasOwnProperty(key)) {
-                                    errorMessage += `${errors[key].join(', ')}\n`;
-                                }
-                            }
-                            alert(errorMessage);
-                        } else {
+            $('#modal-form').validator().on('submit', function(e) {
+                if (!e.preventDefault()) {
+                    $.ajax({
+                        url: $('#modal-form form').attr('action'),
+                        type: 'POST',
+                        data: new FormData($('#modal-form form')[0]),
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            $('#modal-form').modal('hide');
+                            table.ajax.reload();
+                        },
+                        error: function(errors) {
                             alert('Tidak dapat menyimpan data');
+                            return;
                         }
-                    }
-                });
+                    });
+                }
             });
 
             // Image preview
@@ -226,42 +210,31 @@
         function addForm(url) {
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').text('Tambah Petugas Kasir');
-            $('#modal-form form')[0].reset();
+            $('#modal-form form').get(0).reset();
             $('#modal-form form').attr('action', url);
-            $('#modal-form #method').val('post');
-            $('#photo-preview').hide();
-        }
-
-        // Show edit form with data
-        function showEdit(id) {
-            const url = `{{ route('kasir.edit', ':id') }}`.replace(':id', id);
-            editForm(url);
+            $('#modal-form [name=_method]').val('post');
+            $('#modal-form').on('shown.bs.modal', function() {
+                $('#modal-form [name=name]').focus();
+            });
         }
 
         // Edit form
-        function editForm(url) {
+        function editForm(urlEdit, urlUpdate) {
             event.preventDefault();
-            $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Edit Petugas Kasir');
-            $('#modal-form form')[0].reset();
-            $('#modal-form form').attr('action', url);
-            $('#modal-form #method').val('put');
-            $('#photo-preview').hide();
-
-            $.get(url)
-                .done((response) => {
-                    $('#modal-form [name=name]').val(response.name);
-                    $('#modal-form [name=email]').val(response.email);
-                    if (response.foto) {
-                        $('#photo-preview')
-                            .attr('src', `{{ asset('uploads/photos') }}/${response.foto}`)
-                            .show();
-                    }
-                })  
-                .fail((errors) => {
-                    alert('Tidak dapat menampilkan data');
-                    return;
-                });
+            $.get(urlEdit, function(data) {
+                $('#modal-form').modal('show');
+                $('#modal-form .modal-title').text('Edit Petugas Kasir');
+                $('#modal-form form')[0].reset();
+                $('#modal-form form').attr('action', urlUpdate);
+                $('#modal-form #method').val('patch');
+                $('#name').val(data.name);
+                $('#email').val(data.email);
+                if (data.foto) {
+                    $('#photo-preview').attr('src', '{{ asset('uploads/photos') }}/' + data.foto).show();
+                } else {
+                    $('#photo-preview').hide();
+                }
+            });
         }
 
         // Delete data

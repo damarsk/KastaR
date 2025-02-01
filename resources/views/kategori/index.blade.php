@@ -40,7 +40,6 @@
         let table;
 
         $(function() {
-            // Inisialisasi DataTables  
             table = $('#dataTable').DataTable({
                 processing: true,
                 autoWidth: false,
@@ -93,7 +92,6 @@
         function editForm(url) {
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').text('Edit Kategori');
-
             $('#modal-form form').get(0).reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('put');

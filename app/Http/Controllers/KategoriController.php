@@ -93,7 +93,7 @@ class KategoriController extends Controller
             'nama_kategori' => 'required|unique:kategori,nama_kategori',
         ]);
 
-        $kategori = Kategori::find($id);
+        $kategori = Kategori::findOrFail($id);
         $kategori->nama_kategori = $request->nama_kategori;
         $kategori->update();
 
