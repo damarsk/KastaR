@@ -11,6 +11,16 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
+                        <center>
+                            <label for="photo" class="form-label">Pas Foto 4x3 (Untuk Profil)</label>
+                            <div class="photo-frame">
+                                <img id="photo-preview" src="#" alt="Pratinjau Pas Foto" class="img-fluid">
+                                <input type="file" name="photo" class="form-control-file" id="photo"
+                                    accept="image/*">
+                            </div>
+                        </center>
+                    </div>
+                    <div class="mb-3">
                         <label for="name" class="form-label">Nama Lengkap</label>
                         <input type="text" name="name" class="form-control" id="name"
                             placeholder="Masukkan nama lengkap petugas kasir" required autofocus>
@@ -29,14 +39,6 @@
                         <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                         <input type="password" name="password_confirmation" class="form-control"
                             id="password_confirmation" placeholder="Konfirmasi password">
-                    </div>
-                    <div class="mb-3">
-                        <label for="photo" class="form-label">Pas Foto 4x3 (Untuk Profil)</label>
-                        <div class="photo-frame">
-                            <img id="photo-preview" src="#" alt="Pratinjau Pas Foto" class="img-fluid">
-                            <input type="file" name="photo" class="form-control-file" id="photo"
-                                accept="image/*">
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

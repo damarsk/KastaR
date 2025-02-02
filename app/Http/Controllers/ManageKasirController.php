@@ -42,7 +42,7 @@ class ManageKasirController extends Controller
      */
     public function create()
     {
-        return view('manage_kasir.create');
+        
     }
 
     /**

@@ -2,39 +2,6 @@
 @section('title', 'KastaR - Manage Admin')
 @section('styles')
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
-    <style>
-        .photo-frame {
-            position: relative;
-            width: 150px;
-            height: 200px;
-            border: 2px dashed #ccc;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
-            /* Awalnya disembunyikan */
-        }
-
-        .photo-frame input[type="file"] {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            /* Membuat input file transparan */
-            cursor: pointer;
-        }
-    </style>
     @endsection
 @section('content')
     <main class="main-content bgc-grey-100">

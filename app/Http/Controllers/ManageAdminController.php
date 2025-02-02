@@ -31,8 +31,10 @@ class ManageAdminController extends Controller
                 $editUrl = route('admin.edit', $user->id);
                 $deleteUrl = route('admin.destroy', $user->id);
                 return '
-                    <button onclick="editForm(\'' . $editUrl . '\')" class="btn btn-sm btn-info">Edit</button>
-                    <button onclick="deleteData(\'' . $deleteUrl . '\')" class="btn btn-sm btn-danger">Delete</button>
+                <div class="btn-group">
+                    <button onclick="editForm(\'' . $editUrl . '\')" class="btn btn-sm btn-info text-white">Edit</button>
+                    <button onclick="deleteData(\'' . $deleteUrl . '\')" class="btn btn-sm btn-danger text-white">Delete</button>
+                </div>
                 ';
             })
             ->rawColumns(['aksi'])
@@ -44,7 +46,7 @@ class ManageAdminController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
