@@ -10,6 +10,7 @@ use App\Http\Controllers\{
     PembelianController,
     PembelianDetailController,
     ManageKasirController,
+    ManageAdminController,
 };
 
 /*
@@ -70,14 +71,22 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
         ->except('create', 'show', 'edit', 'update');
 
     // DASH-MANAGE-KASIR && MANAGE ADMIN
-    Route::prefix('manage')->group(function(){
-        // MANAGE PETUGAS KASIR
-        Route::get('/kasir/data', [ManageKasirController::class, 'data'])->name('kasir.data');
-        Route::get('/kasir/edit/{id}', [ManageKasirController::class, 'edit'])->name('kasir.edit');
-        Route::patch('/kasir/update/{id}', [ManageKasirController::class, 'update'])->name('kasir.update');
-        Route::resource('kasir', ManageKasirController::class)->except(['edit', 'update']);
+    Route::prefix('manage')->group(function () {
+        // MANAGE PETUGAS KASIR (Hanya bisa diakses oleh level 1 & 2)
+        Route::middleware('check.role:1,2')->group(function () {
+            Route::get('/kasir/data', [ManageKasirController::class, 'data'])->name('kasir.data');
+            Route::get('/kasir/edit/{id}', [ManageKasirController::class, 'edit'])->name('kasir.edit');
+            Route::patch('/kasir/update/{id}', [ManageKasirController::class, 'update'])->name('kasir.update');
+            Route::resource('kasir', ManageKasirController::class)->except(['edit', 'update']);
+        });
 
-        // MANAGE ADMIN
+        // MANAGE ADMIN (Hanya bisa diakses oleh level 2)
+        Route::middleware('check.role:2')->group(function () {
+            Route::get('/admin/data', [ManageAdminController::class, 'data'])->name('admin.data');
+            Route::get('/admin/edit/{id}', [ManageAdminController::class, 'edit'])->name('admin.edit');
+            Route::patch('/admin/update/{id}', [ManageAdminController::class, 'update'])->name('admin.update');
+            Route::resource('admin', ManageAdminController::class)->except(['edit', 'update']);
+        });
     });
 
     // AUTH

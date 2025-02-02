@@ -93,13 +93,13 @@
                                 <a class="sidebar-link td-n" href="{{ route('dashboard.index') }}">
                                     <div class="peers ai-c fxw-nw">
                                         <div class="peer">
-                                            <div class="logo">
+                                            <div class="logo d-flex justify-content-center align-items-center">
                                                 <img src="{{ asset('land_style/img/logo.png') }}" alt="Logo"
                                                     width="70px">
                                             </div>
                                         </div>
                                         <div class="peer peer-greed">
-                                            <h5 class="lh-1 mB-0 logo-text">Dashboard</h5>
+                                            <h5 class="lh-1 mB-0 logo-text">KastaR Dashboard</h5>
                                         </div>
                                     </div>
                                 </a>
@@ -197,7 +197,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="sidebar-link" href="#">
+                                        <a class="sidebar-link" href="{{ route('admin.index') }}">
                                             <i class="c-pink-500 ti-user me-2"></i>
                                             Manage Admin
                                         </a>
@@ -433,7 +433,7 @@
                             <li class="profile-menu">
                                 <a href="#" class="no-after peers fxw-nw ai-c lh-1">
                                     <div class="peer mR-10">
-                                        <img class="w-2r bdrs-50p" src="{{ asset(Auth::user()->foto) }}" alt="Foto Profil">
+                                        <img class="w-2r bdrs-50p" src="{{ Auth::user()->foto ? asset(Auth::user()->foto) : asset('images/unknown-avatar.png') }}" alt="Foto Profil">
                                     </div>
                                     <div class="peer">
                                         <span class="fsz-sm c-grey-900">{{ Auth::user()->name }}</span>

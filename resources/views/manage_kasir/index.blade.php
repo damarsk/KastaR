@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'KastaR - Petugas Kasir')
+@section('title', 'KastaR - Manage Petugas Kasir')
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
@@ -47,33 +47,31 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="bgc-white bd bdrs-3 p-20 mB-20">
-                            <h4 class="c-grey-900 mB-20" style="float: left">Tabel Petugas Kasir</h4>
+                            <h4 class="c-grey-900 mB-20" style="float: left">Manage Petugas Kasir</h4>
                             <div class="btn-group" style="float: right; margin-bottom: 10px;">
                                 <button onclick="addForm('{{ route('kasir.store') }}')"
                                     class="btn cur-p btn-success btn-color btn-sm">
                                     <i class="fa fa-plus"></i> Tambah Petugas Kasir
                                 </button>
                             </div>
-                                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0"
-                                    width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 5%">No</th>
-                                            <th style="width: 5%">Foto</th>
-                                            <th>Nama</th>
-                                            <th>Email</th>
-                                            <th width="10%"><i class="fa fa-cog"></i></th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                            <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 5%">No</th>
+                                        <th style="width: 5%">Foto</th>
+                                        <th>Nama</th>
+                                        <th>Email</th>
+                                        <th width="10%"><i class="fa fa-cog"></i></th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-    
-    @include('manage_kasir.form')
+    @includeIf('manage_kasir.form')
 @endsection
 
 @section('scripts')
@@ -101,8 +99,8 @@
                         searchable: false,
                         render: function(data) {
                             return data ?
-                                `<img src="{{ asset('uploads/photos') }}/${data}" class="img-thumbnail rounded-circle" width="50" height="50">` :
-                                'No Image';
+                                `<img src="{{ asset('uploads/photos') }}/${data}" class="img-thumbnail" width="28" height="28" style="object-fit: cover; border-radius: 50%;">` :
+                                '<img src="{{ asset('images') }}/unknown-avatar.png" class="img-thumbnail" width="28" height="28" style="object-fit: cover; border-radius: 50%;">';
                         }
                     },
                     {
