@@ -2,7 +2,40 @@
 @section('title', 'KastaR - Manage Admin')
 @section('styles')
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
-    @endsection
+    <style>
+        .photo-frame {
+            position: relative;
+            width: 150px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            /* Awalnya disembunyikan */
+        }
+
+        .photo-frame input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            /* Membuat input file transparan */
+            cursor: pointer;
+        }
+    </style>
+@endsection
 @section('content')
     <main class="main-content bgc-grey-100">
         <div id="mainContent">
@@ -47,17 +80,27 @@
                 ajax: {
                     url: '{{ route('admin.data') }}',
                 },
-                columns: [
-                    { data: 'DT_RowIndex', orderable: false, searchable: false },
-                    { 
+                columns: [{
+                        data: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
                         data: 'foto',
-                        render: function(data, type, row) {
+                        orderable: false,
+                        searchable: false,
+                        render: function(data) {
+                            console.log(data);
                             return `<img src="${data}" alt="Foto Admin" style="width: 28px; height: 28px; object-fit: cover; border-radius: 50%;">`;
                         }
                     },
-                    { data: 'name' },
-                    { data: 'email' },
-                    { 
+                    {
+                        data: 'name'
+                    },
+                    {
+                        data: 'email'
+                    },
+                    {
                         data: 'aksi',
                         orderable: false,
                         searchable: false
@@ -88,23 +131,35 @@
             $('#modal-form form').get(0).reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('post');
-            $('#modal-form').on('shown.bs.modal', function () {  
-                $('#modal-form [name=name]').focus();  
-            });  
+            $('#modal-form').on('shown.bs.modal', function() {
+                $('#modal-form [name=name]').focus();
+            });
+
+            // Tampilkan field password dan password confirmation
+            $('#password').closest('.mb-3').show();
+            $('#password_confirmation').closest('.mb-3').show();
+            $('#password').attr('required', 'required');
+            $('#password_confirmation').attr('required', 'required');
         }
 
         // Function to show edit form modal
-        function editForm(url) {
+        function editForm(urlEdit, urlUpdate) {
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').text('Edit Admin');
             $('#modal-form form').get(0).reset();
-            $('#modal-form form').attr('action', url);
-            $('#modal-form [name=_method]').val('put');
-            $('#modal-form').on('shown.bs.modal', function () {  
-                $('#modal-form [name=name]').focus();  
-            });  
+            $('#modal-form form').attr('action', urlUpdate);
+            $('#modal-form [name=_method]').val('patch');
+            $('#modal-form').on('shown.bs.modal', function() {
+                $('#modal-form [name=name]').focus();
+            });
 
-            $.get(url)
+            // Sembunyikan field password dan password confirmation
+            $('#password').closest('.mb-3').hide();
+            $('#password_confirmation').closest('.mb-3').hide();
+            $('#password').removeAttr('required');
+            $('#password_confirmation').removeAttr('required');
+
+            $.get(urlEdit)
                 .done((response) => {
                     $('#modal-form [name=name]').val(response.name);
                     $('#modal-form [name=email]').val(response.email);
@@ -132,5 +187,54 @@
                     });
             }
         }
+
+        // Function to show photo preview
+        $(document).ready(function() {
+            const $photoInput = $('#photo');
+            const $photoPreview = $('#photo-preview');
+            const $removePhotoBtn = $('#remove-photo-btn');
+            const $modalForm = $('#modal-form');
+
+            // Handle file input change
+            $photoInput.on('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $photoPreview.attr('src', e.target.result);
+                        $photoPreview.show(); // Tampilkan gambar preview
+                        $removePhotoBtn.show(); // Tampilkan tombol hapus
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    $photoPreview.attr('src', '#');
+                    $photoPreview.hide(); // Sembunyikan gambar preview
+                    $removePhotoBtn.hide(); // Sembunyikan tombol hapus
+                }
+            });
+
+            // Handle remove photo button click
+            $removePhotoBtn.on('click', function() {
+                $photoPreview.attr('src', '#');
+                $photoPreview.hide(); // Sembunyikan gambar preview
+                $removePhotoBtn.hide(); // Sembunyikan tombol hapus
+                $photoInput.val(''); // Kosongkan nilai input file
+            });
+
+            // Reset form ketika modal ditutup
+            $modalForm.on('hidden.bs.modal', function() {
+                // Reset input file
+                $photoInput.val('');
+                $photoPreview.attr('src', '#');
+                $photoPreview.hide(); // Sembunyikan gambar preview
+                $removePhotoBtn.hide(); // Sembunyikan tombol hapus
+
+                // Reset input form lainnya
+                $('#name').val('');
+                $('#email').val('');
+                $('#password').val('');
+                $('#password_confirmation').val('');
+            });
+        });
     </script>
 @endsection

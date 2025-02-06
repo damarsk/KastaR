@@ -29,11 +29,12 @@ class ManageAdminController extends Controller
             })
             ->addColumn('aksi', function ($user) {
                 $editUrl = route('admin.edit', $user->id);
+                $updateUrl = route('admin.update', $user->id);
                 $deleteUrl = route('admin.destroy', $user->id);
                 return '
                 <div class="btn-group">
-                    <button onclick="editForm(\'' . $editUrl . '\')" class="btn btn-sm btn-info text-white">Edit</button>
-                    <button onclick="deleteData(\'' . $deleteUrl . '\')" class="btn btn-sm btn-danger text-white">Delete</button>
+                    <button onclick="editForm(\'' . $editUrl . '\', \'' . $updateUrl . '\')" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></button>
+                    <button onclick="deleteData(\'' . $deleteUrl . '\')" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -54,7 +55,30 @@ class ManageAdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required|string|min:8|same:password',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->level = 1;
+
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path('uploads/photos'), $photoName);
+            $user->foto = $photoName;
+        }
+
+        $user->save();
+
+        return response()->json(['success' => true, 'message' => 'Akun berhasil dibuat!.']);
     }
 
     /**
@@ -62,7 +86,7 @@ class ManageAdminController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // 
     }
 
     /**
@@ -70,7 +94,8 @@ class ManageAdminController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::find($id);
+        return response()->json($user);
     }
 
     /**
@@ -78,7 +103,40 @@ class ManageAdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'password_confirmation' => 'nullable|string|min:8|same:password',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
+        if ($request->hasFile('photo')) {
+            // Hapus foto lama jika ada
+            if ($user->foto) {
+                $oldPhotoPath = public_path('uploads/photos/' . $user->foto);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+            }
+
+            $photo = $request->file('photo');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path('uploads/photos'), $photoName);
+            $user->foto = $photoName;
+        }
+
+        $user->save();
+
+        return response()->json('Data Berhasil Diubah!', 200);
     }
 
     /**
@@ -86,6 +144,20 @@ class ManageAdminController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+
+        if ($user) {
+            if ($user->foto) {
+                $oldPhotoPath = public_path('uploads/photos/' . $user->foto);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+            }
+
+            $user->delete();
+            return response()->json(['success' => true, 'message' => 'Akun berhasil dihapus!']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Akun tidak ditemukan.'], 404);
     }
 }

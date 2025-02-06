@@ -99,8 +99,8 @@
                         searchable: false,
                         render: function(data) {
                             return data ?
-                                `<img src="{{ asset('uploads/photos') }}/${data}" class="img-thumbnail" width="28" height="28" style="object-fit: cover; border-radius: 50%;">` :
-                                '<img src="{{ asset('images') }}/unknown-avatar.png" class="img-thumbnail" width="28" height="28" style="object-fit: cover; border-radius: 50%;">';
+                                `<img src="{{ asset('uploads/photos') }}/${data}" style="object-fit: cover; border-radius: 50%; height: 28px; width: 28px">` :
+                                '<img src="{{ asset('images') }}/unknown-avatar.png" style="object-fit: cover; border-radius: 50%; height: 28px; width: 28px">';
                         }
                     },
                     {
@@ -136,20 +136,6 @@
                     });
                 }
             });
-
-            // Image preview
-            $('#photo').on('change', function(event) {
-                const [file] = event.target.files;
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#photo-preview')
-                            .attr('src', e.target.result)
-                            .show();
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
         });
 
         // Add form
@@ -162,10 +148,20 @@
             $('#modal-form').on('shown.bs.modal', function() {
                 $('#modal-form [name=name]').focus();
             });
+
+            // Show password and password confirmation fields
+            $('#password').closest('.mb-3').show();
+            $('#password_confirmation').closest('.mb-3').show();
+            $('#password').attr('required', 'required');
+            $('#password_confirmation').attr('required', 'required');
         }
 
         // Edit form
         function editForm(urlEdit, urlUpdate) {
+            $('#password').closest('.mb-3').hide();
+            $('#password_confirmation').closest('.mb-3').hide();
+            $('#password').removeAttr('required');
+            $('#password_confirmation').removeAttr('required');
             $.get(urlEdit, function(data) {
                 $('#modal-form').modal('show');
                 $('#modal-form .modal-title').text('Edit Petugas Kasir');
@@ -199,5 +195,54 @@
                     });
             }
         }
+
+        // Function photo preview
+        $(document).ready(function() {
+            const $photoInput = $('#photo');
+            const $photoPreview = $('#photo-preview');
+            const $removePhotoBtn = $('#remove-photo-btn');
+            const $modalForm = $('#modal-form');
+
+            // Handle file input change
+            $photoInput.on('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $photoPreview.attr('src', e.target.result);
+                        $photoPreview.show(); // Tampilkan gambar preview
+                        $removePhotoBtn.show(); // Tampilkan tombol hapus
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    $photoPreview.attr('src', '#');
+                    $photoPreview.hide(); // Sembunyikan gambar preview
+                    $removePhotoBtn.hide(); // Sembunyikan tombol hapus
+                }
+            });
+
+            // Handle remove photo button click
+            $removePhotoBtn.on('click', function() {
+                $photoPreview.attr('src', '#');
+                $photoPreview.hide(); // Sembunyikan gambar preview
+                $removePhotoBtn.hide(); // Sembunyikan tombol hapus
+                $photoInput.val(''); // Kosongkan nilai input file
+            });
+
+            // Reset form ketika modal ditutup
+            $modalForm.on('hidden.bs.modal', function() {
+                // Reset input file
+                $photoInput.val('');
+                $photoPreview.attr('src', '#');
+                $photoPreview.hide(); // Sembunyikan gambar preview
+                $removePhotoBtn.hide(); // Sembunyikan tombol hapus
+
+                // Reset input form lainnya
+                $('#name').val('');
+                $('#email').val('');
+                $('#password').val('');
+                $('#password_confirmation').val('');
+            });
+        });
     </script>
 @endsection

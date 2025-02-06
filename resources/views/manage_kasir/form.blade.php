@@ -1,3 +1,51 @@
+<style>
+    .photo-frame {
+        position: relative;
+        width: 150px;
+        height: 200px;
+        border: 2px dashed #ccc;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+    .photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none; /* Awalnya disembunyikan */
+    }
+    .photo-frame input[type="file"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0; /* Membuat input file transparan */
+        cursor: pointer;
+    }
+    .remove-photo {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        cursor: pointer;
+        z-index: 2;
+        display: none; /* Awalnya disembunyikan */
+    }
+</style>
+
 <div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-form">
     <div class="modal-dialog modal-dialog-scrollable">
         <form action="" method="POST" class="was-validated" enctype="multipart/form-data">
@@ -15,6 +63,7 @@
                             <label for="photo" class="form-label">Pas Foto 4x3 (Untuk Profil)</label>
                             <div class="photo-frame">
                                 <img id="photo-preview" src="#" alt="Pratinjau Pas Foto" class="img-fluid">
+                                <button type="button" class="remove-photo" id="remove-photo-btn">&times;</button>
                                 <input type="file" name="photo" class="form-control-file" id="photo"
                                     accept="image/*">
                             </div>
@@ -33,12 +82,12 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" name="password" class="form-control" id="password"
-                            placeholder="Masukkan password">
+                            placeholder="Masukkan password" required>
                     </div>
                     <div class="mb-3">
                         <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                         <input type="password" name="password_confirmation" class="form-control"
-                            id="password_confirmation" placeholder="Konfirmasi password">
+                            id="password_confirmation" placeholder="Konfirmasi password" required>
                     </div>
                 </div>
                 <div class="modal-footer">

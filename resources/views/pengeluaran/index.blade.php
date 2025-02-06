@@ -18,19 +18,15 @@
                                     class="btn cur-p btn-success btn-color btn-sm"><i class="fa fa-plus"></i> Tambah
                                     Pengeluaran</button>
                             </div>
-                            <form action="" method="POST" class="form-pengeluaran">
-                                @csrf
-                                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0"
-                                    width="100%">
-                                    <thead>
-                                        <th style="width: 5%">No</th>
-                                        <th>Tanggal</th>
-                                        <th>Deskripsi</th>
-                                        <th>Nominal</th>
-                                        <th width="10%"><i class="fa fa-cog"></i></th>
-                                    </thead>
-                                </table>
-                            </form>
+                            <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <th style="width: 5%">No</th>
+                                    <th>Tanggal</th>
+                                    <th>Deskripsi</th>
+                                    <th>Nominal</th>
+                                    <th width="10%"><i class="fa fa-cog"></i></th>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>

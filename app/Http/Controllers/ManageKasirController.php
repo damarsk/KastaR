@@ -73,7 +73,7 @@ class ManageKasirController extends Controller
 
         $user->save();
 
-        return response()->json(['success' => true, 'message' => 'User created successfully.']);
+        return response()->json(['success' => true, 'message' => 'Akun berhasil dibuat!.']);
     }
 
     /**
@@ -81,8 +81,7 @@ class ManageKasirController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::find($id);
-        return response()->json($user);
+
     }
 
     /**
@@ -132,7 +131,7 @@ class ManageKasirController extends Controller
 
         $user->save();
 
-        return response()->json('Data Berhasil Disimpan', 200);
+        return response()->json('Data Berhasil Diubah!', 200);
     }
 
     /**
@@ -152,9 +151,9 @@ class ManageKasirController extends Controller
             }
 
             $user->delete();
-            return response()->json(['success' => true, 'message' => 'User deleted successfully.']);
+            return response()->json(['success' => true, 'message' => 'Akun berhasil dihapus!']);
         }
 
-        return response()->json(['success' => false, 'message' => 'User not found.'], 404);
+        return response()->json(['success' => false, 'message' => 'Akun tidak ditemukan.'], 404);
     }
 }

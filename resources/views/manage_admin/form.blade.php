@@ -82,12 +82,12 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" name="password" class="form-control" id="password"
-                            placeholder="Masukkan password">
+                            placeholder="Masukkan password" required>
                     </div>
                     <div class="mb-3">
                         <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                         <input type="password" name="password_confirmation" class="form-control"
-                            id="password_confirmation" placeholder="Konfirmasi password">
+                            id="password_confirmation" placeholder="Konfirmasi password" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -98,37 +98,3 @@
         </form>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const photoInput = document.getElementById('photo');
-        const photoPreview = document.getElementById('photo-preview');
-        const removePhotoBtn = document.getElementById('remove-photo-btn');
-
-        // Handle file input change
-        photoInput.addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    photoPreview.src = e.target.result;
-                    photoPreview.style.display = 'block'; // Tampilkan gambar preview
-                    removePhotoBtn.style.display = 'flex'; // Tampilkan tombol hapus
-                };
-                reader.readAsDataURL(file);
-            } else {
-                photoPreview.src = '#';
-                photoPreview.style.display = 'none'; // Sembunyikan gambar preview
-                removePhotoBtn.style.display = 'none'; // Sembunyikan tombol hapus
-            }
-        });
-
-        // Handle remove photo button click
-        removePhotoBtn.addEventListener('click', function () {
-            photoPreview.src = '#';
-            photoPreview.style.display = 'none'; // Sembunyikan gambar preview
-            removePhotoBtn.style.display = 'none'; // Sembunyikan tombol hapus
-            photoInput.value = ''; // Kosongkan nilai input file
-        });
-    });
-</script>

@@ -84,9 +84,9 @@
             $('#modal-form form').get(0).reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('post');
-            $('#modal-form').on('shown.bs.modal', function () {  
-                $('#modal-form [name=nama_kategori]').focus();  
-            });  
+            $('#modal-form').on('shown.bs.modal', function() {
+                $('#modal-form [name=nama_kategori]').focus();
+            });
         }
 
         function editForm(url) {
@@ -95,9 +95,9 @@
             $('#modal-form form').get(0).reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('put');
-            $('#modal-form').on('shown.bs.modal', function () {  
-                $('#modal-form [name=nama_kategori]').focus();  
-            });  
+            $('#modal-form').on('shown.bs.modal', function() {
+                $('#modal-form [name=nama_kategori]').focus();
+            });
 
             $.get(url)
                 .done((response) => {
@@ -110,7 +110,7 @@
         }
 
         function deleteData(url) {
-            if(confirm('Apakah anda yakin ingin menghapus kategori ini?')) {
+            if (confirm('Apakah anda yakin ingin menghapus kategori ini?')) {
                 $.post(url, {
                         '_method': 'delete',
                         '_token': $('meta[name=csrf-token]').attr('content')
