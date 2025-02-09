@@ -15,21 +15,21 @@ class ManageKasirController extends Controller
         return view('manage_kasir.index');
     }
 
-    public function data() {
-        $roleLevel = 0;
-        $users = User::all();
-        $users = $users->filter(function ($user) use ($roleLevel) {
-            return $user->level == $roleLevel;
-        });
+    public function data() 
+    {
+        $users = User::where('level', 0)->get();
 
         return datatables()
             ->of($users)
             ->addIndexColumn()
             ->addColumn('aksi', function ($user) {
+                $editUrl = route('kasir.edit', $user->id);
+                $updateUrl = route('kasir.update', $user->id);
+                $deleteUrl = route('kasir.destroy', $user->id);
                 return '
                 <div class="btn-group">
-                    <button onclick="editForm(`'. route('kasir.edit', $user->id) .'`, `'. route('kasir.update', $user->id) .'`)" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></button>
-                    <button onclick="deleteData(`'. route('kasir.destroy', $user->id) .'`)" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i></button>
+                    <button onclick="editForm(\'' . $editUrl . '\', \'' . $updateUrl . '\')" class="btn btn-sm btn-info text-white"><i class="fa fa-edit"></i></button>
+                    <button onclick="deleteData(\'' . $deleteUrl . '\')" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -101,8 +101,6 @@ class ManageKasirController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:8|confirmed',
-            'password_confirmation' => 'nullable|string|min:8|same:password',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 

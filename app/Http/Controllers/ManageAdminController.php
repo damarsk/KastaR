@@ -18,15 +18,10 @@ class ManageAdminController extends Controller
     public function data()
     {
         $users = User::where('level', 1)->get();
-        return datatables()->of($users)
+
+        return datatables()
+            ->of($users)
             ->addIndexColumn()
-            ->addColumn('foto', function ($user) {
-                if ($user->foto && file_exists(public_path('storage/' . $user->foto))) {
-                    return asset('storage/' . $user->foto);
-                } else {
-                    return asset('images/unknown-avatar.png'); // Sesuaikan dengan path gambar default Anda
-                }
-            })
             ->addColumn('aksi', function ($user) {
                 $editUrl = route('admin.edit', $user->id);
                 $updateUrl = route('admin.update', $user->id);
@@ -106,8 +101,6 @@ class ManageAdminController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:8|confirmed',
-            'password_confirmation' => 'nullable|string|min:8|same:password',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 

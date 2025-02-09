@@ -13,9 +13,8 @@
                     <div class="col-md-12">
                         <div class="bgc-white bd bdrs-3 p-20 mB-20">
                             <h4 class="c-grey-900 mB-20" style="float: left">Tabel Kategori</h4>
-                            <button onclick="addForm('{{ route('kategori.store') }}')" style="float: right"
-                                class="btn cur-p btn-success btn-color btn-sm mb-4" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">Tambah Kategori</button>
+                            <button type="button" onclick="addForm('{{ route('kategori.store') }}')" style="float: right"
+                                class="btn cur-p btn-success btn-color btn-sm mb-4">Tambah Kategori</button>
                             <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                     <th style="width: 50px">No</th>

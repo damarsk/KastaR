@@ -13,11 +13,9 @@
                     <div class="col-md-12">
                         <div class="bgc-white bd bdrs-3 p-20 mB-20">
                             <h4 class="c-grey-900 mB-20" style="float: left">Tabel Pengeluaran</h4>
-                            <div class="btn-group" style="float: right; margin-bottom: 10px;">
-                                <button onclick="addForm('{{ route('pengeluaran.store') }}')"
-                                    class="btn cur-p btn-success btn-color btn-sm"><i class="fa fa-plus"></i> Tambah
-                                    Pengeluaran</button>
-                            </div>
+                            <button onclick="addForm('{{ route('pengeluaran.store') }}')" style="float: right;"
+                                class="btn cur-p btn-success btn-color btn-sm"><i class="fa fa-plus"></i> Tambah
+                                Pengeluaran</button>
                             <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                     <th style="width: 5%">No</th>
@@ -44,7 +42,6 @@
         let table;
 
         $(function() {
-            // Inisialisasi DataTables  
             table = $('#dataTable').DataTable({
                 processing: true,
                 autoWidth: false,
@@ -99,8 +96,6 @@
             $('#modal-form form').get(0).reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('post');
-
-            // Tambahkan event listener untuk fokus setelah modal ditampilkan    
             $('#modal-form').on('shown.bs.modal', function() {
                 $('#modal-form [name=deskripsi]').focus();
             });

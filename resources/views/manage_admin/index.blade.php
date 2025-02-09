@@ -1,5 +1,7 @@
 @extends('layouts.app')
+
 @section('title', 'KastaR - Manage Admin')
+
 @section('styles')
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
     <style>
@@ -36,6 +38,7 @@
         }
     </style>
 @endsection
+
 @section('content')
     <main class="main-content bgc-grey-100">
         <div id="mainContent">
@@ -44,18 +47,21 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="bgc-white bd bdrs-3 p-20 mB-20">
-                            <h4 class="c-grey-900 mB-20" style="float: left">Manage Administrator</h4>
-                            <button onclick="addForm('{{ route('admin.store') }}')" style="float: right"
-                                class="btn cur-p btn-success btn-color btn-sm mb-4" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">Tambah Admin</button>
+                            <h4 class="c-grey-900 mB-20" style="float: left">Manage Admin</h4>
+                            <div class="btn-group" style="float: right; margin-bottom: 10px;">
+                                <button onclick="addForm('{{ route('admin.store') }}')"
+                                    class="btn cur-p btn-success btn-color btn-sm">
+                                    <i class="fa fa-plus"></i> Tambah Admin
+                                </button>
+                            </div>
                             <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
-                                        <th style="width: 50px">No</th>
-                                        <th>Foto</th>
-                                        <th>Nama Lengkap</th>
+                                        <th style="width: 5%">No</th>
+                                        <th style="width: 5%">Foto</th>
+                                        <th>Nama</th>
                                         <th>Email</th>
-                                        <th width="15%"><i class="fa fa-cog"></i> Aksi</th>
+                                        <th width="10%"><i class="fa fa-cog"></i></th>
                                     </tr>
                                 </thead>
                             </table>
@@ -67,11 +73,14 @@
     </main>
     @includeIf('manage_admin.form')
 @endsection
+
 @section('scripts')
+    <script src="{{ asset('js-lib/jquery.min.js') }}"></script>
     <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
     <script src="{{ asset('js-lib/validator.min.js') }}"></script>
     <script>
         let table;
+
         $(function() {
             table = $('#dataTable').DataTable({
                 processing: true,
@@ -89,8 +98,9 @@
                         orderable: false,
                         searchable: false,
                         render: function(data) {
-                            console.log(data);
-                            return `<img src="${data}" alt="Foto Admin" style="width: 28px; height: 28px; object-fit: cover; border-radius: 50%;">`;
+                            return data ?
+                                `<img src="{{ asset('uploads/photos') }}/${data}" style="object-fit: cover; border-radius: 50%; height: 28px; width: 28px">` :
+                                '<img src="{{ asset('images') }}/unknown-avatar.png" style="object-fit: cover; border-radius: 50%; height: 28px; width: 28px">';
                         }
                     },
                     {
@@ -107,23 +117,28 @@
                 ]
             });
 
-            // Handle form submission
             $('#modal-form').validator().on('submit', function(e) {
                 if (!e.preventDefault()) {
-                    $.post($('#modal-form form').attr('action'), $('#modal-form form').serialize())
-                        .done((response) => {
+                    $.ajax({
+                        url: $('#modal-form form').attr('action'),
+                        type: 'POST',
+                        data: new FormData($('#modal-form form')[0]),
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
                             $('#modal-form').modal('hide');
                             table.ajax.reload();
-                        })
-                        .fail((errors) => {
+                        },
+                        error: function(errors) {
                             alert('Tidak dapat menyimpan data');
                             return;
-                        });
+                        }
+                    });
                 }
             });
         });
 
-        // Function to show add form modal
+        // Add form
         function addForm(url) {
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').text('Tambah Admin');
@@ -134,60 +149,54 @@
                 $('#modal-form [name=name]').focus();
             });
 
-            // Tampilkan field password dan password confirmation
+            // Show password and password confirmation fields
             $('#password').closest('.mb-3').show();
             $('#password_confirmation').closest('.mb-3').show();
             $('#password').attr('required', 'required');
             $('#password_confirmation').attr('required', 'required');
         }
 
-        // Function to show edit form modal
+        // Edit form
         function editForm(urlEdit, urlUpdate) {
-            $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Edit Admin');
-            $('#modal-form form').get(0).reset();
-            $('#modal-form form').attr('action', urlUpdate);
-            $('#modal-form [name=_method]').val('patch');
-            $('#modal-form').on('shown.bs.modal', function() {
-                $('#modal-form [name=name]').focus();
-            });
-
-            // Sembunyikan field password dan password confirmation
             $('#password').closest('.mb-3').hide();
             $('#password_confirmation').closest('.mb-3').hide();
             $('#password').removeAttr('required');
             $('#password_confirmation').removeAttr('required');
-
-            $.get(urlEdit)
-                .done((response) => {
-                    $('#modal-form [name=name]').val(response.name);
-                    $('#modal-form [name=email]').val(response.email);
-                    $('#modal-form [name=foto]').val(response.foto);
-                })
-                .fail((errors) => {
-                    alert('Tidak dapat menampilkan data');
-                    return;
-                });
+            $.get(urlEdit, function(data) {
+                $('#modal-form').modal('show');
+                $('#modal-form .modal-title').text('Edit Admin');
+                $('#modal-form form')[0].reset();
+                $('#modal-form form').attr('action', urlUpdate);
+                $('#modal-form #method').val('patch');
+                $('#name').val(data.name);
+                $('#email').val(data.email);
+                if (data.foto) {
+                    $('#photo-preview').attr('src', '{{ asset('uploads/photos') }}/' + data.foto).show();
+                } else {
+                    $('#photo-preview').hide();
+                }
+            });
         }
 
-        // Function to delete admin
+        // Delete data
         function deleteData(url) {
-            if (confirm('Apakah anda yakin ingin menghapus admin ini?')) {
+            if (confirm('Apakah anda yakin ingin menghapus Admin ini?')) {
                 $.post(url, {
                         '_method': 'delete',
                         '_token': $('meta[name=csrf-token]').attr('content')
                     })
                     .done((response) => {
+                        alert(response.message);
                         table.ajax.reload();
                     })
                     .fail((errors) => {
-                        alert('Tidak dapat menghapus admin');
+                        alert('Tidak dapat menghapus Admin');
                         return;
                     });
             }
         }
 
-        // Function to show photo preview
+        // Function photo preview
         $(document).ready(function() {
             const $photoInput = $('#photo');
             const $photoPreview = $('#photo-preview');
