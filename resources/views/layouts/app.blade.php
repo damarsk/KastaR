@@ -66,7 +66,6 @@
         }
     </style>
     <link href="{{ asset('dash_style/css/style.css') }}" rel="stylesheet">
-    {{-- <script defer src="{{ asset('dash_style/js/main.js') }}"></script> --}}
 </head>
 
 <body class="app font-sans antialiased">
@@ -447,7 +446,7 @@
         <script defer src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
         <script src="{{ asset('js-lib/jquery.min.js') }}"></script>
         @yield('scripts')
-        <script defer src="{{ asset('dash_style/js/dev.js') }}"></script>
+        <script defer src="{{ asset('dash_style/js/main.js') }}"></script>
     </div>
 </body>
 
