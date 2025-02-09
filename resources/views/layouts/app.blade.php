@@ -66,7 +66,7 @@
         }
     </style>
     <link href="{{ asset('dash_style/css/style.css') }}" rel="stylesheet">
-    <script defer src="{{ asset('dash_style/js/main.js') }}"></script>
+    {{-- <script defer src="{{ asset('dash_style/js/main.js') }}"></script> --}}
 </head>
 
 <body class="app font-sans antialiased">
@@ -99,7 +99,7 @@
                                             </div>
                                         </div>
                                         <div class="peer peer-greed">
-                                            <h5 class="lh-1 mB-0 logo-text">KastaR Dashboard</h5>
+                                            <h5 class="lh-1 mB-0 logo-text">KastaR</h5>
                                         </div>
                                     </div>
                                 </a>
@@ -247,15 +247,6 @@
                                 <a id="sidebar-toggle" class="sidebar-toggle" href="javascript:void(0);">
                                     <i class="ti-menu"></i>
                                 </a>
-                            </li>
-                            <li class="search-box">
-                                <a class="search-toggle no-pdd-right" href="javascript:void(0);">
-                                    <i class="search-icon ti-search pdd-right-10"></i>
-                                    <i class="search-icon-close ti-close pdd-right-10"></i>
-                                </a>
-                            </li>
-                            <li class="search-input">
-                                <input class="form-control" type="text" placeholder="Search...">
                             </li>
                         </ul>
                         <ul class="nav-right">
@@ -453,8 +444,10 @@
                 </footer>
             </div>
         </div>
-        <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
+        <script defer src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('js-lib/jquery.min.js') }}"></script>
         @yield('scripts')
+        <script defer src="{{ asset('dash_style/js/dev.js') }}"></script>
     </div>
 </body>
 

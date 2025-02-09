@@ -68,7 +68,6 @@
     @includeIf('manage_admin.form')
 @endsection
 @section('scripts')
-    <script src="{{ asset('js-lib/jquery.min.js') }}"></script>
     <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
     <script src="{{ asset('js-lib/validator.min.js') }}"></script>
     <script>
