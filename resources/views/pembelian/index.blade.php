@@ -15,7 +15,14 @@
                             <h4 class="c-grey-900 mB-20" style="float: left">Tabel Pembelian</h4>
                             <div class="btn-group" style="float: right; margin-bottom: 10px;">
                                 <button onclick="addForm('{{ route('supplier.store') }}')"
-                                    class="btn cur-p btn-success btn-color btn-sm"><i class="fa fa-plus"></i> Transaksi Baru</button>
+                                    class="btn cur-p btn-success btn-color btn-sm"><i class="fa fa-plus"></i> Transaksi
+                                    Baru</button>
+                                @empty(!session('id_pembelian'))
+                                    <a href="{{ route('pembelian_detail.index') }}"
+                                        class="btn cur-p btn-info btn-color btn-sm"><i class="fa fa-edit"></i> Update
+                                        Transaksi</a>
+                                @endempty
+
                             </div>
                             <form action="" method="POST" class="form-supplier">
                                 @csrf
@@ -40,6 +47,7 @@
         </div>
     </main>
     @includeIf('pembelian.supplier')
+    @includeIf('pembelian.detail')
 @endsection
 
 @section('scripts')
@@ -53,30 +61,40 @@
         $(function() {
             // Inisialisasi DataTables  
             table = $('#dataTable').DataTable({
-                // processing: true,
-                // autoWidth: false,
-                // ajax: {
-                //     url: '{{ route('supplier.data') }}',
-                // },
-                // columns: [{
-                //         data: 'DT_RowIndex',
-                //         orderable: false,
-                //         searchable: false
-                //     },
-                //     {
-                //         data: 'nama'
-                //     },
-                //     {
-                //         data: 'telepon'
-                //     },
-                //     {
-                //         data: 'alamat'
-                //     },
-                //     {
-                //         data: 'aksi',
-                //         searchable: false
-                //     }
-                // ]
+                processing: true,
+                autoWidth: false,
+                ajax: {
+                    url: '{{ route('pembelian.data') }}',
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'tanggal'
+                    },
+                    {
+                        data: 'supplier'
+                    },
+                    {
+                        data: 'total_item'
+                    },
+                    {
+                        data: 'total_harga'
+                    },
+                    {
+                        data: 'diskon'
+                    },
+                    {
+                        data: 'bayar'
+                    },
+                    {
+                        data: 'aksi',
+                        searchable: false,
+                        orderable: false
+                    }
+                ]
             });
         });
 
@@ -115,29 +133,9 @@
             $('#modal-supplier').modal('show');
         }
 
-        function editForm(url) {
-            $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Edit Supplier'); // Ubah judul menjadi 'Edit Supplier'  
-            $('#modal-form form').get(0).reset();
-            $('#modal-form form').attr('action', url);
-            $('#modal-form [name=_method]').val('put');
-
-            // Tambahkan event listener untuk fokus setelah modal ditampilkan    
-            $('#modal-form').on('shown.bs.modal', function() {
-                $('#modal-form [name=nama]').focus();
-            });
-
-            $.get(url)
-                .done((response) => {
-                    $('#modal-form [name=nama]').val(response.nama);
-                    $('#modal-form [name=alamat]').val(response.alamat);
-                    $('#modal-form [name=telepon]').val(response.telepon);
-                    // Tambahkan kolom lain yang ada di tabel supplier jika diperlukan  
-                })
-                .fail((errors) => {
-                    alert('Tidak dapat menampilkan data');
-                    return;
-                });
+        function showDetail() {
+            event.preventDefault();
+            $('#modal-detail').modal('show');
         }
 
         function deleteData(url) {
