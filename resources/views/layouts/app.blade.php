@@ -5,10 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>@yield('title')</title>
-
-    <!-- Fonts -->
+    <title>@yield('title')</title> 
+    <link rel="icon" type="image/x-icon" href="{{asset('land_style/img/logo.png')}}">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
     @yield('styles')
@@ -98,7 +96,7 @@
                                             </div>
                                         </div>
                                         <div class="peer peer-greed">
-                                            <h5 class="lh-1 mB-0 logo-text">KastaR</h5>
+                                            <h5 class="lh-1 mB-0 logo-text">KastaR Dashboard</h5>
                                         </div>
                                     </div>
                                 </a>
@@ -176,12 +174,6 @@
                                     <span class="title">Produk</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="sidebar-link" href="{{ route('supplier.index') }}">
-                                    <span class="icon-holder"><i class="c-green-500 ti-truck"></i></span>
-                                    <span class="title">Supplier</span>
-                                </a>
-                            </li>
                             <li class="nav-item dropdown">
                                 <a class="dropdown-toggle" href="javascript:void(0);">
                                     <span class="icon-holder"><i class="c-pink-500 ti-id-badge"></i></span>
@@ -189,6 +181,14 @@
                                     <span class="arrow"><i class="ti-angle-right"></i></span>
                                 </a>
                                 <ul class="dropdown-menu">
+                                    @if (Auth::user()->level == 2)
+                                    <li>
+                                        <a class="sidebar-link" href="{{ route('admin.index') }}">
+                                            <i class="c-pink-500 ti-user me-2"></i>
+                                            Manage Admin
+                                        </a>
+                                    </li>
+                                    @endif
                                     <li>
                                         <a class="sidebar-link" href="{{ route('kasir.index') }}">
                                             <i class="c-pink-500 ti-user me-2"></i>
@@ -196,9 +196,9 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="sidebar-link" href="{{ route('admin.index') }}">
-                                            <i class="c-pink-500 ti-user me-2"></i>
-                                            Manage Admin
+                                        <a class="sidebar-link" href="{{ route('supplier.index') }}">
+                                            <i class="c-green-500 ti-truck me-2"></i>
+                                            Manage Supplier
                                         </a>
                                     </li>
                                 </ul>
@@ -423,7 +423,7 @@
                             <li class="profile-menu">
                                 <a href="#" class="no-after peers fxw-nw ai-c lh-1">
                                     <div class="peer mR-10">
-                                        <img class="w-2r bdrs-50p" src="{{ Auth::user()->foto ? asset(Auth::user()->foto) : asset('images/unknown-avatar.png') }}" alt="Foto Profil">
+                                        <img class="w-2r bdrs-50p" src="{{ Auth::user()->foto ? asset('uploads/photos/' . Auth::user()->foto) : asset('images/unknown-avatar.png') }}" alt="Foto Profil">
                                     </div>
                                     <div class="peer">
                                         <span class="fsz-sm c-grey-900">{{ Auth::user()->name }}</span>
