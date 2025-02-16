@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title')</title> 
-    <link rel="icon" type="image/x-icon" href="{{asset('land_style/img/logo.png')}}">
+    <title>@yield('title')</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('land_style/img/logo.png') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
     @yield('styles')
@@ -37,6 +37,58 @@
             border-radius: 100%;
             -webkit-animation: sk-scaleout 1s infinite ease-in-out;
             animation: sk-scaleout 1s infinite ease-in-out;
+        }
+
+        .sidebar-menu .dropdown-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            display: block !important;
+            padding: 0;
+        }
+
+        .sidebar-menu li.dropdown.open>.dropdown-menu {
+            max-height: 1000px;
+            /* Large enough to contain content */
+            transition: max-height 0.5s ease-in;
+        }
+
+        .sidebar-menu .dropdown-menu>li>a {
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu li.dropdown.open>.dropdown-menu>li>a {
+            transform: translateX(0);
+        }
+
+        /* Add transition delay for each item */
+        .sidebar-menu .dropdown-menu>li:nth-child(1)>a {
+            transition-delay: 0.1s;
+        }
+
+        .sidebar-menu .dropdown-menu>li:nth-child(2)>a {
+            transition-delay: 0.15s;
+        }
+
+        .sidebar-menu .dropdown-menu>li:nth-child(3)>a {
+            transition-delay: 0.2s;
+        }
+
+        .sidebar-menu .dropdown-menu>li:nth-child(4)>a {
+            transition-delay: 0.25s;
+        }
+
+        .sidebar-menu .dropdown-menu>li:nth-child(5)>a {
+            transition-delay: 0.3s;
+        }
+
+        .arrow i {
+            transition: transform 0.3s ease;
+        }
+
+        .arrow i.rotate-90 {
+            transform: rotate(90deg);
         }
 
         @-webkit-keyframes sk-scaleout {
@@ -182,12 +234,12 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     @if (Auth::user()->level == 2)
-                                    <li>
-                                        <a class="sidebar-link" href="{{ route('admin.index') }}">
-                                            <i class="c-pink-500 ti-user me-2"></i>
-                                            Manage Admin
-                                        </a>
-                                    </li>
+                                        <li>
+                                            <a class="sidebar-link" href="{{ route('admin.index') }}">
+                                                <i class="c-pink-500 ti-user me-2"></i>
+                                                Manage Admin
+                                            </a>
+                                        </li>
                                     @endif
                                     <li>
                                         <a class="sidebar-link" href="{{ route('kasir.index') }}">
@@ -423,7 +475,9 @@
                             <li class="profile-menu">
                                 <a href="#" class="no-after peers fxw-nw ai-c lh-1">
                                     <div class="peer mR-10">
-                                        <img class="w-2r bdrs-50p" src="{{ Auth::user()->foto ? asset('uploads/photos/' . Auth::user()->foto) : asset('images/unknown-avatar.png') }}" alt="Foto Profil">
+                                        <img class="w-2r bdrs-50p"
+                                            src="{{ Auth::user()->foto ? asset('uploads/photos/' . Auth::user()->foto) : asset('images/unknown-avatar.png') }}"
+                                            alt="Foto Profil">
                                     </div>
                                     <div class="peer">
                                         <span class="fsz-sm c-grey-900">{{ Auth::user()->name }}</span>

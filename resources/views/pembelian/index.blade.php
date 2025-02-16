@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-{{-- @includeIf('pembelian.supplier')
-@includeIf('pembelian.detail') --}}
+@includeIf('pembelian.supplier')
+@includeIf('pembelian.detail')
     <main class="main-content bgc-grey-100">
         <div id="mainContent">
             <div class="container-fluid">

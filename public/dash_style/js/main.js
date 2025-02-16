@@ -1,46 +1,4 @@
 $(document).ready(function() {
-    // Add CSS for dropdown transitions
-    $('<style>')
-        .append(`
-            .sidebar-menu .dropdown-menu {
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease-out;
-                display: block !important;
-                padding: 0;
-            }
-            
-            .sidebar-menu li.dropdown.open > .dropdown-menu {
-                max-height: 1000px; /* Large enough to contain content */
-                transition: max-height 0.5s ease-in;
-            }
-            
-            .sidebar-menu .dropdown-menu > li > a {
-                transform: translateX(-10px);
-                transition: all 0.3s ease;
-            }
-            
-            .sidebar-menu li.dropdown.open > .dropdown-menu > li > a {
-                transform: translateX(0);
-            }
-            
-            /* Add transition delay for each item */
-            .sidebar-menu .dropdown-menu > li:nth-child(1) > a { transition-delay: 0.1s; }
-            .sidebar-menu .dropdown-menu > li:nth-child(2) > a { transition-delay: 0.15s; }
-            .sidebar-menu .dropdown-menu > li:nth-child(3) > a { transition-delay: 0.2s; }
-            .sidebar-menu .dropdown-menu > li:nth-child(4) > a { transition-delay: 0.25s; }
-            .sidebar-menu .dropdown-menu > li:nth-child(5) > a { transition-delay: 0.3s; }
-            
-            .arrow i {
-                transition: transform 0.3s ease;
-            }
-            
-            .arrow i.rotate-90 {
-                transform: rotate(90deg);
-            }
-        `)
-        .appendTo('head');
-
     // Sidebar Toggle
     $('#sidebar-toggle').on('click', function(e) {
         e.preventDefault();
