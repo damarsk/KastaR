@@ -45,6 +45,7 @@ $(document).ready(function() {
     $('#sidebar-toggle').on('click', function(e) {
         e.preventDefault();
         $('body').toggleClass('is-collapsed');
+        $('.sidebar').removeClass('sidebar-hidden');
     });
 
     // Handle window resize
@@ -85,13 +86,12 @@ $(document).ready(function() {
         });
     });
 
-    // Mobile sidebar toggle
     $('.mobile-toggle').on('click', function(e) {
         e.preventDefault();
-        $('.sidebar').toggleClass('sidebar-visible sidebar-hidden');
+        $('body').removeClass('is-collapsed');
+        $('.sidebar').removeClass('sidebar-visible');
     });
 
-    // Close sidebar when clicking outside on mobile
     $(document).on('click', function(e) {
         if ($(window).width() <= 991) {
             if (!$(e.target).closest('.sidebar').length && 

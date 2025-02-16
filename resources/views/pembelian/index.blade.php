@@ -5,6 +5,8 @@
 @endsection
 
 @section('content')
+{{-- @includeIf('pembelian.supplier')
+@includeIf('pembelian.detail') --}}
     <main class="main-content bgc-grey-100">
         <div id="mainContent">
             <div class="container-fluid">
@@ -46,8 +48,6 @@
             </div>
         </div>
     </main>
-    @includeIf('pembelian.supplier')
-    @includeIf('pembelian.detail')
 @endsection
 
 @section('scripts')
@@ -55,12 +55,8 @@
     <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
     <script src="{{ asset('js-lib/validator.min.js') }}"></script>
     <script>
-        let table;
-        let modalTable;
-
         $(function() {
-            // Inisialisasi DataTables  
-            table = $('#dataTable').DataTable({
+            $('#dataTable').DataTable({
                 processing: true,
                 autoWidth: false,
                 ajax: {
@@ -99,36 +95,34 @@
         });
 
         $(function() {
-            // Inisialisasi DataTables  
-            table = $('#modalTable').DataTable({
-                // processing: true,
-                // autoWidth: false,
-                // ajax: {
-                //     url: '{{ route('supplier.data') }}',
-                // },
-                // columns: [{
-                //         data: 'DT_RowIndex',
-                //         orderable: false,
-                //         searchable: false
-                //     },
-                //     {
-                //         data: 'nama'
-                //     },
-                //     {
-                //         data: 'telepon'
-                //     },
-                //     {
-                //         data: 'alamat'
-                //     },
-                //     {
-                //         data: 'aksi',
-                //         searchable: false
-                //     }
-                // ]
+            $('#modalDetailTable').DataTable({
+                processing: true,
+                autoWidth: false,
+                ajax: {
+                    url: '{{ route('supplier.data') }}',
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'nama'
+                    },
+                    {
+                        data: 'telepon'
+                    },
+                    {
+                        data: 'alamat'
+                    },
+                    {
+                        data: 'aksi',
+                        searchable: false
+                    }
+                ]
             });
         });
 
-        // Fungsi untuk menampilkan modal tambah form    
         function addForm() {
             $('#modal-supplier').modal('show');
         }
