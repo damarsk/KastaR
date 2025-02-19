@@ -19,11 +19,13 @@ Projek ini adalah sebuah aplikasi kasir pintar yang dibuat untuk Uji Kompetensi 
 ## 🌐Teknologi yang Digunakan
 
 - HTML
-- CSS
-- JavaScript
+- CSS (Bootstrap)
+- JavaScript (JQuery, Sweetalert)
 - PHP (Laravel)
 - MySQL
-- Laravel Breeze
+- Laravel Breeze (Auth)
+- Dompdf (Cetak PDF)
+- Milon/Barcode (Cetak Barcode)
 
 ## 📩Cara Instalasi
 
