@@ -478,7 +478,7 @@
                                 </ul>
                             </li>
                             <li class="profile-menu">
-                                <a href="#" class="no-after peers fxw-nw ai-c lh-1">
+                                <div class="no-after peers fxw-nw ai-c lh-1 mL-5 mR-10 mT-15">
                                     <div class="peer mR-10">
                                         <img class="w-2r bdrs-50p"
                                             src="{{ Auth::user()->foto ? asset('uploads/photos/' . Auth::user()->foto) : asset('images/unknown-avatar.png') }}"
@@ -487,7 +487,7 @@
                                     <div class="peer">
                                         <span class="fsz-sm c-grey-900">{{ Auth::user()->name }}</span>
                                     </div>
-                                </a>
+                                </div>
                             </li>
                         </ul>
                     </div>

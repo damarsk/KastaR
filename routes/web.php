@@ -11,6 +11,7 @@ use App\Http\Controllers\{
     PembelianDetailController,
     ManageKasirController,
     ManageAdminController,
+    MemberController,
 };
 
 /*
@@ -43,6 +44,23 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     // DASH-KATEGORI
     Route::get('/kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
     Route::resource('kategori', KategoriController::class);
+
+    // DASH-MEMBER
+    Route::get('/member/data', [MemberController::class, 'data'])->name('member.data');
+    Route::post('/member/cetak-member', [MemberController::class, 'cetakMember'])->name('member.cetakMember');
+    Route::resource('member', MemberController::class);
+
+
+
+
+
+
+
+
+
+
+
+
 
     // DASH-PRODUK
     Route::get('/produk/data', [ProdukController::class, 'data'])->name('produk.data');

@@ -23,13 +23,13 @@ $(document).ready(function() {
     // Dropdown Toggle with animations
     $('.sidebar-menu li.dropdown').each(function() {
         var $dropdown = $(this);
-        
+
         // Handle dropdown toggle click
         $dropdown.find('> a.dropdown-toggle').on('click', function(e) {
             e.preventDefault();
-            
+
             var $currentDropdown = $dropdown;
-            
+
             // If the clicked dropdown is not open, close all dropdowns first
             if (!$currentDropdown.hasClass('open')) {
                 $('.sidebar-menu li.dropdown.open').each(function() {
@@ -38,7 +38,7 @@ $(document).ready(function() {
                     $openDropdown.find('.arrow i').removeClass('rotate-90');
                 });
             }
-            
+
             // Toggle current dropdown with slight delay for smooth animation
             setTimeout(function() {
                 $currentDropdown.toggleClass('open');
@@ -55,8 +55,8 @@ $(document).ready(function() {
 
     $(document).on('click', function(e) {
         if ($(window).width() <= 991) {
-            if (!$(e.target).closest('.sidebar').length && 
-                !$(e.target).closest('.mobile-toggle').length && 
+            if (!$(e.target).closest('.sidebar').length &&
+                !$(e.target).closest('.mobile-toggle').length &&
                 !$(e.target).closest('#sidebar-toggle').length) {
                 $('.sidebar').removeClass('sidebar-visible').addClass('sidebar-hidden');
             }
@@ -76,4 +76,15 @@ $(document).ready(function() {
             }
         );
     }
+
+    // Handle Validator
+    $('.needs-validation').each(function() {
+        $(this).on('submit', function(event) {
+            if (!this.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            $(this).addClass('was-validated');
+        });
+    });
 });

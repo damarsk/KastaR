@@ -2525,13 +2525,13 @@ progress {
 .form-control::-moz-placeholder {
     color: rgba(33, 37, 41, .75);
     color: var(--bs-secondary-color);
-    opacity: 1
+    opacity: 0.6
 }
 
 .form-control::placeholder {
     color: rgba(33, 37, 41, .75);
     color: var(--bs-secondary-color);
-    opacity: 1
+    opacity: 0.6
 }
 
 .form-control:disabled {

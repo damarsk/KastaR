@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Models\Produk;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProdukController extends Controller
 {
@@ -140,10 +141,15 @@ class ProdukController extends Controller
         $dataproduk = array();
         foreach ($request->id_produk as $id) {
             $produk = Produk::find($id);
-            $dataproduk[] = $produk;
+            if ($produk) {
+                $dataproduk[] = $produk;
+            }
         }
 
         $count = 1;
-        return view('produk.barcode', compact('dataproduk', 'count'));
+        // Menghasilkan PDF dengan data produk dan barcode
+        $pdf = Pdf::loadView('produk.barcode', compact('dataproduk', 'count'));
+        $pdf->setPaper('a4', 'potrait');
+        return $pdf->stream('barcode_produk.pdf');
     }
 }
