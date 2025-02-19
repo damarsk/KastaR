@@ -18,7 +18,7 @@
             background: #f0f0f0;
         }
 
-        .dataTable tbody tr:last-child {
+        .transaksi-table tbody tr:last-child {
             display: none;
         }
 
@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <table id="dataTable" class="table table-striped table-bordered my-3" cellspacing="0"
+                            <table id="dataTable" class="table table-striped table-bordered my-3 transaksi-table" cellspacing="0"
                                 width="100%">
                                 <thead>
                                     <th style="width: 5%">No</th>

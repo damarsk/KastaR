@@ -28,7 +28,7 @@
                             </div>
                             <form action="" method="POST" class="form-supplier">
                                 @csrf
-                                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0"
+                                <table id="tabel-detail" class="table table-striped table-bordered" cellspacing="0"
                                     width="100%">
                                     <thead>
                                         <th style="width: 5%">No</th>
@@ -55,8 +55,12 @@
     <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
     <script src="{{ asset('js-lib/validator.min.js') }}"></script>
     <script>
+        let detailTable;
+        let supplierTable;
+        let detailModalTable;
+
         $(function() {
-            $('#dataTable').DataTable({
+            detailTable = $('#tabel-detail').DataTable({
                 processing: true,
                 autoWidth: false,
                 ajax: {
@@ -95,30 +99,21 @@
         });
 
         $(function() {
-            $('#modalDetailTable').DataTable({
+            supplierTable = $('#modalSupplierTable').DataTable();
+        });
+
+        $(function() {
+            detailModalTable = $('#modalDetailTable').DataTable({
                 processing: true,
-                autoWidth: false,
-                ajax: {
-                    url: '{{ route('supplier.data') }}',
-                },
-                columns: [{
-                        data: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'nama'
-                    },
-                    {
-                        data: 'telepon'
-                    },
-                    {
-                        data: 'alamat'
-                    },
-                    {
-                        data: 'aksi',
-                        searchable: false
-                    }
+                bSort: false,
+                dom: 'Brt',
+                columns: [
+                    {data: 'DT_RowIndex', searchable: false, sortable: false},
+                    {data: 'kode_produk'},
+                    {data: 'nama_produk'},
+                    {data: 'harga_beli'},
+                    {data: 'jumlah'},
+                    {data: 'subtotal'},
                 ]
             });
         });
@@ -127,9 +122,10 @@
             $('#modal-supplier').modal('show');
         }
 
-        function showDetail() {
+        function showDetail(url) {
             event.preventDefault();
             $('#modal-detail').modal('show');
+            detailModalTable.ajax.url(url).load();
         }
 
         function deleteData(url) {
