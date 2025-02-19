@@ -1,17 +1,20 @@
-Berikut adalah versi yang telah diubah dari README.md untuk proyek KastaR (Kasir Pintar):
-
 # KastaR (Kasir Pintar)
 
 Projek ini adalah sebuah aplikasi kasir pintar yang dibuat untuk Uji Kompetensi Rekayasa Perangkat Lunak di SMK.
 
 ## Fitur
 
-- Pendaftaran pengguna
-- Pencarian produk
-- Peminjaman produk
-- Pengembalian produk
-- Manajemen produk oleh admin
-- Laporan penjualan
+- Pendaftaran Pengguna
+- Laporan Penjualan
+- Pembelian Produk (Pengeluaran)
+- Penjualan Produk
+- Manajemen Kategori
+- Manajemen Produk
+- Manajemen (Admin, Kasir, Member)
+- Cetak Barcode Produk
+- Cetak QRCODE Member
+- Setting Toko
+- Notifikasi
 
 ## Teknologi yang Digunakan
 
