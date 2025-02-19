@@ -10,6 +10,9 @@ $(document).ready(function() {
     function handleResize() {
         if ($(window).width() <= 991) {
             $('body').removeClass('is-collapsed');
+        } else {
+            $('.sidebar').removeClass('sidebar-hidden');
+            $('.sidebar').removeClass('sidebar-visible');
         }
     }
 
