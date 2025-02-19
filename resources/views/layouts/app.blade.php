@@ -164,45 +164,45 @@
                     <ul class="sidebar-menu scrollable pos-r">
                         <li class="nav-item mT-30 actived">
                             <a class="sidebar-link" href="{{ route('dashboard.index') }}">
-                                <span class="icon-holder"><i class="c-blue-500 ti-home"></i></span>
+                                <span class="icon-holder"><i class="c-grey-900 ti-home"></i></span>
                                 <span class="title">Dashboard</span>
                             </a>
                         </li>
                         @if (Auth::user()->level == 1 || Auth::user()->level == 2)
                             <li class="nav-item dropdown">
                                 <a class="dropdown-toggle" href="javascript:void(0);">
-                                    <span class="icon-holder"><i class="c-light-blue-500 ti-money"></i></span>
+                                    <span class="icon-holder"><i class="c-green-500 ti-money"></i></span>
                                     <span class="title">Transaksi</span>
                                     <span class="arrow"><i class="ti-angle-right"></i></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a class="sidebar-link" href="{{ route('pengeluaran.index') }}">
-                                            <i class="c-light-blue-500 ti-money me-2"></i>
+                                            <i class="c-green-500 ti-money me-2"></i>
                                             Pengeluaran
                                         </a>
                                     </li>
                                     <li>
                                         <a class="sidebar-link" href="{{ route('pembelian.index') }}">
-                                            <i class="c-light-blue-500 ti-download me-2"></i>
+                                            <i class="c-green-500 ti-download me-2"></i>
                                             Pembelian
                                         </a>
                                     </li>
                                     <li>
                                         <a class="sidebar-link" href="datatable.html">
-                                            <i class="c-light-blue-500 ti-upload me-2"></i>
+                                            <i class="c-green-500 ti-upload me-2"></i>
                                             Penjualan
                                         </a>
                                     </li>
                                     <li>
                                         <a class="sidebar-link" href="datatable.html">
-                                            <i class="c-light-blue-500 ti-shopping-cart me-2"></i>
+                                            <i class="c-green-500 ti-shopping-cart me-2"></i>
                                             Transaksi Lama
                                         </a>
                                     </li>
                                     <li>
                                         <a class="sidebar-link" href="datatable.html">
-                                            <i class="c-light-blue-500 ti-shopping-cart me-2"></i>
+                                            <i class="c-green-500 ti-shopping-cart me-2"></i>
                                             Transaksi Aktif
                                         </a>
                                     </li>
@@ -216,19 +216,19 @@
                             </li>
                             <li class="nav-item">
                                 <a class="sidebar-link" href="{{ route('kategori.index') }}">
-                                    <span class="icon-holder"><i class="c-red-500 ti-package"></i></span>
+                                    <span class="icon-holder"><i class="c-brown-600 ti-package"></i></span>
                                     <span class="title">Kategori</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="sidebar-link" href="{{ route('produk.index') }}">
-                                    <span class="icon-holder"><i class="c-grey-500 ti-dropbox"></i></span>
+                                    <span class="icon-holder"><i class="c-green-300 ti-dropbox"></i></span>
                                     <span class="title">Produk</span>
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="dropdown-toggle" href="javascript:void(0);">
-                                    <span class="icon-holder"><i class="c-pink-500 ti-id-badge"></i></span>
+                                    <span class="icon-holder"><i class="c-blue-500 ti-id-badge"></i></span>
                                     <span class="title">Users</span>
                                     <span class="arrow"><i class="ti-angle-right"></i></span>
                                 </a>
@@ -236,21 +236,26 @@
                                     @if (Auth::user()->level == 2)
                                         <li>
                                             <a class="sidebar-link" href="{{ route('admin.index') }}">
-                                                <i class="c-pink-500 ti-user me-2"></i>
+                                                <i class="c-blue-500 ti-user me-2"></i>
                                                 Manage Admin
                                             </a>
                                         </li>
                                     @endif
                                     <li>
-                                        <a class="sidebar-link" href="{{ route('kasir.index') }}">
-                                            <i class="c-pink-500 ti-user me-2"></i>
-                                            Manage Kasir
+                                        <a class="sidebar-link" href="{{ route('supplier.index') }}">
+                                            <i class="c-blue-500 ti-user me-2"></i>
+                                            Manage Supplier
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="sidebar-link" href="{{ route('supplier.index') }}">
-                                            <i class="c-green-500 ti-truck me-2"></i>
-                                            Manage Supplier
+                                        <a class="sidebar-link" href="{{ route('member.index') }}">
+                                            <i class="c-blue-500 ti-user me-2"></i>
+                                            Manage Member
+                                        </a>
+                                    <li>
+                                        <a class="sidebar-link" href="{{ route('kasir.index') }}">
+                                            <i class="c-blue-500 ti-user me-2"></i>
+                                            Manage Kasir
                                         </a>
                                     </li>
                                 </ul>
@@ -258,19 +263,19 @@
                         @endif
                         @if (Auth::user()->level == 0)
                             <li class="nav-item"><a class="sidebar-link" href="index.html"><span
-                                        class="icon-holder"><i class="c-light-blue-500 ti-shopping-cart-full"></i>
+                                        class="icon-holder"><i class="c-green-500 ti-shopping-cart-full"></i>
                                     </span><span class="title">Transaksi Baru</span></a></li>
                         @endif
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="javascript:void(0);">
-                                <span class="icon-holder"><i class="c-brown-500 ti-user"></i></span>
+                                <span class="icon-holder"><i class="c-grey-700 ti-user"></i></span>
                                 <span class="title">Profile</span>
                                 <span class="arrow"><i class="ti-angle-right"></i></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
                                     <a class="sidebar-link" href="basic-table.html">
-                                        <i class="c-grey-500 ti-settings me-2"></i> Settings
+                                        <i class="c-grey-800 ti-settings me-2"></i> Settings
                                     </a>
                                 </li>
                                 <li>
