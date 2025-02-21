@@ -1,28 +1,33 @@
-Berikut adalah versi yang telah diubah dari README.md untuk proyek KastaR (Kasir Pintar):
-
-# KastaR (Kasir Pintar)
+# 🛒KastaR (Kasir Pintar)
 
 Projek ini adalah sebuah aplikasi kasir pintar yang dibuat untuk Uji Kompetensi Rekayasa Perangkat Lunak di SMK.
 
-## Fitur
+## 📃Fitur
 
-- Pendaftaran pengguna
-- Pencarian produk
-- Peminjaman produk
-- Pengembalian produk
-- Manajemen produk oleh admin
-- Laporan penjualan
+- Pendaftaran Pengguna
+- Laporan Penjualan
+- Pembelian Produk (Pengeluaran)
+- Penjualan Produk
+- Manajemen Kategori
+- Manajemen Produk
+- Manajemen (Admin, Kasir, Member)
+- Cetak Barcode Produk
+- Cetak QRCODE Member
+- Setting Toko
+- Notifikasi
 
-## Teknologi yang Digunakan
+## 🌐Teknologi yang Digunakan
 
 - HTML
-- CSS
-- JavaScript
+- CSS (Bootstrap)
+- JavaScript (JQuery, Sweetalert)
 - PHP (Laravel)
 - MySQL
-- Laravel Breeze
+- Laravel Breeze (Auth)
+- Dompdf (Cetak PDF)
+- Milon/Barcode (Cetak Barcode)
 
-## Cara Instalasi
+## 📩Cara Instalasi
 
 1. Clone repositori ini:
     ```bash
@@ -50,10 +55,10 @@ Projek ini adalah sebuah aplikasi kasir pintar yang dibuat untuk Uji Kompetensi 
     php artisan serve
     ```
 
-## Kontribusi
+## 🤝Kontribusi
 
 Jika Anda ingin berkontribusi pada proyek ini, silakan fork repositori ini dan buat pull request dengan perubahan Anda.
 
-## Kontak
+## 📞Kontak
 
 Jika Anda memiliki pertanyaan atau saran, silakan hubungi saya di [damarsyahada12@gmail.com](mailto:damarsyahada12@gmail.com).
