@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Http\Validations\ValidationMessages;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MemberController extends Controller
 {
@@ -13,7 +14,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        return view('member.index');
+        return view('manage_member.index');
     }
 
     public function data()
@@ -62,8 +63,8 @@ class MemberController extends Controller
             'alamat' => 'required|min:6|max:300',
         ], ValidationMessages::memberControllerMessages());
 
-        $member = Member::latest()->first();
-        $kode_member = $member ? (int) $member->kode_member + 1 : 1;
+        $member = Member::latest()->first() ?? new Member();
+        $kode_member = (int) $member->kode_member +1;
 
         $member = new Member();
         $member->kode_member = tambah_nol_didepan($kode_member, 5);
@@ -72,7 +73,7 @@ class MemberController extends Controller
         $member->alamat = $request->alamat;
         $member->save();
 
-        return response()->json('Data Berhasil Disimpan', 200);
+        return response()->json('Data berhasil disimpan', 200);
     }
 
     /**
@@ -123,8 +124,23 @@ class MemberController extends Controller
     }
 
     // PRINT BARCODE
-    public function cetakMember()
+    public function cetakMember(Request $request)
     {
-        return 'TEST';
+        try {
+            $datamember = collect(array());
+            foreach ($request->id_member as $id) {
+                $member = Member::find($id);
+                $datamember[] = $member;
+            }
+
+            $datamember = $datamember->chunk(2);
+
+            $no = 1;
+            $pdf = Pdf::loadView('manage_member.cetak', compact('datamember', 'no'));
+            $pdf->setPaper(array(0, 0, 566.93, 850.39), 'portrait');
+            return $pdf->stream('member.pdf');
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }

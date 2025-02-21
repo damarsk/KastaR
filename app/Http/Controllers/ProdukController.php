@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kategori;
 use Illuminate\Http\Request;
-use App\Models\Produk;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Produk;
+use App\Models\Kategori;
 
 class ProdukController extends Controller
 {

@@ -50,18 +50,6 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::post('/member/cetak-member', [MemberController::class, 'cetakMember'])->name('member.cetakMember');
     Route::resource('member', MemberController::class);
 
-
-
-
-
-
-
-
-
-
-
-
-
     // DASH-PRODUK
     Route::get('/produk/data', [ProdukController::class, 'data'])->name('produk.data');
     Route::post('/produk/delete-selected', [ProdukController::class, 'deleteSelected'])->name('produk.deleteSelected');

@@ -37,7 +37,7 @@
             </div>
         </div>
     </main>
-    @includeIf('supplier.form')
+    @includeIf('manage_supplier.form')
 @endsection
 
 @section('scripts')
@@ -48,7 +48,7 @@
         let table;
 
         $(function() {
-            // Inisialisasi DataTables  
+            // Inisialisasi DataTables
             table = $('#dataTable').DataTable({
                 processing: true,
                 autoWidth: false,
@@ -96,7 +96,7 @@
             });
         });
 
-        // Fungsi untuk menampilkan modal tambah form    
+        // Fungsi untuk menampilkan modal tambah form
         function addForm(url) {
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').text('Tambah Supplier');
@@ -104,7 +104,7 @@
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('post');
 
-            // Tambahkan event listener untuk fokus setelah modal ditampilkan    
+            // Tambahkan event listener untuk fokus setelah modal ditampilkan
             $('#modal-form').on('shown.bs.modal', function() {
                 $('#modal-form [name=nama_supplier]').focus();
             });
@@ -112,12 +112,12 @@
 
         function editForm(url) {
             $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Edit Supplier'); // Ubah judul menjadi 'Edit Supplier'  
+            $('#modal-form .modal-title').text('Edit Supplier'); // Ubah judul menjadi 'Edit Supplier'
             $('#modal-form form').get(0).reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('put');
 
-            // Tambahkan event listener untuk fokus setelah modal ditampilkan    
+            // Tambahkan event listener untuk fokus setelah modal ditampilkan
             $('#modal-form').on('shown.bs.modal', function() {
                 $('#modal-form [name=nama]').focus();
             });
@@ -127,7 +127,7 @@
                     $('#modal-form [name=nama]').val(response.nama);
                     $('#modal-form [name=alamat]').val(response.alamat);
                     $('#modal-form [name=telepon]').val(response.telepon);
-                    // Tambahkan kolom lain yang ada di tabel supplier jika diperlukan  
+                    // Tambahkan kolom lain yang ada di tabel supplier jika diperlukan
                 })
                 .fail((errors) => {
                     alert('Tidak dapat menampilkan data');

@@ -14,9 +14,9 @@
                         <div class="bgc-white bd bdrs-3 p-20 mB-20">
                             <h4 class="c-grey-900 mB-20" style="float: left">Tabel Member</h4>
                             <div class="btn-group" style="float: right; margin-bottom: 10px;">
-                                <button type="button" onclick="addForm('{{ route('member.store') }}')" style="float: right"
+                                <button onclick="addForm('{{ route('member.store') }}')" style="float: right"
                                 class="btn cur-p btn-success btn-color btn-sm mb-4"><i class="fa fa-plus"></i> Tambah Member</button>
-                                <button type="button" onclick="cetakMember('{{ route('member.cetakMember') }}')" style="float: right"
+                                <button onclick="cetakMember('{{ route('member.cetakMember') }}')" style="float: right"
                                     class="btn cur-p btn-info btn-color btn-sm mb-4"><i class="fa fa-barcode"></i> Cetak Member</button>
                             </div>
                             <form action="" action="POST" class="form-member">
@@ -41,7 +41,7 @@
             </div>
         </div>
     </main>
-    @includeIf('member.form')
+    @includeIf('manage_member.form')
 @endsection
 
 @section('scripts')
@@ -53,9 +53,7 @@
 
         $(function() {
             table = $('.table').DataTable({
-                responsive: true,
                 processing: true,
-                serverSide: true,
                 autoWidth: false,
                 ajax: {
                     url: '{{ route('member.data') }}',
@@ -167,6 +165,7 @@
                 $('.form-member')
                 .attr('target', '_blank')
                 .attr('action', url)
+                .attr('method', 'POST')
                 .submit();
             }
         }

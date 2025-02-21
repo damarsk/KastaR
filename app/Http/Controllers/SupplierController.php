@@ -10,7 +10,7 @@ class SupplierController extends Controller
     public function index()
     {
         $suppliers = Supplier::all();
-        return view('supplier.index', compact('suppliers'));
+        return view('manage_supplier.index', compact('suppliers'));
     }
 
     public function data()
@@ -22,19 +22,19 @@ class SupplierController extends Controller
             ->of($supplier)
             ->addIndexColumn()
             ->addColumn('aksi', function ($supplier) {
-                return '  
-                <div class="btn-group" role="group" aria-label="Basic mixed styles example">  
+                return '
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                 <button type="button" onclick="editForm(`' .
                     route('supplier.update', $supplier->id_supplier) .
                     '`)" class="btn btn-primary btn-sm text-white" id="edit" data-id="' .
                     $supplier->id_supplier .
-                    '"><i class="fa fa-edit"></i></button>  
+                    '"><i class="fa fa-edit"></i></button>
                 <button type="button" onclick="deleteData(`' .
                     route('supplier.destroy', $supplier->id_supplier) .
                     '`)" class="btn btn-danger btn-sm text-white" id="hapus" data-id="' .
                     $supplier->id_supplier .
-                    '"><i class="fa fa-trash"></i></button>  
-                </div>  
+                    '"><i class="fa fa-trash"></i></button>
+                </div>
                 ';
             })
             ->rawColumns(['aksi'])
