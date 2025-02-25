@@ -18,9 +18,10 @@ class SettingTableSeeder extends Seeder
             'nama_perusahaan' => 'DaMart',
             'alamat' => 'Jl. Gading Junti Asri Blok M2 No.55, Kabupaten Bandung',
             'telepon' => '087731043392',
-            'tipe_nota' => '1',
+            'tipe_nota' => '1', // Small
             'diskon' => '0',
-            'path_logo' => asset('land_style/img/logo.png'),
+            'path_logo' => 'land_style/img/logo.png',
+            'path_kartu_member' => 'images/member.png',
         ]);
     }
 }

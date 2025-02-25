@@ -49,7 +49,7 @@
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="email">Email</label>
                                             <input type="email" id="form2Example11" name="email"
-                                                class="form-control" placeholder="Enter your Email" required />
+                                                class="form-control" placeholder="Enter your Email" required autofocus/>
                                         </div>
 
                                         <div class="form-outline mb-4">
