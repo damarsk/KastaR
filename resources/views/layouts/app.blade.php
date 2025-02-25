@@ -189,19 +189,19 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="sidebar-link" href="datatable.html">
+                                        <a class="sidebar-link" href="#">
                                             <i class="c-green-500 ti-upload me-2"></i>
                                             Penjualan
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="sidebar-link" href="datatable.html">
+                                        <a class="sidebar-link" href="{{ route('transaksi.index') }}">
                                             <i class="c-green-500 ti-shopping-cart me-2"></i>
                                             Transaksi Lama
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="sidebar-link" href="datatable.html">
+                                        <a class="sidebar-link" href="{{ route('transaksi.baru') }}">
                                             <i class="c-green-500 ti-shopping-cart me-2"></i>
                                             Transaksi Aktif
                                         </a>
