@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('land_style/img/logo.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('land_style/img/logo-circle.png') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
+    {{-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     @yield('styles')
     <style>
         #loader {
@@ -143,8 +144,8 @@
                                     <div class="peers ai-c fxw-nw">
                                         <div class="peer">
                                             <div class="logo d-flex justify-content-center align-items-center">
-                                                <img src="{{ asset('land_style/img/logo.png') }}" alt="Logo"
-                                                    width="70px">
+                                                <img src="{{ asset('land_style/img/logo-circle.png') }}" alt="Logo"
+                                                    width="40px">
                                             </div>
                                         </div>
                                         <div class="peer peer-greed">

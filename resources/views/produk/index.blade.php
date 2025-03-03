@@ -106,7 +106,13 @@
                         orderable: false,
                         searchable: false
                     }
-                ]
+                ],
+                createdRow: function(row, data, dataIndex) {
+                    var stok = parseInt(data.stok);
+                    if (stok < 50) {
+                        $('td', row).eq(9).css('color', 'red');
+                    }
+                }
             });
 
             $('#modal-form').validator().on('submit', function(e) {
