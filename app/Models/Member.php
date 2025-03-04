@@ -11,6 +11,5 @@ class Member extends Model
 
     protected $table = 'member';
     protected $primaryKey = 'id_member';
-    protected $fillable = ['nama', 'telepon', 'alamat'];
-    protected $guarded = ['id_member', 'kode_member'];
+    protected $guarded = [];
 }

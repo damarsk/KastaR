@@ -78,8 +78,15 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::resource('/pembelian_detail', PembelianDetailController::class)
         ->except('create', 'show', 'edit', 'update');
 
+    Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
+    Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+    Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
+
     // PENJUALAN
     Route::get('/transaksi/baru', [PenjualanController::class, 'create'])->name('transaksi.baru');
+    Route::post('/transaksi/simpan', [PenjualanController::class, 'store'])->name('transaksi.simpan');
+
+    // PENJUALAN-DETAIL
     Route::get('/transaksi/{id}/data', [PenjualanDetailController::class, 'data'])->name('transaksi.data');
     Route::get('/transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadform'])->name('transaksi.load_form');
     Route::resource('/transaksi', PenjualanDetailController::class)

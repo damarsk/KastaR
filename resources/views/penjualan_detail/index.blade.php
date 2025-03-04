@@ -75,25 +75,25 @@
                                     <div class="tampil-terbilang">Rp.</div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <form action="{{ 'penjualan.store' }}" class="form-penjualan" method="post">
+                                    <form action="{{ route('transaksi.simpan') }}" class="form-penjualan" method="post">
                                         @csrf
                                         <input type="hidden" name="id_penjualan" value="{{ $id_penjualan }}">
                                         <input type="hidden" name="total" id="total">
                                         <input type="hidden" name="total_item" id="total_item">
                                         <input type="hidden" name="bayar" id="bayar">
-                                        <input type="hidden" name="id_member" id="id_member">
+                                        <input type="hidden" name="id_member" id="id_member" value="{{ $penjualan->id_member }}">
 
                                         <div class="form-group row mb-3">
                                             <label for="totalrp" class="col-lg-2 control-label">Total</label>
                                             <div class="col-lg-8">
-                                                <input type="text" id="totalrp" class="form-control" readonly disabled>
+                                                <input type="text" id="totalrp" class="form-control" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
                                             <label for="kode_member" class="col-lg-2 control-label">Member</label>
                                             <div class="col-lg-8">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" id="kode_member">
+                                                    <input type="text" class="form-control" id="kode_member" value="{{ $kodeMember }}">
                                                     <button onclick="tampilMember()" class="btn btn-secondary text-white"
                                                         type="button" id="button-addon2"><i
                                                             class="fa fa-arrow-right"></i></button>
@@ -104,31 +104,31 @@
                                             <label for="diskon" class="col-lg-2 control-label">Diskon</label>
                                             <div class="col-lg-8">
                                                 <input type="text" name="diskon" id="diskon" class="form-control"
-                                                    value="0" readonly disabled>
+                                                value="{{ ! empty($penjualan->id_member) ? $diskon : 0 }}" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
                                             <label for="bayar" class="col-lg-2 control-label">Bayar</label>
                                             <div class="col-lg-8">
-                                                <input type="text" id="bayarrp" class="form-control" readonly disabled>
+                                                <input type="text" id="bayarrp" class="form-control" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
                                             <label for="diterima" class="col-lg-2 control-label">Diterima</label>
                                             <div class="col-lg-8">
-                                                <input type="text" id="diterima" class="form-control"
-                                                    value="0">
+                                                <input type="text" id="diterima" name="diterima" class="form-control"
+                                                value="{{ $penjualan->diterima ?? 0 }}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="kembali" class="col-lg-2 control-label">Kembali</label>
                                             <div class="col-lg-8">
-                                                <input type="text" id="kembali" class="form-control" value="0"
-                                                    readonly disabled>
+                                                <input type="text" id="kembali" name="kembali" class="form-control" value="0"
+                                                    readonly>
                                             </div>
                                         </div>
                                     </form>
-                                    <div class="box-footer pt-3">
+                                    <div class="box-footer mt-5">
                                         <button type="submit"
                                             class="btn btn-primary btn-sm pull-right btn-simpan text-white"><i
                                                 class="fa fa-floppy-o"></i> Simpan Transaksi</button>
@@ -240,8 +240,7 @@
                 if ($(this).val() == "") {
                     $(this).val(0).select();
                 }
-
-                loadForm($(this).val());
+                loadForm($('#diskon').val(), $(this).val());
             }).focus(function () {
                 $(this).select();
             });
@@ -265,7 +264,7 @@
             $.post('{{ route('transaksi.store') }}', $('.form-produk').serialize())
                 .done((response) => {
                     $('#kode_produk').focus();
-                    table.ajax.reload();
+                    table.ajax.reload(() => loadForm($('#diskon').val()));
                 })
                 .fail((errors) => {
                     alert('Tidak dapat menyimpan data');
@@ -295,7 +294,7 @@
                     })
                     .done((response) => {
                         alert('Data berhasil dihapus');
-                        table.ajax.reload();
+                        table.ajax.reload(() => loadForm($('#diskon').val()));
                     })
                     .fail((errors) => {
                         alert('Tidak dapat menghapus data');
@@ -313,8 +312,14 @@
                     $('#totalrp').val('Rp. ' + response.totalrp);
                     $('#bayarrp').val('Rp. ' + response.bayarrp);
                     $('#bayar').val(response.bayar);
-                    $('.tampil-bayar').text('Rp. ' + (response.bayarrp || '0'));
-                    $('.tampil-terbilang').text('Rp. ' + response.terbilang);
+                    $('.tampil-bayar').text('Bayar: Rp. ' + (response.bayarrp || '0'));
+                    $('.tampil-terbilang').text(response.terbilang);
+
+                    $('#kembali').val('Rp.'+ response.kembalirp);
+                    if ($('#diterima').val() != 0) {
+                        $('.tampil-bayar').text('Kembali: Rp. '+ response.kembalirp);
+                        $('.tampil-terbilang').text(response.kembali_terbilang);
+                    }
                 })
                 .fail((errors) => {
                     alert('Tidak dapat menampilkan data');

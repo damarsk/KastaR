@@ -11,19 +11,24 @@ use Illuminate\Http\Request;
 
 class PenjualanDetailController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $produk = Produk::orderBy('nama_produk')->get();
         $member = Member::orderBy('nama')->get();
         $diskon = Setting::first()->diskon ?? 0;
 
+        // Cek apakah ada transaksi yang sedang berjalan
         if ($id_penjualan = session('id_penjualan')) {
-            return view('penjualan_detail.index', compact('produk', 'member', 'diskon', 'id_penjualan'));
-        }
+            $penjualan = Penjualan::find($id_penjualan);
+            $kodeMember = Member::find($penjualan->id_member)->kode_member ?? '';
 
-        if(auth()->user()->level == 1) {
-            return redirect()->route('transaksi.baru');
+            return view('penjualan_detail.index', compact('produk', 'member', 'diskon', 'id_penjualan', 'penjualan', 'kodeMember'));
         } else {
-            return redirect()->route('dashboard.index');
+            if (auth()->user()->level == 1) {
+                return redirect()->route('transaksi.baru');
+            } else {
+                return redirect()->route('home');
+            }
         }
     }
 
@@ -89,6 +94,23 @@ class PenjualanDetailController extends Controller
         return response()->json(['status' => '200', 'id' => $detail->id_penjualan_detail]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $detail = PenjualanDetail::findOrFail($id);
+        $detail->jumlah = $request->jumlah;
+        $detail->subtotal = $detail->harga_jual * $request->jumlah;
+        $detail->update();
+
+        return response()->json(['status' => '200']);
+    }
+
+    public function destroy($id) {
+        $detail = PenjualanDetail::findOrFail($id);
+        $detail->delete();
+
+        return response()->json(['status' => '200']);
+    }
+
     public function loadform($diskon, $total, $diterima)
     {
         $bayar = $total - ($total * $diskon / 100);
@@ -99,6 +121,7 @@ class PenjualanDetailController extends Controller
             'bayarrp' => format_uang($bayar),
             'terbilang' => ucwords(terbilang($bayar) . ' Rupiah'),
             'kembalirp' => format_uang($kembali),
+            'kembali_terbilang' => ucwords(terbilang($kembali) . ' Rupiah'),
         ];
 
         return response()->json($data);
