@@ -276,7 +276,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="sidebar-link" href="basic-table.html">
+                                    <a class="sidebar-link" href="{{ route('setting.index') }}">
                                         <i class="c-grey-800 ti-settings me-2"></i> Settings
                                     </a>
                                 </li>

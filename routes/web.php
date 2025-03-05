@@ -14,7 +14,8 @@ use App\Http\Controllers\{
     MemberController,
     PenjualanController,
     PenjualanDetailController,
-    LaporanController
+    LaporanController,
+    SettingController
 };
 
 /*
@@ -119,6 +120,12 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
         Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
         Route::get('/laporan/data/{tglAwal}/{tglAkhir}', [LaporanController::class, 'data'])->name('laporan.data');
         Route::get('/laporan/pdf/{tglAwal}/{tglAkhir}', [LaporanController::class, 'exportPDF'])->name('laporan.export_pdf');
+    });
+
+    Route::middleware('check.role:2')->group(function () {
+        Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
+        Route::get('/setting/first', [SettingController::class, 'show'])->name('setting.show');
+        Route::post('/setting', [SettingController::class, 'update'])->name('setting.update');
     });
 
     // AUTH

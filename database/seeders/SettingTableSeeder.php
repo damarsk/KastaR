@@ -20,8 +20,8 @@ class SettingTableSeeder extends Seeder
             'telepon' => '087731043392',
             'tipe_nota' => '1', // Small
             'diskon' => '0', // 0% Diskon
-            'path_logo' => 'land_style/img/logo-circle.png',
-            'path_kartu_member' => 'images/member.png',
+            'path_logo' => '/land_style/img/logo-circle.png',
+            'path_kartu_member' => '/images/member.png',
         ]);
     }
 }
