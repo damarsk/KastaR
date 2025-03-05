@@ -169,6 +169,7 @@
                                 <span class="title">Dashboard</span>
                             </a>
                         </li>
+                        <hr class="bgc-grey-900 mx-2">
                         @if (Auth::user()->level == 1 || Auth::user()->level == 2)
                             <li class="nav-item dropdown">
                                 <a class="dropdown-toggle" href="javascript:void(0);">
@@ -210,7 +211,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="sidebar-link" href="charts.html">
+                                <a class="sidebar-link" href="{{ route('laporan.index') }}">
                                     <span class="icon-holder"><i class="c-indigo-500 ti-bar-chart"></i></span>
                                     <span class="title">Analisis</span>
                                 </a>

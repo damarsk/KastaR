@@ -14444,7 +14444,7 @@ a.btn:hover {
     display: none;
 }
 
-.active > .dropdown-menu {
+.active>.dropdown-menu {
     display: block;
 }
 
@@ -78426,7 +78426,7 @@ footer {
 }
 
 @media (forced-colors: none),
-       screen and (forced-colors: active) {
+screen and (forced-colors: active) {
     .ps {
         overflow: auto !important;
     }

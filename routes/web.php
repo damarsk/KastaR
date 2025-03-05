@@ -14,6 +14,7 @@ use App\Http\Controllers\{
     MemberController,
     PenjualanController,
     PenjualanDetailController,
+    LaporanController
 };
 
 /*
@@ -47,20 +48,11 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('/kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
     Route::resource('kategori', KategoriController::class);
 
-    // DASH-MEMBER
-    Route::get('/member/data', [MemberController::class, 'data'])->name('member.data');
-    Route::post('/member/cetak-member', [MemberController::class, 'cetakMember'])->name('member.cetakMember');
-    Route::resource('member', MemberController::class);
-
     // DASH-PRODUK
     Route::get('/produk/data', [ProdukController::class, 'data'])->name('produk.data');
     Route::post('/produk/delete-selected', [ProdukController::class, 'deleteSelected'])->name('produk.deleteSelected');
     Route::post('/produk/cetak-barcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetakBarcode');
     Route::resource('produk', ProdukController::class);
-
-    // DASH-SUPPLIER
-    Route::get('/supplier/data', [SupplierController::class, 'data'])->name('supplier.data');
-    Route::resource('supplier', SupplierController::class);
 
     // DASH-PENGELUARAN
     Route::get('/pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
@@ -96,23 +88,37 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::resource('/transaksi', PenjualanDetailController::class)
         ->except('show');
 
-    // DASH-MANAGE-KASIR && MANAGE ADMIN
+    // MANAGE USER ROUTE
     Route::prefix('manage')->group(function () {
-        // MANAGE PETUGAS KASIR (Hanya bisa diakses oleh level 1 & 2)
+        // DASH-MEMBER
+        Route::middleware('check.role:0,1,2')->group(function () {
+            Route::get('/member/data', [MemberController::class, 'data'])->name('member.data');
+            Route::post('/member/cetak-member', [MemberController::class, 'cetakMember'])->name('member.cetakMember');
+            Route::resource('member', MemberController::class);
+        });
+
         Route::middleware('check.role:1,2')->group(function () {
             Route::get('/kasir/data', [ManageKasirController::class, 'data'])->name('kasir.data');
             Route::get('/kasir/edit/{id}', [ManageKasirController::class, 'edit'])->name('kasir.edit');
             Route::patch('/kasir/update/{id}', [ManageKasirController::class, 'update'])->name('kasir.update');
             Route::resource('kasir', ManageKasirController::class)->except(['edit', 'update']);
+
+            Route::get('/supplier/data', [SupplierController::class, 'data'])->name('supplier.data');
+            Route::resource('supplier', SupplierController::class);
         });
 
-        // MANAGE ADMIN (Hanya bisa diakses oleh level 2)
         Route::middleware('check.role:2')->group(function () {
             Route::get('/admin/data', [ManageAdminController::class, 'data'])->name('admin.data');
             Route::get('/admin/edit/{id}', [ManageAdminController::class, 'edit'])->name('admin.edit');
             Route::patch('/admin/update/{id}', [ManageAdminController::class, 'update'])->name('admin.update');
             Route::resource('admin', ManageAdminController::class)->except(['edit', 'update']);
         });
+    });
+
+    Route::middleware('check.role:1,2')->group(function () {
+        Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+        Route::get('/laporan/data/{tglAwal}/{tglAkhir}', [LaporanController::class, 'data'])->name('laporan.data');
+        Route::get('/laporan/pdf/{tglAwal}/{tglAkhir}', [LaporanController::class, 'exportPDF'])->name('laporan.export_pdf');
     });
 
     // AUTH
