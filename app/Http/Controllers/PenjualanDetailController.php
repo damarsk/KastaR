@@ -20,9 +20,9 @@ class PenjualanDetailController extends Controller
         // Cek apakah ada transaksi yang sedang berjalan
         if ($id_penjualan = session('id_penjualan')) {
             $penjualan = Penjualan::find($id_penjualan);
-            $kodeMember = Member::find($penjualan->id_member)->kode_member ?? '';
+            $memberSelected = $penjualan->member ?? new Member();
 
-            return view('penjualan_detail.index', compact('produk', 'member', 'diskon', 'id_penjualan', 'penjualan', 'kodeMember'));
+            return view('penjualan_detail.index', compact('produk', 'member', 'diskon', 'id_penjualan', 'penjualan', 'memberSelected'));
         } else {
             if (auth()->user()->level == 1) {
                 return redirect()->route('transaksi.baru');
@@ -70,7 +70,7 @@ class PenjualanDetailController extends Controller
         ];
 
         return datatables()
-            ->of($data)
+            ->of(collect($data))
             ->addIndexColumn()
             ->rawColumns(['aksi', 'kode_produk', 'jumlah'])
             ->make(true);

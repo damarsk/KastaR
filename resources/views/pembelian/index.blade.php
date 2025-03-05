@@ -5,8 +5,6 @@
 @endsection
 
 @section('content')
-@includeIf('pembelian.supplier')
-@includeIf('pembelian.detail')
     <main class="main-content bgc-grey-100">
         <div id="mainContent">
             <div class="container-fluid">
@@ -48,6 +46,8 @@
             </div>
         </div>
     </main>
+    @includeIf('pembelian.supplier')
+    @includeIf('pembelian.detail')
 @endsection
 
 @section('scripts')
@@ -107,13 +107,26 @@
                 processing: true,
                 bSort: false,
                 dom: 'Brt',
-                columns: [
-                    {data: 'DT_RowIndex', searchable: false, sortable: false},
-                    {data: 'kode_produk'},
-                    {data: 'nama_produk'},
-                    {data: 'harga_beli'},
-                    {data: 'jumlah'},
-                    {data: 'subtotal'},
+                columns: [{
+                        data: 'DT_RowIndex',
+                        searchable: false,
+                        sortable: false
+                    },
+                    {
+                        data: 'kode_produk'
+                    },
+                    {
+                        data: 'nama_produk'
+                    },
+                    {
+                        data: 'harga_beli'
+                    },
+                    {
+                        data: 'jumlah'
+                    },
+                    {
+                        data: 'subtotal'
+                    },
                 ]
             });
         });
@@ -129,13 +142,14 @@
         }
 
         function deleteData(url) {
+            event.preventDefault();
             if (confirm('Apakah anda yakin ingin menghapus supplier ini?')) {
                 $.post(url, {
                         '_method': 'delete',
                         '_token': $('meta[name=csrf-token]').attr('content')
                     })
                     .done((response) => {
-                        table.ajax.reload();
+                        detailTable.ajax.reload();
                     })
                     .fail((errors) => {
                         alert('Tidak dapat menghapus supplier');

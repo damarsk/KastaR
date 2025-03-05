@@ -190,7 +190,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="sidebar-link" href="#">
+                                        <a class="sidebar-link" href="{{ route('penjualan.index') }}">
                                             <i class="c-green-500 ti-upload me-2"></i>
                                             Penjualan
                                         </a>
@@ -198,13 +198,13 @@
                                     <li>
                                         <a class="sidebar-link" href="{{ route('transaksi.index') }}">
                                             <i class="c-green-500 ti-shopping-cart me-2"></i>
-                                            Transaksi Lama
+                                            Transaksi Aktif
                                         </a>
                                     </li>
                                     <li>
                                         <a class="sidebar-link" href="{{ route('transaksi.baru') }}">
                                             <i class="c-green-500 ti-shopping-cart me-2"></i>
-                                            Transaksi Aktif
+                                            Transaksi Baru
                                         </a>
                                     </li>
                                 </ul>

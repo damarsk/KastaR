@@ -19,8 +19,8 @@ class SettingTableSeeder extends Seeder
             'alamat' => 'Jl. Gading Junti Asri Blok M2 No.55, Kabupaten Bandung',
             'telepon' => '087731043392',
             'tipe_nota' => '1', // Small
-            'diskon' => '0',
-            'path_logo' => 'land_style/img/logo.png',
+            'diskon' => '0', // 0% Diskon
+            'path_logo' => 'land_style/img/logo-circle.png',
             'path_kartu_member' => 'images/member.png',
         ]);
     }
