@@ -6,12 +6,14 @@ Projek ini adalah sebuah aplikasi kasir pintar yang dibuat untuk Uji Kompetensi 
 
 - Pendaftaran Pengguna
 - Laporan Penjualan
+- Laporan Pendapatan
 - Pembelian Produk (Pengeluaran)
 - Penjualan Produk
 - Manajemen Kategori
 - Manajemen Produk
 - Manajemen (Admin, Kasir, Member)
 - Cetak Barcode Produk
+- Cetak Nota Transaksi (Besar/Kecil)
 - Cetak QRCODE Member
 - Setting Toko
 - Notifikasi
@@ -22,9 +24,10 @@ Projek ini adalah sebuah aplikasi kasir pintar yang dibuat untuk Uji Kompetensi 
 - CSS (Bootstrap)
 - JavaScript (JQuery, Sweetalert)
 - PHP (Laravel)
-- MySQL
+- MySQL (Database)
 - Laravel Breeze (Auth)
 - Dompdf (Cetak PDF)
+- Barryvdh/laravel-dompdf (PDF Laravel Wrapper)
 - Milon/Barcode (Cetak Barcode)
 
 ## 📩Cara Instalasi
