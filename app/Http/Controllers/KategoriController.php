@@ -105,9 +105,9 @@ class KategoriController extends Controller
      */
     public function destroy(string $id)
     {
-        $kategori = Kategori::find($id);
+        $kategori = Kategori::findOrFail($id);
         $kategori->delete();
 
-        return response(null, 204);
+        return response()->json('Data Berhasil Dihapus', 204);
     }
 }

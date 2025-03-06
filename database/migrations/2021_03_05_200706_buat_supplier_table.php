@@ -17,6 +17,7 @@ class BuatSupplierTable extends Migration
             $table->increments('id_supplier');
             $table->string('nama');
             $table->text('alamat')->nullable();
+            $table->text('foto');
             $table->string('telepon');
             $table->timestamps();
         });

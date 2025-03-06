@@ -66,10 +66,29 @@
                     $.post($('#modal-form form').attr('action'), $('#modal-form form').serialize())
                         .done((response) => {
                             $('#modal-form').modal('hide');
+                            var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.success(response);
                             table.ajax.reload();
                         })
                         .fail((errors) => {
-                            alert('Tidak dapat menyimpan data');
+                            $(document).ready(function() {
+                                var notyf = new Notyf({
+                                    duration: 2000,
+                                    position: {
+                                        x: 'right',
+                                        y: 'top',
+                                    },
+                                    dismissible: true
+                                });
+                                notyf.error(errors.message);
+                            });
                             return;
                         });
                 }
@@ -115,10 +134,27 @@
                         '_token': $('meta[name=csrf-token]').attr('content')
                     })
                     .done((response) => {
+                        var notyf = new Notyf({
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.success(response);
                         table.ajax.reload();
                     })
                     .fail((errors) => {
-                        alert('Tidak dapat menghapus kategori');
+                        var notyf = new Notyf({
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.error(errors);
                         return;
                     })
             }

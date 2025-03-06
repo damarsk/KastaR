@@ -60,7 +60,7 @@ class PembelianDetailController extends Controller
         ];
 
         return datatables()
-            ->of($data)
+            ->of(collect($data))
             ->addIndexColumn()
             ->rawColumns(['aksi', 'kode_produk', 'jumlah'])
             ->make(true);

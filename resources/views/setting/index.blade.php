@@ -24,15 +24,6 @@
                                 </div>
 
                                 <div class="mb-3 row">
-                                    <label for="nama_perusahaan" class="col-md-4 col-form-label">Nama Perusahaan</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="nama_perusahaan" class="form-control"
-                                            id="nama_perusahaan" required autofocus>
-                                        <div class="invalid-feedback">Nama perusahaan harus diisi</div>
-                                    </div>
-                                </div>
-
-                                <div class="mb-3 row">
                                     <label for="telepon" class="col-md-4 col-form-label">Telepon</label>
                                     <div class="col-md-8">
                                         <input type="text" name="telepon" class="form-control" id="telepon" required>
@@ -146,7 +137,6 @@
                     $('[name=alamat]').val(response.alamat);
                     $('[name=diskon]').val(response.diskon);
                     $('[name=tipe_nota]').val(response.tipe_nota);
-                    $('title').text(response.nama_perusahaan + ' | Pengaturan');
 
                     let words = response.nama_perusahaan.split(' ');
                     let word = '';

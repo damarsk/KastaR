@@ -15,7 +15,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: none; /* Awalnya disembunyikan */
+        display: none;
     }
     .photo-frame input[type="file"] {
         position: absolute;
@@ -23,7 +23,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: 0; /* Membuat input file transparan */
+        opacity: 0;
         cursor: pointer;
     }
     .remove-photo {
@@ -42,7 +42,7 @@
         font-size: 12px;
         cursor: pointer;
         z-index: 2;
-        display: none; /* Awalnya disembunyikan */
+        display: none;
     }
 </style>
 

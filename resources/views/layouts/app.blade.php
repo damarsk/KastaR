@@ -9,7 +9,9 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('land_style/img/logo-circle.png') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
     {{-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"> --}}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{{ asset('dash_style/css/toast/notyf.min.css') }}">
     @yield('styles')
     <style>
         #loader {
@@ -115,6 +117,48 @@
                 opacity: 0;
             }
         }
+
+        .dropdown-menu {
+            min-width: 8rem;
+            padding: 0.3rem 0;
+            border-radius: 0.2rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 1rem;
+            clear: both;
+            font-weight: 400;
+            color: #444;
+            text-align: inherit;
+            white-space: nowrap;
+            background-color: transparent;
+            border: 0;
+        }
+
+        .dropdown-item i {
+            font-size: 0.85rem;
+            width: 1.2rem;
+            text-align: center;
+        }
+
+        .dropdown-item:hover,
+        .dropdown-item:focus {
+            color: #212529;
+            text-decoration: none;
+            background-color: #f5f5f5;
+        }
+
+        .dropdown-divider {
+            height: 0;
+            margin: 0.3rem 0;
+            overflow: hidden;
+            border-top: 1px solid #f0f0f0;
+        }
     </style>
     <link href="{{ asset('dash_style/css/style.css') }}" rel="stylesheet">
 </head>
@@ -149,7 +193,7 @@
                                             </div>
                                         </div>
                                         <div class="peer peer-greed">
-                                            <h5 class="lh-1 mB-0 logo-text">KastaR Dashboard</h5>
+                                            <h5 class="lh-1 mB-0 logo-text">{{ \App\Models\Setting::first()->nama_perusahaan }} Dashboard</h5>
                                         </div>
                                     </div>
                                 </a>
@@ -169,7 +213,6 @@
                                 <span class="title">Dashboard</span>
                             </a>
                         </li>
-                        <hr class="bgc-grey-900 mx-2">
                         @if (Auth::user()->level == 1 || Auth::user()->level == 2)
                             <li class="nav-item dropdown">
                                 <a class="dropdown-toggle" href="javascript:void(0);">
@@ -268,30 +311,11 @@
                                         class="icon-holder"><i class="c-green-500 ti-shopping-cart-full"></i>
                                     </span><span class="title">Transaksi Baru</span></a></li>
                         @endif
-                        <li class="nav-item dropdown">
-                            <a class="dropdown-toggle" href="javascript:void(0);">
-                                <span class="icon-holder"><i class="c-grey-700 ti-user"></i></span>
-                                <span class="title">Profile</span>
-                                <span class="arrow"><i class="ti-angle-right"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="sidebar-link" href="{{ route('setting.index') }}">
-                                        <i class="c-grey-800 ti-settings me-2"></i> Settings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="sidebar-link" href="javascript:void(0);"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <i class="c-red-500 ti-back-left me-2"></i> Logout
-                                    </a>
-                                    <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
+                        @if (Auth::user()->level == 2)
+                            <li class="nav-item"><a class="sidebar-link" href="{{ route('setting.index') }}"><span
+                                        class="icon-holder"><i class="c-grey-800 ti-settings"></i>
+                                    </span><span class="title">Setting Perusahaan</span></a></li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -308,187 +332,34 @@
                             </li>
                         </ul>
                         <ul class="nav-right">
-                            <li class="notifications dropdown">
-                                <span class="counter bgc-red">3</span>
-                                <a href="" class="dropdown-toggle no-after" id="dropdownMenuButton1"
+                            <li class="dropdown profile-menu">
+                                <a href="javascript:void(0);"
+                                    class="dropdown-toggle no-after peers fxw-nw ai-c lh-1 mL-5"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="ti-bell"></i>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li class="pX-20 pY-15 bdB">
-                                        <i class="ti-bell pR-10"></i>
-                                        <span class="fsz-sm fw-600 c-grey-900">Notifications</span>
-                                    </li>
-                                    <li>
-                                        <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
-                                            <li>
-                                                <a href=""
-                                                    class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
-                                                    <div class="peer mR-15">
-                                                        <img class="w-3r bdrs-50p"
-                                                            src="https://randomuser.me/api/portraits/men/1.jpg"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="peer peer-greed">
-                                                        <span>
-                                                            <span class="fw-500">John Doe</span>
-                                                            <span class="c-grey-600">liked your <span
-                                                                    class="text-dark">post</span></span>
-                                                        </span>
-                                                        <p class="m-0"><small class="fsz-xs">5 mins ago</small></p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href=""
-                                                    class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
-                                                    <div class="peer mR-15">
-                                                        <img class="w-3r bdrs-50p"
-                                                            src="https://randomuser.me/api/portraits/men/2.jpg"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="peer peer-greed">
-                                                        <span>
-                                                            <span class="fw-500">Moo Doe</span>
-                                                            <span class="c-grey-600">liked your <span
-                                                                    class="text-dark">cover image</span></span>
-                                                        </span>
-                                                        <p class="m-0"><small class="fsz-xs">7 mins ago</small></p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href=""
-                                                    class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
-                                                    <div class="peer mR-15">
-                                                        <img class="w-3r bdrs-50p"
-                                                            src="https://randomuser.me/api/portraits/men/3.jpg"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="peer peer-greed">
-                                                        <span>
-                                                            <span class="fw-500">Lee Doe</span>
-                                                            <span class="c-grey-600">commented on your <span
-                                                                    class="text-dark">video</span></span>
-                                                        </span>
-                                                        <p class="m-0"><small class="fsz-xs">10 mins ago</small>
-                                                        </p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="pX-20 pY-15 ta-c bdT">
-                                        <span>
-                                            <a href="" class="c-grey-600 cH-blue fsz-sm td-n">
-                                                View All Notifications <i class="ti-angle-right fsz-xs mL-10"></i>
-                                            </a>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="notifications dropdown">
-                                <span class="counter bgc-blue">3</span>
-                                <a href="" class="dropdown-toggle no-after" data-bs-toggle="dropdown">
-                                    <i class="ti-email"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="pX-20 pY-15 bdB">
-                                        <i class="ti-email pR-10"></i>
-                                        <span class="fsz-sm fw-600 c-grey-900">Emails</span>
-                                    </li>
-                                    <li>
-                                        <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
-                                            <li>
-                                                <a href=""
-                                                    class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
-                                                    <div class="peer mR-15">
-                                                        <img class="w-3r bdrs-50p"
-                                                            src="https://randomuser.me/api/portraits/men/1.jpg"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="peer peer-greed">
-                                                        <div>
-                                                            <div class="peers jc-sb fxw-nw mB-5">
-                                                                <div class="peer">
-                                                                    <p class="fw-500 mB-0">John Doe</p>
-                                                                </div>
-                                                                <div class="peer"><small class="fsz-xs">5 mins
-                                                                        ago</small></div>
-                                                            </div>
-                                                            <span class="c-grey-600 fsz-sm">Want to create your own
-                                                                customized data generator for your app...</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href=""
-                                                    class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
-                                                    <div class="peer mR-15">
-                                                        <img class="w-3r bdrs-50p"
-                                                            src="https://randomuser.me/api/portraits/men/2.jpg"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="peer peer-greed">
-                                                        <div>
-                                                            <div class="peers jc-sb fxw-nw mB-5">
-                                                                <div class="peer">
-                                                                    <p class="fw-500 mB-0">Moo Doe</p>
-                                                                </div>
-                                                                <div class="peer"><small class="fsz-xs">15 mins
-                                                                        ago</small></div>
-                                                            </div>
-                                                            <span class="c-grey-600 fsz-sm">Want to create your own
-                                                                customized data generator for your app...</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href=""
-                                                    class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
-                                                    <div class="peer mR-15">
-                                                        <img class="w-3r bdrs-50p"
-                                                            src="https://randomuser.me/api/portraits/men/3.jpg"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="peer peer-greed">
-                                                        <div>
-                                                            <div class="peers jc-sb fxw-nw mB-5">
-                                                                <div class="peer">
-                                                                    <p class="fw-500 mB-0">Lee Doe</p>
-                                                                </div>
-                                                                <div class="peer"><small class="fsz-xs">25 mins
-                                                                        ago</small></div>
-                                                            </div>
-                                                            <span class="c-grey-600 fsz-sm">Want to create your own
-                                                                customized data generator for your app...</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="pX-20 pY-15 ta-c bdT">
-                                        <span>
-                                            <a href="email.html" class="c-grey-600 cH-blue fsz-sm td-n">
-                                                View All Email <i class="fs-xs ti-angle-right mL-10"></i>
-                                            </a>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="profile-menu">
-                                <div class="no-after peers fxw-nw ai-c lh-1 mL-5 mR-10 mT-15">
                                     <div class="peer mR-10">
-                                        <img class="w-2r bdrs-50p"
+                                        <img class="img-profile w-2r h-2r object-fit-cover bdrs-50p"
                                             src="{{ Auth::user()->foto ? asset('uploads/photos/' . Auth::user()->foto) : asset('images/unknown-avatar.png') }}"
                                             alt="Foto Profil">
                                     </div>
                                     <div class="peer">
                                         <span class="fsz-sm c-grey-900">{{ Auth::user()->name }}</span>
                                     </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="{{ route('user.profile') }}">
+                                        <i class="ti-settings mR-10"></i>
+                                        <span>Setting</span>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="javascript:void(0);"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="ti-power-off mR-10"></i>
+                                        <span>Logout</span>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
                                 </div>
                             </li>
                         </ul>
@@ -504,10 +375,13 @@
                 </footer>
             </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
         <script defer src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
         <script src="{{ asset('js-lib/jquery.min.js') }}"></script>
+        <script src="{{ asset('dash_style/js/toast/notyf.min.js') }}"></script>
         @yield('scripts')
         <script defer src="{{ asset('dash_style/js/main.js') }}"></script>
+        <script></script>
     </div>
 </body>
 

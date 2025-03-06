@@ -75,10 +75,27 @@
                     $.post($('#modal-form form').attr('action'), $('#modal-form form').serialize())
                         .done((response) => {
                             $('#modal-form').modal('hide');
+                            var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.success(response);
                             table.ajax.reload();
                         })
                         .fail((errors) => {
-                            alert('Tidak dapat menyimpan data');
+                            var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.error('Tidak dapat menyimpan data.');
                             return;
                         });
                 }
@@ -89,7 +106,6 @@
             });
         });
 
-        // Fungsi untuk menampilkan modal tambah form    
         function addForm(url) {
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').text('Tambah pengeluaran');
@@ -103,12 +119,11 @@
 
         function editForm(url) {
             $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Edit pengeluaran'); // Ubah judul menjadi 'Edit pengeluaran'  
+            $('#modal-form .modal-title').text('Edit pengeluaran');
             $('#modal-form form').get(0).reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('put');
 
-            // Tambahkan event listener untuk fokus setelah modal ditampilkan    
             $('#modal-form').on('shown.bs.modal', function() {
                 $('#modal-form [name=deskripsi]').focus();
             });
@@ -117,7 +132,6 @@
                 .done((response) => {
                     $('#modal-form [name=deskripsi]').val(response.deskripsi);
                     $('#modal-form [name=nominal]').val(response.nominal);
-                    // Tambahkan kolom lain yang ada di tabel pengeluaran jika diperlukan  
                 })
                 .fail((errors) => {
                     alert('Tidak dapat menampilkan data');
@@ -133,9 +147,26 @@
                     })
                     .done((response) => {
                         table.ajax.reload();
+                        var notyf = new Notyf({
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.success('Data Berhasil Dihapus!');
                     })
                     .fail((errors) => {
-                        alert('Tidak dapat menghapus pengeluaran');
+                        var notyf = new Notyf({
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.error(errors);
                         return;
                     });
             }

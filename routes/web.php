@@ -15,7 +15,8 @@ use App\Http\Controllers\{
     PenjualanController,
     PenjualanDetailController,
     LaporanController,
-    SettingController
+    SettingController,
+    ProfileController
 };
 
 /*
@@ -127,6 +128,10 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
         Route::get('/setting/first', [SettingController::class, 'show'])->name('setting.show');
         Route::post('/setting', [SettingController::class, 'update'])->name('setting.update');
     });
+    
+    // PROFIL
+    Route::get('/profile', [ProfileController::class, 'profile'])->name('user.profile');
+    Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('user.update_profile');
 
     // AUTH
     Route::post('/logout', [AuthController::class, 'destroy'])->name('auth.logout');

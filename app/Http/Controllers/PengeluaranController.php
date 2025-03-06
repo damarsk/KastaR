@@ -52,7 +52,7 @@ class PengeluaranController extends Controller
             'deskripsi' => 'required|string|max:255',
         ]);
 
-        $pengeluaran = Pengeluaran::create($request->all());
+        Pengeluaran::create($request->all());
 
         return response()->json('Data Berhasil Disimpan', 200);
     }
@@ -65,7 +65,7 @@ class PengeluaranController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $pengeluaran = Pengeluaran::find($id)->update($request->all());
+        Pengeluaran::find($id)->update($request->all());
         return response()->json('Data Berhasil Disimpan', 200);
     }
 
