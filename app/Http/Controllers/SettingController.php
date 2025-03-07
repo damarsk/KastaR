@@ -21,7 +21,6 @@ class SettingController extends Controller
     {
         try {
             $setting = Setting::first();
-            $setting->nama_perusahaan = $request->nama_perusahaan;
             $setting->telepon = $request->telepon;
             $setting->alamat = $request->alamat;
             $setting->diskon = $request->diskon;

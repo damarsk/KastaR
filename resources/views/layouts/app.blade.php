@@ -306,15 +306,15 @@
                                 </ul>
                             </li>
                         @endif
-                        @if (Auth::user()->level == 0)
-                            <li class="nav-item"><a class="sidebar-link" href="index.html"><span
-                                        class="icon-holder"><i class="c-green-500 ti-shopping-cart-full"></i>
-                                    </span><span class="title">Transaksi Baru</span></a></li>
-                        @endif
                         @if (Auth::user()->level == 2)
                             <li class="nav-item"><a class="sidebar-link" href="{{ route('setting.index') }}"><span
                                         class="icon-holder"><i class="c-grey-800 ti-settings"></i>
                                     </span><span class="title">Setting Perusahaan</span></a></li>
+                        @endif
+                        @if (Auth::user()->level == 0)
+                            <li class="nav-item"><a class="sidebar-link" href="{{ route('transaksi.baru' )}}"><span
+                                        class="icon-holder"><i class="c-green-500 ti-shopping-cart-full"></i>
+                                    </span><span class="title">Transaksi Baru</span></a></li>
                         @endif
                     </ul>
                 </div>

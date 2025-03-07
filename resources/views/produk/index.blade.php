@@ -60,7 +60,7 @@
         let table;
 
         $(function() {
-            // Inisialisasi DataTables  
+            // Inisialisasi DataTables
             table = $('#dataTable').DataTable({
                 processing: true,
                 autoWidth: false,
@@ -119,11 +119,28 @@
                 if (!e.preventDefault()) {
                     $.post($('#modal-form form').attr('action'), $('#modal-form form').serialize())
                         .done((response) => {
-                            $('#modal-form').modal('hide');
+                            $('#modal-form').modal('hide')
+                            var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.success(response);;
                             table.ajax.reload();
                         })
                         .fail((errors) => {
-                            alert('Tidak dapat menyimpan data');
+                            var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.error('Tidak dapat menyimpan data');
                             return;
                         });
                 }
@@ -134,7 +151,7 @@
             });
         });
 
-        // Fungsi untuk menampilkan modal tambah form  
+        // Fungsi untuk menampilkan modal tambah form
         function addForm(url) {
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').text('Tambah Produk');
@@ -142,7 +159,7 @@
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('post');
 
-            // Tambahkan event listener untuk fokus setelah modal ditampilkan  
+            // Tambahkan event listener untuk fokus setelah modal ditampilkan
             $('#modal-form').on('shown.bs.modal', function() {
                 $('#modal-form [name=nama_produk]').focus();
             });
@@ -180,9 +197,27 @@
                         '_token': $('meta[name=csrf-token]').attr('content')
                     })
                     .done((response) => {
+                        var notyf = new Notyf({
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.success(response);
                         table.ajax.reload();
                     })
                     .fail((errors) => {
+                        var notyf = new Notyf({
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.error('Tidak dapat menghapus produk');
                         alert('Tidak dapat menghapus produk');
                         return;
                     })
@@ -194,10 +229,27 @@
                 if (confirm('Apakah anda yakin ingin menghapus produk ini?')) {
                     $.post(url, $('.form-produk').serialize())
                         .done((response) => {
+                            var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.success(response);
                             table.ajax.reload();
                         })
                         .fail((errors) => {
-                            alert('Tidak dapat menghapus produk');
+                            var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.success('Tidak dapat menghapus produk');
                             return;
                         })
                 }
@@ -216,9 +268,9 @@
                 return;
             } else {
                 $('.form-produk')
-                .attr('target', '_blank')
-                .attr('action', url)
-                .submit();
+                    .attr('target', '_blank')
+                    .attr('action', url)
+                    .submit();
             }
         }
     </script>

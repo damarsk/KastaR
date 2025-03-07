@@ -70,8 +70,8 @@
                                     </div>
                                 </div>
                             </form>
-                            <table id="dataTable" class="table table-striped table-bordered my-3 transaksi-table" cellspacing="0"
-                                width="100%">
+                            <table id="dataTable" class="table table-striped table-bordered my-3 transaksi-table"
+                                cellspacing="0" width="100%">
                                 <thead>
                                     <th style="width: 5%">No</th>
                                     <th>Kode</th>
@@ -238,10 +238,27 @@
             $.post('{{ route('pembelian_detail.store') }}', $('.form-produk').serialize())
                 .done((response) => {
                     $('#kode_produk').focus();
+                    var notyf = new Notyf({
+                        duration: 2000,
+                        position: {
+                            x: 'right',
+                            y: 'top',
+                        },
+                        dismissible: true
+                    });
+                    notyf.success(response);
                     table.ajax.reload(() => loadForm($('#diskon').val()));
                 })
                 .fail((errors) => {
-                    alert('Tidak dapat menyimpan data');
+                    var notyf = new Notyf({
+                        duration: 2000,
+                        position: {
+                            x: 'right',
+                            y: 'top',
+                        },
+                        dismissible: true
+                    });
+                    notyf.error('Tidak dapat menyimpan data');
                     return;
                 });
         }
@@ -254,11 +271,27 @@
                         '_method': 'delete'
                     })
                     .done((response) => {
-                        alert('Data berhasil dihapus');
+                        var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.success('Data Berhasil Dihapus');
                         table.ajax.reload(() => loadForm($('#diskon').val()));
                     })
                     .fail((errors) => {
-                        alert('Tidak dapat menghapus data');
+                        var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.error('Tidak dapat menghapus data');
                         return;
                     });
             }

@@ -95,7 +95,7 @@
             });
         });
 
-        // Fungsi untuk menampilkan modal tambah form  
+        // Fungsi untuk menampilkan modal tambah form
         function addForm(url) {
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').text('Tambah Kategori');
@@ -154,7 +154,7 @@
                             },
                             dismissible: true
                         });
-                        notyf.error(errors);
+                        notyf.error('Kategori Berhasi Dihapus!');
                         return;
                     })
             }

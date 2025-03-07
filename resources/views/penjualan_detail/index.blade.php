@@ -86,7 +86,8 @@
                                         <input type="hidden" name="total" id="total">
                                         <input type="hidden" name="total_item" id="total_item">
                                         <input type="hidden" name="bayar" id="bayar">
-                                        <input type="hidden" name="id_member" id="id_member" value="{{ $memberSelected->id_member }}">
+                                        <input type="hidden" name="id_member" id="id_member"
+                                            value="{{ $memberSelected->id_member }}">
 
                                         <div class="form-group row mb-3">
                                             <label for="totalrp" class="col-lg-2 control-label">Total</label>
@@ -98,7 +99,8 @@
                                             <label for="kode_member" class="col-lg-2 control-label">Member</label>
                                             <div class="col-lg-8">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" id="kode_member" value="{{ $memberSelected->kode_member }}">
+                                                    <input type="text" class="form-control" id="kode_member"
+                                                        value="{{ $memberSelected->kode_member }}">
                                                     <button onclick="tampilMember()" class="btn btn-secondary text-white"
                                                         type="button" id="button-addon2"><i
                                                             class="fa fa-arrow-right"></i></button>
@@ -109,7 +111,7 @@
                                             <label for="diskon" class="col-lg-2 control-label">Diskon</label>
                                             <div class="col-lg-8">
                                                 <input type="text" name="diskon" id="diskon" class="form-control"
-                                                value="{{ ! empty($memberSelected->id_member) ? $diskon : 0 }}" readonly>
+                                                    value="{{ !empty($memberSelected->id_member) ? $diskon : 0 }}" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
@@ -121,15 +123,15 @@
                                         <div class="form-group row mb-3">
                                             <label for="diterima" class="col-lg-2 control-label">Diterima</label>
                                             <div class="col-lg-8">
-                                                <input type="text" id="diterima" name="diterima" class="form-control"
-                                                value="{{ $penjualan->diterima ?? 0 }}">
+                                                <input type="text" id="diterima" name="diterima"
+                                                    class="form-control" value="{{ $penjualan->diterima ?? 0 }}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="kembali" class="col-lg-2 control-label">Kembali</label>
                                             <div class="col-lg-8">
-                                                <input type="text" id="kembali" name="kembali" class="form-control" value="0"
-                                                    readonly>
+                                                <input type="text" id="kembali" name="kembali" class="form-control"
+                                                    value="0" readonly>
                                             </div>
                                         </div>
                                         <div class="box-footer mt-5">
@@ -244,12 +246,12 @@
                 loadForm($(this).val());
             });
 
-            $('#diterima').on('input', function () {
+            $('#diterima').on('input', function() {
                 if ($(this).val() == "") {
                     $(this).val(0).select();
                 }
                 loadForm($('#diskon').val(), $(this).val());
-            }).focus(function () {
+            }).focus(function() {
                 $(this).select();
             });
 
@@ -262,20 +264,39 @@
         function tampilProduk() {
             $('#modal-produk').modal('show');
         }
+
         function pilihProduk(id, kode) {
             $('#id_produk').val(id);
             $('#kode_produk').val(kode);
             $('#modal-produk').modal('hide');
             tambahProduk();
         }
+
         function tambahProduk() {
             $.post('{{ route('transaksi.store') }}', $('.form-produk').serialize())
                 .done((response) => {
                     $('#kode_produk').focus();
+                    var notyf = new Notyf({
+                        duration: 2000,
+                        position: {
+                            x: 'right',
+                            y: 'top',
+                        },
+                        dismissible: true
+                    });
+                    notyf.success(response);
                     table.ajax.reload(() => loadForm($('#diskon').val()));
                 })
                 .fail((errors) => {
-                    alert('Tidak dapat menyimpan data');
+                    var notyf = new Notyf({
+                        duration: 2000,
+                        position: {
+                            x: 'right',
+                            y: 'top',
+                        },
+                        dismissible: true
+                    });
+                    notyf.error('Tidak dapat menyimpan data');
                     return;
                 });
         }
@@ -284,11 +305,12 @@
         function tampilMember() {
             $('#modal-member').modal('show');
         }
+
         function pilihMember(id, kode) {
             $('#id_member').val(id);
             $('#kode_member').val(kode);
             $('#diskon').val('{{ $diskon }}');
-            loadForm( $('#diskon').val());
+            loadForm($('#diskon').val());
             $('#diterima').val(0).focus().select();
             $('#modal-member').modal('hide');
         }
@@ -301,11 +323,27 @@
                         '_method': 'delete'
                     })
                     .done((response) => {
-                        alert('Data berhasil dihapus');
+                        var notyf = new Notyf({
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.success('Data berhasil dihapus');
                         table.ajax.reload(() => loadForm($('#diskon').val()));
                     })
                     .fail((errors) => {
-                        alert('Tidak dapat menghapus data');
+                        var notyf = new Notyf({
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.error('Tidak dapat menghapus data');
                         return;
                     });
             }
@@ -323,9 +361,9 @@
                     $('.tampil-bayar').text('Bayar: Rp. ' + (response.bayarrp || '0'));
                     $('.tampil-terbilang').text(response.terbilang);
 
-                    $('#kembali').val('Rp.'+ response.kembalirp);
+                    $('#kembali').val('Rp.' + response.kembalirp);
                     if ($('#diterima').val() != 0) {
-                        $('.tampil-bayar').text('Kembali: Rp. '+ response.kembalirp);
+                        $('.tampil-bayar').text('Kembali: Rp. ' + response.kembalirp);
                         $('.tampil-terbilang').text(response.kembali_terbilang);
                     }
                 })

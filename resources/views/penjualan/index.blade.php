@@ -132,9 +132,27 @@
                         '_token': $('meta[name=csrf-token]').attr('content')
                     })
                     .done((response) => {
+                        var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.success(response);
                         detailTable.ajax.reload();
                     })
                     .fail((errors) => {
+                        var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.error('Tidak dapat menghapus log penjualan');
                         alert('Tidak dapat menghapus log penjualan');
                         return;
                     });

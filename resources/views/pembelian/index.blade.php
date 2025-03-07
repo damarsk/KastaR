@@ -149,10 +149,27 @@
                         '_token': $('meta[name=csrf-token]').attr('content')
                     })
                     .done((response) => {
+                        var notyf = new Notyf({
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.success(response);
                         detailTable.ajax.reload();
                     })
                     .fail((errors) => {
-                        alert('Tidak dapat menghapus supplier');
+                        var notyf = new Notyf({
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.success('Tidak dapat menghapus supplier');
                         return;
                     });
             }
