@@ -110,6 +110,7 @@
                             $('[name=name]').val(response.name);
                             $('.tampil-foto').html(`<img src="{{ asset('uploads/photos/') }}/${response.foto}" width="200">`);
                             $('.img-profile').attr('src', `{{ asset('uploads/photos/') }}/${response.foto}`);
+                            $('.username').text(response.name);
 
                             if ($('.alert').hasClass('d-none')) {
                                 $('.alert').removeClass('d-none');

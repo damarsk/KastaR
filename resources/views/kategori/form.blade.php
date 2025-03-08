@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-form">
     <div class="modal-dialog">
-        <form action="" method="POST" class="was-validated">
+        <form action="" method="POST" class="needs-validation" novalidate>
             @csrf
             @method('POST')
             <div class="modal-content">
@@ -10,9 +10,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="nama_kategori" class="form-label">Category Name</label>
+                        <label for="nama_kategori" class="form-label">Nama Kategori</label>
                         <input type="text" name="nama_kategori" class="form-control" id="nama_kategori"
                             placeholder="Enter category name" required autofocus>
+                            <div class="invalid-feedback">
+                                Kategori wajib diisi.
+                            </div>
                     </div>
                 </div>
                 <div class="modal-footer">

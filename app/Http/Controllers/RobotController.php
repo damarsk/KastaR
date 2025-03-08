@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -13,16 +14,34 @@ class RobotController extends Controller
 
     public function sendMessage(Request $request)
     {
-        // Validasi input
         $request->validate([
             'message' => 'required|string',
         ]);
 
-        // Ambil kunci API dari .env
+        if($request->message == "/help") {
+            return response()->json([
+                'content' => '**Perintah yang tersedia: /help, /about**',
+                'status' => 'success'
+            ]);
+        } else if ($request->message == "/about") {
+            return response()->json([
+                'content' => '**Made By Damar 2024-03-08, More Information visit https://link.damar.pw/**',
+                'status' => 'success'
+            ]);
+        } else if ($request->message == "/produk") {
+            $produk = Produk::all();
+            if ($produk->isEmpty()) {
+                $produk = "Produk Kosong!";
+            }
+            return response()->json([
+                'content' => $produk,
+                'status' => 'success'
+            ]);
+        }
+
         $apiKey = env('OPENROUTER_API_KEY');
         $model = env('OPENROUTER_AI_MODEL');
 
-        // Kirim permintaan ke API
         try {
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $apiKey,

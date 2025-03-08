@@ -44,10 +44,25 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nama' => 'required|string|max:255',
+            'telepon' => 'required|numeric|digits_between:8,14',
+            'alamat' => 'required|string|max:255',
         ]);
 
-        $supplier = Supplier::create($request->all());
+        $supplier = new Supplier();
+        $supplier->nama = $request->nama;
+        $supplier->telepon = $request->telepon;
+        $supplier->alamat = $request->alamat;
+
+        if ($request->hasFile('foto')) {
+            $photo = $request->file('foto');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path('uploads/photos'), $photoName);
+            $supplier->foto = $photoName;
+        }
+
+        $supplier->save();
 
         return response()->json('Data Berhasil Disimpan', 200);
     }
@@ -60,8 +75,36 @@ class SupplierController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $supplier = Supplier::find($id)->update($request->all());
-        return response()->json('Data Berhasil Disimpan', 200);
+        $request->validate([
+            'nama'    => 'required|string|max:255',
+            'telepon' => 'required|numeric|digits_between:8,14',
+            'alamat'  => 'required|string|max:255',
+            'foto'    => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $supplier = Supplier::findOrFail($id);
+        $supplier->nama = $request->nama;
+        $supplier->telepon = $request->telepon;
+        $supplier->alamat = $request->alamat;
+
+        if ($request->hasFile('foto')) {
+            // Hapus foto lama jika ada
+            if ($supplier->foto) {
+                $oldPhotoPath = public_path('uploads/photos/' . $supplier->foto);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+            }
+
+            $photo = $request->file('foto');
+            $photoName = time() . '.' . $photo->getClientOriginalExtension();
+            $photo->move(public_path('uploads/photos'), $photoName);
+            $supplier->foto = $photoName;
+        }
+
+        $supplier->save();
+
+        return response()->json('Data Berhasil Diubah!', 200);
     }
 
     public function destroy(string $id)

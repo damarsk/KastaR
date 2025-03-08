@@ -130,6 +130,16 @@ class PembelianController extends Controller
 
         $pembelian->delete();
 
-        return response(null, 204);
+        $sessionStatus = 'null';
+        if (session()->has('id_pembelian') || session()->has('id_supplier')) {
+            $sessionStatus = 'notNull';
+            session()->forget('id_pembelian');
+            session()->forget('id_supplier');
+        }
+
+        return response()->json([
+            'message' => 'Deleted successfully',
+            'session' => $sessionStatus
+        ], 200);
     }
 }

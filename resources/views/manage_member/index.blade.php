@@ -173,7 +173,7 @@
                             },
                             dismissible: true
                         });
-                        notyf.success(response);
+                        notyf.success('Berhasil menghapus member!');
                         table.ajax.reload();
                     })
                     .fail((errors) => {
@@ -185,7 +185,7 @@
                             },
                             dismissible: true
                         });
-                        notyf.error('Tidak dapat menghapus member');
+                        notyf.error('Tidak dapat menghapus member!');
                         return;
                     })
             }

@@ -87,7 +87,7 @@
                                     },
                                     dismissible: true
                                 });
-                                notyf.error(errors.message);
+                                notyf.error("Tidak dapat membuat kategori!");
                             });
                             return;
                         });
@@ -154,7 +154,7 @@
                             },
                             dismissible: true
                         });
-                        notyf.error('Kategori Berhasi Dihapus!');
+                        notyf.error('Kategori tidak berhasil dihapus!');
                         return;
                     })
             }

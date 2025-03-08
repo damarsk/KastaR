@@ -348,7 +348,7 @@
                                             alt="Foto Profil">
                                     </div>
                                     <div class="peer">
-                                        <span class="fsz-sm c-grey-900">{{ Auth::user()->name }}</span>
+                                        <span class="username fsz-sm c-grey-900">{{ Auth::user()->name }}</span>
                                     </div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">

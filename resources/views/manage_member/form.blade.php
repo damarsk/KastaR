@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-form">
     <div class="modal-dialog">
-        <form action="" method="POST" class="needs-validation" novalidate>
+        <form action="" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="modal-content">

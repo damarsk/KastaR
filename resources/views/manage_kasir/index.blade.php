@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title', 'KastaR - Manage Petugas Kasir')
-
 @section('styles')
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
 @endsection
@@ -123,7 +121,6 @@
             });
         });
 
-        // Add form
         function addForm(url) {
             $('#modal-form').modal('show');
             $('#modal-form .modal-title').text('Tambah Petugas Kasir');
@@ -134,14 +131,12 @@
                 $('#modal-form [name=name]').focus();
             });
 
-            // Show password and password confirmation fields
             $('#password').closest('.mb-3').show();
             $('#password_confirmation').closest('.mb-3').show();
             $('#password').attr('required', 'required');
             $('#password_confirmation').attr('required', 'required');
         }
 
-        // Edit form
         function editForm(urlEdit, urlUpdate) {
             $('#password').closest('.mb-3').hide();
             $('#password_confirmation').closest('.mb-3').hide();
@@ -163,7 +158,6 @@
             });
         }
 
-        // Delete data
         function deleteData(url) {
             if (confirm('Apakah anda yakin ingin menghapus petugas kasir ini?')) {
                 $.post(url, {
@@ -197,48 +191,41 @@
             }
         }
 
-        // Function photo preview
         $(document).ready(function() {
             const $photoInput = $('#photo');
             const $photoPreview = $('#photo-preview');
             const $removePhotoBtn = $('#remove-photo-btn');
             const $modalForm = $('#modal-form');
 
-            // Handle file input change
             $photoInput.on('change', function(event) {
                 const file = event.target.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         $photoPreview.attr('src', e.target.result);
-                        $photoPreview.show(); // Tampilkan gambar preview
-                        $removePhotoBtn.show(); // Tampilkan tombol hapus
+                        $photoPreview.show();
+                        $removePhotoBtn.show();
                     };
                     reader.readAsDataURL(file);
                 } else {
                     $photoPreview.attr('src', '#');
-                    $photoPreview.hide(); // Sembunyikan gambar preview
-                    $removePhotoBtn.hide(); // Sembunyikan tombol hapus
+                    $photoPreview.hide();
+                    $removePhotoBtn.hide();
                 }
             });
 
-            // Handle remove photo button click
             $removePhotoBtn.on('click', function() {
                 $photoPreview.attr('src', '#');
-                $photoPreview.hide(); // Sembunyikan gambar preview
-                $removePhotoBtn.hide(); // Sembunyikan tombol hapus
-                $photoInput.val(''); // Kosongkan nilai input file
+                $photoPreview.hide();
+                $removePhotoBtn.hide();
+                $photoInput.val('');
             });
 
-            // Reset form ketika modal ditutup
             $modalForm.on('hidden.bs.modal', function() {
-                // Reset input file
                 $photoInput.val('');
                 $photoPreview.attr('src', '#');
-                $photoPreview.hide(); // Sembunyikan gambar preview
-                $removePhotoBtn.hide(); // Sembunyikan tombol hapus
-
-                // Reset input form lainnya
+                $photoPreview.hide();
+                $removePhotoBtn.hide();
                 $('#name').val('');
                 $('#email').val('');
                 $('#password').val('');

@@ -19,7 +19,7 @@
                                     Baru</button>
                                 @empty(!session('id_pembelian'))
                                     <a href="{{ route('pembelian_detail.index') }}"
-                                        class="btn cur-p btn-info btn-color btn-sm"><i class="fa fa-edit"></i> Update
+                                        class="btn btn-update-transaksi cur-p btn-info btn-color btn-sm"><i class="fa fa-edit"></i> Update
                                         Transaksi</a>
                                 @endempty
 
@@ -143,7 +143,7 @@
 
         function deleteData(url) {
             event.preventDefault();
-            if (confirm('Apakah anda yakin ingin menghapus supplier ini?')) {
+            if (confirm('Apakah anda yakin ingin menghapus data ini?')) {
                 $.post(url, {
                         '_method': 'delete',
                         '_token': $('meta[name=csrf-token]').attr('content')
@@ -157,7 +157,12 @@
                             },
                             dismissible: true
                         });
-                        notyf.success(response);
+                        notyf.success('Berhasil menghapus data!');
+
+                        if (response.session === 'notNull') {
+                            $('.btn-update-transaksi').remove();
+                        }
+
                         detailTable.ajax.reload();
                     })
                     .fail((errors) => {
@@ -169,7 +174,7 @@
                             },
                             dismissible: true
                         });
-                        notyf.success('Tidak dapat menghapus supplier');
+                        notyf.error('Tidak dapat menghapus data!');
                         return;
                     });
             }

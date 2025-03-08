@@ -205,7 +205,7 @@
                             },
                             dismissible: true
                         });
-                        notyf.success(response);
+                        notyf.success('Produk berhasil dihapus!');
                         table.ajax.reload();
                     })
                     .fail((errors) => {
@@ -217,8 +217,7 @@
                             },
                             dismissible: true
                         });
-                        notyf.error('Tidak dapat menghapus produk');
-                        alert('Tidak dapat menghapus produk');
+                        notyf.error('Tidak dapat menghapus produk!');
                         return;
                     })
             }
@@ -237,7 +236,7 @@
                                 },
                                 dismissible: true
                             });
-                            notyf.success(response);
+                            notyf.success('Produk berhasil dihapus!');
                             table.ajax.reload();
                         })
                         .fail((errors) => {
@@ -249,7 +248,7 @@
                                 },
                                 dismissible: true
                             });
-                            notyf.success('Tidak dapat menghapus produk');
+                            notyf.success('Tidak dapat menghapus produk1');
                             return;
                         })
                 }
