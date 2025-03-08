@@ -16,7 +16,8 @@ use App\Http\Controllers\{
     PenjualanDetailController,
     LaporanController,
     SettingController,
-    ProfileController
+    ProfileController,
+    RobotController
 };
 
 /*
@@ -121,6 +122,9 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
         Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
         Route::get('/laporan/data/{tglAwal}/{tglAkhir}', [LaporanController::class, 'data'])->name('laporan.data');
         Route::get('/laporan/pdf/{tglAwal}/{tglAkhir}', [LaporanController::class, 'exportPDF'])->name('laporan.export_pdf');
+
+        Route::get('/ai', [RobotController::class, 'index'])->name('robot.index');
+        Route::post('/ai/send-message', [RobotController::class, 'sendMessage'])->name('robot.send_message');
     });
 
     Route::middleware('check.role:2')->group(function () {

@@ -260,8 +260,14 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="sidebar-link" href="{{ route('robot.index') }}">
+                                    <span class="icon-holder"><i class="c-red-300 ti-headphone-alt"></i></span>
+                                    <span class="title">AI Chat</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="sidebar-link" href="{{ route('kategori.index') }}">
-                                    <span class="icon-holder"><i class="c-brown-600 ti-package"></i></span>
+                                    <span class="icon-holder"><i class="c-brown-200 ti-package"></i></span>
                                     <span class="title">Kategori</span>
                                 </a>
                             </li>
