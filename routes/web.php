@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
+    DashboardController,
     AuthController,
     KategoriController,
     ProdukController,
@@ -17,7 +18,7 @@ use App\Http\Controllers\{
     LaporanController,
     SettingController,
     ProfileController,
-    RobotController
+    RobotController,
 };
 
 /*
@@ -43,9 +44,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->prefix('dashboard')->group(function () {
     // DASHBOARD
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard.index');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // DASH-KATEGORI
     Route::get('/kategori/data', [KategoriController::class, 'data'])->name('kategori.data');

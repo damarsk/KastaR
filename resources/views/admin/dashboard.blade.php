@@ -1,70 +1,67 @@
 @extends('layouts.app')
 @section('title', 'KastaR - Dashboard')
 @section('content')
+@section('styles')
+<style>
+    #fa-xl {
+        font-size: 60px;
+    }
+
+    @media (min-width: 768px) and (max-width: 900px) {
+        #fa-xl {
+            font-size: 30px;
+        }
+    }
+</style>
+@endsection
     <main class="main-content bgc-grey-100">
         <div id="mainContent">
             <h2>👋 Halo, {{ Auth::user()->name }}!</h2>
             <div class="row gap-20 masonry pos-r">
                 <div class="masonry-sizer col-md-6"></div>
                 <div class="masonry-item w-100">
-                    <div class="row gap-20"><!-- #Toatl Visits ==================== -->
+                    <div class="row gap-20">
                         <div class="col-md-3">
-                            <div class="layers bd bgc-white p-20">
-                                <div class="layer w-100 mB-10">
-                                    <h6 class="lh-1">Total Visits</h6>
+                            <div class="d-flex justify-content-start bd bgc-white p-20">
+                                <div class="layer mB-10">
+                                    <h2>{{ $kategori }}</h2>
+                                    <h6 class="lh-1">Total Kategori</h6>
                                 </div>
-                                <div class="layer w-100">
-                                    <div class="peers ai-sb fxw-nw">
-                                        <div class="peer peer-greed"><span id="sparklinedash"></span></div>
-                                        <div class="peer"><span
-                                                class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500">+10%</span>
-                                        </div>
-                                    </div>
+                                <div class="layer d-flex justify-content-end align-items-center" style="flex: auto;">
+                                    <i id="fa-xl" class="ti-package"></i>
                                 </div>
                             </div>
-                        </div><!-- #Total Page Views ==================== -->
+                        </div>
                         <div class="col-md-3">
-                            <div class="layers bd bgc-white p-20">
-                                <div class="layer w-100 mB-10">
-                                    <h6 class="lh-1">Total Page Views</h6>
+                            <div class="d-flex justify-content-start bd bgc-white p-20">
+                                <div class="layer mB-10">
+                                    <h2>{{ $produk }}</h2>
+                                    <h6 class="lh-1">Total Produk</h6>
                                 </div>
-                                <div class="layer w-100">
-                                    <div class="peers ai-sb fxw-nw">
-                                        <div class="peer peer-greed"><span id="sparklinedash2"></span></div>
-                                        <div class="peer"><span
-                                                class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500">-7%</span>
-                                        </div>
-                                    </div>
+                                <div class="layer d-flex justify-content-end align-items-center" style="flex: auto;">
+                                    <i id="fa-xl" class="ti-archive"></i>
                                 </div>
                             </div>
-                        </div><!-- #Unique Visitors ==================== -->
+                        </div>
                         <div class="col-md-3">
-                            <div class="layers bd bgc-white p-20">
-                                <div class="layer w-100 mB-10">
-                                    <h6 class="lh-1">Unique Visitor</h6>
+                            <div class="d-flex justify-content-start bd bgc-white p-20">
+                                <div class="layer mB-10">
+                                    <h2>{{ $member }}</h2>
+                                    <h6 class="lh-1">Total Member</h6>
                                 </div>
-                                <div class="layer w-100">
-                                    <div class="peers ai-sb fxw-nw">
-                                        <div class="peer peer-greed"><span id="sparklinedash3"></span></div>
-                                        <div class="peer"><span
-                                                class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500">~12%</span>
-                                        </div>
-                                    </div>
+                                <div class="layer d-flex justify-content-end align-items-center" style="flex: auto;">
+                                    <i id="fa-xl" class="ti-id-badge"></i>
                                 </div>
                             </div>
-                        </div><!-- #Bounce Rate ==================== -->
+                        </div>
                         <div class="col-md-3">
-                            <div class="layers bd bgc-white p-20">
-                                <div class="layer w-100 mB-10">
-                                    <h6 class="lh-1">Bounce Rate</h6>
+                            <div class="d-flex justify-content-start bd bgc-white p-20">
+                                <div class="layer mB-10">
+                                    <h2>{{ $supplier }}</h2>
+                                    <h6 class="lh-1">Total Supplier</h6>
                                 </div>
-                                <div class="layer w-100">
-                                    <div class="peers ai-sb fxw-nw">
-                                        <div class="peer peer-greed"><span id="sparklinedash4"></span></div>
-                                        <div class="peer"><span
-                                                class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">33%</span>
-                                        </div>
-                                    </div>
+                                <div class="layer d-flex justify-content-end align-items-center" style="flex: auto;">
+                                    <i id="fa-xl" class="ti-truck"></i>
                                 </div>
                             </div>
                         </div>
