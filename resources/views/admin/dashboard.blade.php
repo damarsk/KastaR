@@ -7,6 +7,12 @@
         font-size: 60px;
     }
 
+    .bd-lihat {
+        border-right: 1px solid rgba(0, 0, 0, .063) !important;
+        border-left: 1px solid rgba(0, 0, 0, .063) !important;
+        border-bottom: 1px solid rgba(0, 0, 0, .063) !important;
+    }
+
     @media (min-width: 768px) and (max-width: 900px) {
         #fa-xl {
             font-size: 30px;
@@ -31,6 +37,9 @@
                                     <i id="fa-xl" class="ti-package"></i>
                                 </div>
                             </div>
+                            <div class="bd-lihat d-flex justify-content-center align-items-center bgc-white w-100">
+                                <a class="c-grey-700" href="#">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
                         </div>
                         <div class="col-md-3">
                             <div class="d-flex justify-content-start bd bgc-white p-20">
@@ -41,6 +50,9 @@
                                 <div class="layer d-flex justify-content-end align-items-center" style="flex: auto;">
                                     <i id="fa-xl" class="ti-archive"></i>
                                 </div>
+                            </div>
+                            <div class="bd-lihat d-flex justify-content-center align-items-center bgc-white w-100">
+                                <a class="c-grey-700" href="#">Lihat <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -53,6 +65,9 @@
                                     <i id="fa-xl" class="ti-id-badge"></i>
                                 </div>
                             </div>
+                            <div class="bd-lihat d-flex justify-content-center align-items-center bgc-white w-100">
+                                <a class="c-grey-700" href="#">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
                         </div>
                         <div class="col-md-3">
                             <div class="d-flex justify-content-start bd bgc-white p-20">
@@ -63,6 +78,9 @@
                                 <div class="layer d-flex justify-content-end align-items-center" style="flex: auto;">
                                     <i id="fa-xl" class="ti-truck"></i>
                                 </div>
+                            </div>
+                            <div class="bd-lihat d-flex justify-content-center align-items-center bgc-white w-100">
+                                <a class="c-grey-700" href="#">Lihat <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>

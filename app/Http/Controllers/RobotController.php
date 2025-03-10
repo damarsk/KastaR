@@ -25,7 +25,7 @@ class RobotController extends Controller
             ]);
         } else if ($request->message == "/about") {
             return response()->json([
-                'content' => '**Made By Damar 2024-03-08, More Information visit https://link.damar.pw/**',
+                'content' => '**Made By Damar 2025, More Information visit https://link.damar.pw/**',
                 'status' => 'success'
             ]);
         } else if ($request->message == "/produk") {

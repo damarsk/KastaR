@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KastaR - Solusi Kasir Pintar</title>
-    
+
     <link rel="icon" href="{{ asset('land_style/img/logo-circle.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ asset('land_style/vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('land_style/vendor/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('land_style/vendor/glightbox/css/glightbox.min.css') }}">
     <link rel="stylesheet" href="{{ asset('land_style/vendor/aos/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('land_style/css/main.css') }}">
-    
+
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
 </head>
@@ -23,13 +23,13 @@
                 <img src="{{ asset('land_style/img/logo.svg') }}" alt="KastaR Logo">
                 KastaR
             </a>
-            
+
             <div class="menu-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            
+
             <ul class="nav-links">
                 <li><a href="#home" class="active">Beranda</a></li>
                 <li><a href="#features">Fitur</a></li>
@@ -37,11 +37,11 @@
                 <li><a href="#benefits">Keunggulan</a></li>
                 <li><a href="#contact">Kontak</a></li>
             </ul>
-            
+
             <a href="{{ route('auth.index') }}" class="btn d-none d-lg-block">Masuk</a>
         </div>
     </nav>
-    
+
     <!-- Hero Section -->
     <section class="hero d-flex align-items-center justify-content-center">
         <div class="container">
@@ -67,12 +67,12 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Features Section -->
     <section id="features" class="features">
         <h2 class="section-title" data-aos="fade-up">Fitur Utama</h2>
         <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">KastaR hadir dengan berbagai fitur unggulan yang dirancang khusus untuk memenuhi kebutuhan bisnis Anda.</p>
-        
+
         <div class="feature-cards">
             <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
                 <i class="bi bi-graph-up-arrow feature-icon"></i>
@@ -91,12 +91,12 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Product Introduction -->
     <section id="introduction" class="introduction">
         <h2 class="section-title" data-aos="fade-up">Kenapa Memilih KastaR?</h2>
         <p data-aos="fade-up" data-aos-delay="200">KastaR adalah sistem kasir pintar modern yang dikembangkan khusus untuk memenuhi kebutuhan bisnis kecil dan menengah di Indonesia.</p>
-        
+
         <div class="container statistics">
             <div class="row">
             <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
@@ -138,12 +138,12 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Benefits Section -->
     <section id="benefits" class="benefits">
         <h2 class="section-title" data-aos="fade-up">Manfaat Utama KastaR</h2>
         <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">Nikmati berbagai keunggulan KastaR yang akan membuat pengelolaan bisnis Anda menjadi lebih efisien.</p>
-        
+
         <div class="container benefits-container">
             <div class="benefit-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="benefit-icon">
@@ -181,23 +181,14 @@
                     <p>Tim dukungan pelanggan kami siap membantu Anda 7 hari seminggu untuk memastikan bisnis berjalan lancar.</p>
                 </div>
             </div>
-            <div class="benefit-item" data-aos="fade-up" data-aos-delay="700">
-                <div class="benefit-icon">
-                    <i class="bi bi-cash-coin"></i>
-                </div>
-                <div class="benefit-content">
-                    <h3>Harga Terjangkau</h3>
-                    <p>Paket berlangganan yang fleksibel dan terjangkau untuk semua ukuran bisnis tanpa biaya tersembunyi.</p>
-                </div>
-            </div>
         </div>
     </section>
-    
+
     <!-- How It Works -->
     <section id="how" class="how-it-works">
         <h2 class="section-title" data-aos="fade-up">Cara Kerja KastaR</h2>
         <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">Mulai menggunakan KastaR dengan 4 langkah mudah berikut ini.</p>
-        
+
         <div class="steps">
             <div class="step" data-aos="fade-up" data-aos-delay="300">
                 <div class="step-number">1</div>
@@ -221,14 +212,14 @@
             </div>
         </div>
     </section>
-    
+
     <!-- CTA Section -->
     <section id="contact" class="cta">
         <h2 data-aos="fade-up">Siap Meningkatkan Bisnis Anda?</h2>
         <p data-aos="fade-up" data-aos-delay="200">Bergabunglah dengan ribuan pemilik bisnis yang telah berhasil mengoptimalkan operasional mereka dengan KastaR. Mulai sekarang dan rasakan perbedaannya!</p>
         <a href="#" class="btn btn-white" data-aos="fade-up" data-aos-delay="400">Daftar Sekarang untuk Uji Coba Gratis 14 Hari!</a>
     </section>
-    
+
     <!-- Footer Section -->
     <footer id="footer" class="py-5 bg-dark text-white">
         <div class="container">
