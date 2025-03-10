@@ -46,38 +46,6 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     // DASHBOARD
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    // DASH-KATEGORI
-    Route::get('/kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
-    Route::resource('kategori', KategoriController::class);
-
-    // DASH-PRODUK
-    Route::get('/produk/data', [ProdukController::class, 'data'])->name('produk.data');
-    Route::post('/produk/delete-selected', [ProdukController::class, 'deleteSelected'])->name('produk.deleteSelected');
-    Route::post('/produk/cetak-barcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetakBarcode');
-    Route::resource('produk', ProdukController::class);
-
-    // DASH-PENGELUARAN
-    Route::get('/pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
-    Route::resource('pengeluaran', PengeluaranController::class);
-
-    // DASH-PEMBELIAN
-    Route::get('/pembelian/data', [PembelianController::class, 'data'])->name('pembelian.data');
-    Route::get('/pembelian/{id}/create', [PembelianController::class, 'create'])->name('pembelian.create');
-    Route::resource('/pembelian', PembelianController::class)->except(['create']);
-
-    // PEMBELIAN-DETAIL
-    Route::put('/pembelian_detail/{id}', [PembelianDetailController::class, 'update'])->name('pembelian_detail.update');
-    Route::get('/pembelian_detail/{id}/data', [PembelianDetailController::class, 'data'])->name('pembelian_detail.data');
-    Route::get('/pembelian_detail/loadform/{diskon}/{total}', [PembelianDetailController::class, 'loadForm'])->name('pembelian_detail.load_form');
-    Route::resource('/pembelian_detail', PembelianDetailController::class)
-        ->except('create', 'show', 'edit', 'update');
-        
-    // PENJUALAN
-    Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
-    Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
-    Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
-    Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
-
     // TRANSAKSI
     Route::get('/transaksi/baru', [PenjualanController::class, 'create'])->name('transaksi.baru');
     Route::post('/transaksi/simpan', [PenjualanController::class, 'store'])->name('transaksi.simpan');
@@ -118,6 +86,38 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     });
 
     Route::middleware('check.role:1,2')->group(function () {
+        // DASH-KATEGORI
+        Route::get('/kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
+        Route::resource('kategori', KategoriController::class);
+
+        // DASH-PRODUK
+        Route::get('/produk/data', [ProdukController::class, 'data'])->name('produk.data');
+        Route::post('/produk/delete-selected', [ProdukController::class, 'deleteSelected'])->name('produk.deleteSelected');
+        Route::post('/produk/cetak-barcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetakBarcode');
+        Route::resource('produk', ProdukController::class);
+
+        // DASH-PENGELUARAN
+        Route::get('/pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
+        Route::resource('pengeluaran', PengeluaranController::class);
+
+        // DASH-PEMBELIAN
+        Route::get('/pembelian/data', [PembelianController::class, 'data'])->name('pembelian.data');
+        Route::get('/pembelian/{id}/create', [PembelianController::class, 'create'])->name('pembelian.create');
+        Route::resource('/pembelian', PembelianController::class)->except(['create']);
+
+        // PEMBELIAN-DETAIL
+        Route::put('/pembelian_detail/{id}', [PembelianDetailController::class, 'update'])->name('pembelian_detail.update');
+        Route::get('/pembelian_detail/{id}/data', [PembelianDetailController::class, 'data'])->name('pembelian_detail.data');
+        Route::get('/pembelian_detail/loadform/{diskon}/{total}', [PembelianDetailController::class, 'loadForm'])->name('pembelian_detail.load_form');
+        Route::resource('/pembelian_detail', PembelianDetailController::class)
+            ->except('create', 'show', 'edit', 'update');
+            
+        // PENJUALAN
+        Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
+        Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+        Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
+        Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
+
         Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
         Route::get('/laporan/data/{tglAwal}/{tglAkhir}', [LaporanController::class, 'data'])->name('laporan.data');
         Route::get('/laporan/pdf/{tglAwal}/{tglAkhir}', [LaporanController::class, 'exportPDF'])->name('laporan.export_pdf');

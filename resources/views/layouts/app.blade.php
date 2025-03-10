@@ -256,7 +256,7 @@
                             <li class="nav-item">
                                 <a class="sidebar-link" href="{{ route('laporan.index') }}">
                                     <span class="icon-holder"><i class="c-indigo-500 ti-bar-chart"></i></span>
-                                    <span class="title">Analisis</span>
+                                    <span class="title">Laporan</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -318,9 +318,12 @@
                                     </span><span class="title">Setting Perusahaan</span></a></li>
                         @endif
                         @if (Auth::user()->level == 0)
-                            <li class="nav-item"><a class="sidebar-link" href="{{ route('transaksi.baru' )}}"><span
-                                        class="icon-holder"><i class="c-green-500 ti-shopping-cart-full"></i>
-                                    </span><span class="title">Transaksi Baru</span></a></li>
+                        <li class="nav-item"><a class="sidebar-link" href="{{ route('transaksi.index' )}}"><span
+                                    class="icon-holder"><i class="c-green-500 ti-shopping-cart-full"></i>
+                                </span><span class="title">Transaksi Aktif</span></a></li>
+                        <li class="nav-item"><a class="sidebar-link" href="{{ route('transaksi.baru' )}}"><span
+                                    class="icon-holder"><i class="c-blue-500 ti-shopping-cart-full"></i>
+                                </span><span class="title">Transaksi Baru</span></a></li>
                         @endif
                     </ul>
                 </div>
