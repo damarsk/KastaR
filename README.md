@@ -4,6 +4,7 @@ Projek ini adalah sebuah aplikasi kasir pintar yang dibuat untuk Uji Kompetensi 
 
 ## 📃Fitur
 
+- Custom Dashboard (Kasir, Admin)
 - Pendaftaran Pengguna
 - Laporan Penjualan
 - Laporan Pendapatan
@@ -22,11 +23,12 @@ Projek ini adalah sebuah aplikasi kasir pintar yang dibuat untuk Uji Kompetensi 
 
 - HTML
 - CSS (Bootstrap)
-- JavaScript (JQuery, Sweetalert)
+- JavaScript (JQuery, Notyf)
 - PHP (Laravel)
 - MySQL (Database)
 - Laravel Breeze (Auth)
 - Dompdf (Cetak PDF)
+- ChartJS (Grafik)
 - Barryvdh/laravel-dompdf (PDF Laravel Wrapper)
 - Milon/Barcode (Cetak Barcode)
 
