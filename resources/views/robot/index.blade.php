@@ -117,7 +117,7 @@
                         <div id="response">
                             <div class="response-content c-grey-800" id="responseContent"></div>
                         </div>
-                        <div class="input-field">                            
+                        <div class="input-field">
                             <textarea id="userInput" placeholder="Type a message or Type /help for Commands" rows="1" style="max-height: 160px; resize: none;"></textarea>
                             <button class="btn-send" onclick="sendMessage()"><i class="fa fa-paper-plane"></i></button>
                         </div>
@@ -187,7 +187,7 @@
                     },
                     body: JSON.stringify({ message: input })
                 });
-                
+
                 const data = await response.json();
                 const markdownText = data.content || 'No response';
                 responseContent.html(marked.parse(markdownText));

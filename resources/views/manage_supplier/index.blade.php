@@ -8,6 +8,13 @@
     <main class="main-content bgc-grey-100">
         <div id="mainContent">
             <div class="container-fluid">
+                <nav aria-label="breadcrumb" class="float-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                        <li class="breadcrumb-item active">Manage</li>
+                        <li class="breadcrumb-item active" aria-current="manage_member">Supplier</li>
+                    </ol>
+                </nav>
                 <h4 class="c-grey-900 mT-10 mB-30">Manage Supplier</h4>
                 <div class="row">
                     <div class="col-md-12">
@@ -47,7 +54,7 @@
     <script src="{{ asset('js-lib/validator.min.js') }}"></script>
     <script>
         let table;
-    
+
         $(function() {
             table = $('#dataTable').DataTable({
                 processing: true,
@@ -57,7 +64,7 @@
                 },
                 columns: [
                     { data: 'DT_RowIndex', orderable: false, searchable: false },
-                    { 
+                    {
                         data: 'foto', orderable: false, searchable: false,
                         render: function(data) {
                             return data ?
@@ -71,7 +78,7 @@
                     { data: 'aksi', orderable: false, searchable: false }
                 ]
             });
-    
+
             // Ubah metode submit untuk mengikutsertakan file
             $('#modal-form').validator().on('submit', function(e) {
                 if (!e.preventDefault()) {

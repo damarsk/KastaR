@@ -4,12 +4,9 @@
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dash_style/css/bootstrap/bootstrap-datepicker.min.css') }}">
     <style>
-        /* Custom Datepicker Popover Styling */
         .datepicker.datepicker-dropdown {
             width: 250px;
-            /* Lebih sempit dari sebelumnya */
             font-size: 14px;
-            /* Ukuran font sedikit lebih kecil */
         }
 
         .datepicker-dropdown .datepicker-days {
@@ -23,39 +20,31 @@
         .datepicker-dropdown .datepicker-days table.table-condensed th,
         .datepicker-dropdown .datepicker-days table.table-condensed td {
             height: 30px;
-            /* Tinggi sel yang lebih kecil */
             vertical-align: middle;
             text-align: center;
             font-size: 14px;
-            /* Ukuran font hari */
         }
 
         .datepicker-dropdown .datepicker-months table.table-condensed td,
         .datepicker-dropdown .datepicker-months table.table-condensed th {
             height: 40px;
-            /* Tinggi sel bulan */
             vertical-align: middle;
             text-align: center;
             font-size: 14px;
-            /* Ukuran font bulan */
         }
 
         .datepicker-dropdown .datepicker-title {
             font-size: 16px;
-            /* Ukuran judul */
             padding: 8px;
         }
 
         .datepicker-dropdown .datepicker-switch {
             font-size: 16px;
-            /* Ukuran tombol switch */
         }
 
-        /* Tombol navigasi */
         .datepicker-dropdown .prev,
         .datepicker-dropdown .next {
             font-size: 16px;
-            /* Ukuran tombol prev/next */
         }
     </style>
 @endsection
@@ -64,6 +53,7 @@
     <main class="main-content bgc-grey-100">
         <div id="mainContent">
             <div class="container-fluid">
+                @includeIf('layouts.breadcrumb')
                 <h4 class="c-grey-900 mT-10 mB-30">Laporan Pendapatan {{ tanggal_indonesia($tanggalAwal, false) }} s/d
                     {{ tanggal_indonesia($tanggalAkhir, false) }}</h4>
                 <div class="row">
@@ -149,6 +139,6 @@
             autoclose: true,
             todayHighlight: true
         });
-        
+
     </script>
 @endsection

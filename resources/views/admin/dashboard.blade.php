@@ -25,10 +25,10 @@
     </style>
 @endsection
 <main class="main-content bgc-grey-100">
+    @includeIf('layouts.breadcrumb')
     <div id="mainContent">
         <h2>👋 Halo, {{ Auth::user()->name }}!</h2>
         <div class="row gap-20 masonry pos-r">
-            <div class="masonry-sizer col-md-6"></div>
             <div class="masonry-item w-100">
                 <div class="row gap-20">
                     <div class="col-md-3">
@@ -144,7 +144,7 @@
                     borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     fill: true,
-                    tension: 0.4
+                    tension: 0.1
                 }]
             },
             options: {

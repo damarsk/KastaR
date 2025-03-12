@@ -41,6 +41,7 @@
     <main class="main-content bgc-grey-100">
         <div id="mainContent">
             <div class="container-fluid">
+                @includeIf('layouts.breadcrumb')
                 <h4 class="c-grey-900 mT-10 mB-30">Transaksi Penjualan</h4>
                 <div class="row">
                     <div class="col-md-12">

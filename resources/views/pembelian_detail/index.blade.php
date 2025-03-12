@@ -36,6 +36,13 @@
     <main class="main-content bgc-grey-100">
         <div id="mainContent">
             <div class="container-fluid">
+                <nav aria-label="breadcrumb" class="float-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                        <li class="breadcrumb-item active">Pembelian</li>
+                        <li class="breadcrumb-item active" aria-current="pembelian_detail">Detail</li>
+                    </ol>
+                </nav>
                 <h4 class="c-grey-900 mT-10 mB-30">Transaksi Pembelian</h4>
                 <div class="row">
                     <div class="col-md-12">
@@ -272,26 +279,26 @@
                     })
                     .done((response) => {
                         var notyf = new Notyf({
-                                duration: 2000,
-                                position: {
-                                    x: 'right',
-                                    y: 'top',
-                                },
-                                dismissible: true
-                            });
-                            notyf.success('Data Berhasil Dihapus');
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.success('Data Berhasil Dihapus');
                         table.ajax.reload(() => loadForm($('#diskon').val()));
                     })
                     .fail((errors) => {
                         var notyf = new Notyf({
-                                duration: 2000,
-                                position: {
-                                    x: 'right',
-                                    y: 'top',
-                                },
-                                dismissible: true
-                            });
-                            notyf.error('Tidak dapat menghapus data');
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.error('Tidak dapat menghapus data');
                         return;
                     });
             }

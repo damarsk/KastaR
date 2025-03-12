@@ -10,6 +10,13 @@
     <main class="main-content bgc-grey-100">
         <div id="mainContent">
             <div class="container-fluid">
+                <nav aria-label="breadcrumb" class="float-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                        <li class="breadcrumb-item active">Manage</li>
+                        <li class="breadcrumb-item active" aria-current="manage_admin">Admin</li>
+                    </ol>
+                </nav>
                 <h4 class="c-grey-900 mT-10 mB-30">Manage Admin</h4>
                 <div class="row">
                     <div class="col-md-12">
