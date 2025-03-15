@@ -118,7 +118,8 @@
                             <div class="response-content c-grey-800" id="responseContent"></div>
                         </div>
                         <div class="input-field">
-                            <textarea id="userInput" placeholder="Type a message or Type /help for Commands" rows="1" style="max-height: 160px; resize: none;"></textarea>
+                            <textarea id="userInput" placeholder="Type a message or Type /help for Commands" rows="1"
+                                style="max-height: 160px; resize: none;"></textarea>
                             <button class="btn-send" onclick="sendMessage()"><i class="fa fa-paper-plane"></i></button>
                         </div>
                     </div>
@@ -185,11 +186,31 @@
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',
                     },
-                    body: JSON.stringify({ message: input })
+                    body: JSON.stringify({
+                        message: input
+                    })
                 });
 
                 const data = await response.json();
-                const markdownText = data.content || 'No response';
+                let markdownText = '';
+
+                if (Array.isArray(data.content)) {
+                    // Jika content adalah array, kita akan membangun string HTML untuk menampilkan produk
+                    markdownText = '<ul>';
+                    data.content.forEach(product => {
+                        markdownText += `<li>
+                <strong>Nama Produk:</strong> ${product.nama_produk} <br>
+                <strong>Kode Produk:</strong> ${product.kode_produk} <br>
+                <strong>Merk:</strong> ${product.merk || 'Tidak ada'} <br>
+                <strong>Harga Jual:</strong> ${product.harga_jual} <br>
+                <strong>Stok:</strong> ${product.stok} <br>
+            </li><br>`;
+                    });
+                    markdownText += '</ul>';
+                } else {
+                    markdownText = data.content || 'No response';
+                }
+
                 responseContent.html(marked.parse(markdownText));
             } catch (error) {
                 responseContent.innerHTML = `<div class="error">Error: ${error.message}</div>`;
@@ -197,4 +218,3 @@
         }
     </script>
 @endsection
-
