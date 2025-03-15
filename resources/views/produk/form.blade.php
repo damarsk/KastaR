@@ -47,10 +47,6 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="diskon" class="form-label">Diskon (%)</label>
-                        <input type="number" name="diskon" class="form-control" id="diskon" placeholder="Masukkan Diskon" value="0">
-                    </div>
-                    <div class="mb-3">
                         <label for="stok" class="form-label">Stok Barang</label>
                         <input type="number" name="stok" class="form-control" id="stok" placeholder="Masukkan Stok Barang" required>
                         <div class="invalid-feedback">

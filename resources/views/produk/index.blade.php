@@ -38,7 +38,6 @@
                                         <th>Merk</th>
                                         <th>Harga Beli</th>
                                         <th>Harga Jual</th>
-                                        <th>Diskon</th>
                                         <th>Stok</th>
                                         <th width="10%"><i class="fa fa-cog"></i></th>
                                     </thead>
@@ -95,9 +94,6 @@
                     },
                     {
                         data: 'harga_jual'
-                    },
-                    {
-                        data: 'diskon'
                     },
                     {
                         data: 'stok'
@@ -182,7 +178,6 @@
                     $('#modal-form [name=merk]').val(response.merk);
                     $('#modal-form [name=harga_beli]').val(response.harga_beli);
                     $('#modal-form [name=harga_jual]').val(response.harga_jual);
-                    $('#modal-form [name=diskon]').val(response.diskon);
                     $('#modal-form [name=stok]').val(response.stok);
                 })
                 .fail((errors) => {
