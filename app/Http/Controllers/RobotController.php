@@ -6,6 +6,7 @@ use App\Models\Produk;
 use App\Models\Pembelian;
 use App\Models\Penjualan;
 use App\Models\Pengeluaran;
+use FontLib\Table\Type\post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
@@ -38,25 +39,13 @@ class RobotController extends Controller
         ];
 
         // Proses pesan khusus
-        if ($request->message == '/help') {
-            $responseContent = '**Perintah yang tersedia: /help, /about, /produk, /produk-analisis**';
-            $responseStatus = 'success';
+        $specialCommands = [
+            '/help' => '**Perintah yang tersedia: /help, /about, /produk, /produk-analisis**',
+            '/about' => '**Made By Damar 2025, More Information visit https://link.damar.pw/**',
+        ];
 
-            // Tambahkan respons ke history
-            $chatHistory[] = [
-                'role' => 'assistant',
-                'content' => $responseContent,
-            ];
-
-            // Simpan history yang diperbarui
-            $this->updateChatHistory($chatHistory);
-
-            return response()->json([
-                'content' => $responseContent,
-                'status' => $responseStatus,
-            ]);
-        } elseif ($request->message == '/about') {
-            $responseContent = '**Made By Damar 2025, More Information visit https://link.damar.pw/**';
+        if (array_key_exists($request->message, $specialCommands)) {
+            $responseContent = $specialCommands[$request->message];
             $responseStatus = 'success';
 
             // Tambahkan respons ke history
@@ -74,7 +63,7 @@ class RobotController extends Controller
             ]);
         } elseif ($request->message == '/produk') {
             $produk = Produk::all();
-            $responseContent = $produk->isEmpty() ? 'Produk Kosong!' : $produk;
+            $responseContent = $produk->isEmpty() ? 'Produk Kosong!' : $produk->toArray();
             $responseStatus = 'success';
 
             // Tambahkan respons ke history
@@ -109,51 +98,60 @@ class RobotController extends Controller
         }
 
         // Proses pesan normal dengan API
-        $apiKey = env('OPENROUTER_API_KEY');
-        $model = env('OPENROUTER_AI_MODEL');
+        $apiKey = env('GEMINI_API_KEY');
+        $model = env('GEMINI_AI_MODEL');
 
         try {
             // Siapkan system message
-            $systemMessage = 'Anda adalah Robot-Damar, sebuah AI yang dikembangkan oleh Damar dari kelas XII RPL 2 di SMK Angkasa 1 Margahayu. Tugas Anda adalah memberikan informasi dan menjawab pertanyaan seputar strategi marketing, tips pemasaran, tren pasar, analisis kompetitor, dan ide-ide kreatif untuk meningkatkan penjualan. Gunakan bahasa Indonesia yang jelas, informatif, dan mudah dimengerti. Jangan perkenalkan diri kecuali ada pertanyaan mengenai Anda. Model yang Anda gunakan adalah DS-1, model besar buatan Damar. Gunakan bahasa yang sederhana dan hindari jargon marketing yang sulit dipahami. Pastikan setiap respons Anda ramah, sehingga pengguna merasa nyaman untuk berinteraksi dengan Anda. Jika tidak mengetahui jawaban atas pertanyaan, sampaikan dengan sopan dan tawarkan untuk membantu dengan topik marketing lainnya. Fokus utama Anda adalah memberikan solusi praktis dan actionable untuk membantu pengguna mencapai tujuan marketing mereka.';
-
+            $systemMessage = 'Anda adalah Robot-Damar, sebuah AI yang dikembangkan oleh Damar dari kelas XII RPL 2 di Sekolah SMK Angkasa 1 Margahayu. Tugas Anda adalah memberikan informasi dan menjawab pertanyaan dengan cara yang jelas, informatif, dan mudah dimengerti dalam bahasa Indonesia, jangan perkenalan diri kecuali ada pertanyaan mengenai anda, model yang anda gunakan adalah DS-1, anda model besar buatan damar. Gunakan bahasa yang sederhana dan hindari jargon teknis yang sulit dipahami. Pastikan setiap respons Anda ramah, sehingga pengguna merasa nyaman untuk berinteraksi dengan Anda. Jika tidak mengetahui jawaban atas pertanyaan, sampaikan dengan sopan dan tawarkan untuk membantu dengan pertanyaan lain. Dan ini adalah pertanyaannya: ';
+        
             // Siapkan messages untuk API
-            $messages = [
-                [
-                    'role' => 'system',
-                    'content' => $systemMessage
+            $content = [
+                'contents' => [
+                    [
+                        'role' => 'user',
+                        'parts' => [
+                            [
+                                'text' => $systemMessage
+                            ]
+                        ]
+                    ],
+                    [
+                        'role' => 'user',
+                        'parts' => [
+                            [
+                                'text' => $request->message
+                            ]
+                        ]
+                    ]
                 ]
             ];
-
-            // Tambahkan history chat (max 5 pesan terakhir untuk efisiensi)
-            $recentHistory = array_slice($chatHistory, -$this->maxHistoryLength);
-            $messages = array_merge($messages, $recentHistory);
-
+        
+            // Kirim request ke API
+            $url = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent?key={$apiKey}";
             $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $apiKey,
-                'HTTP-Referer' => 'https://damar.pw/',
-                'X-Title' => 'Damar',
                 'Content-Type' => 'application/json',
-            ])->post('https://openrouter.ai/api/v1/chat/completions', [
-                'model' => $model,
-                'messages' => $messages,
-            ]);
-
-            $message = $response->json()['choices'][0]['message'];
-
+            ])->post($url, $content);
+        
+            // Mengambil respons JSON
+            $message = $response->json();
+            $message = $message['candidates'][0]['content']['parts'][0];
+        
             // Tambahkan respons ke history
             $chatHistory[] = [
                 'role' => 'assistant',
-                'content' => $message['content'],
+                'content' => $message['text'],
             ];
-
+        
             // Simpan history yang diperbarui
             $this->updateChatHistory($chatHistory);
-
+        
             return response()->json($message);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error: ' . $e->getMessage()], 500);
         }
     }
+
 
     /**
      * Update chat history dalam session dan batasi jumlah pesan

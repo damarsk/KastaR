@@ -208,7 +208,7 @@
                     });
                     markdownText += '</ul>';
                 } else {
-                    markdownText = data.content || 'No response';
+                    markdownText = data.text || data.content || 'No response';
                 }
 
                 responseContent.html(marked.parse(markdownText));
