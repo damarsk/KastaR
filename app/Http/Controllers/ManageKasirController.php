@@ -140,7 +140,6 @@ class ManageKasirController extends Controller
         $user = User::find($id);
 
         if ($user) {
-            // Hapus foto jika ada
             if ($user->foto) {
                 $oldPhotoPath = public_path('uploads/photos/' . $user->foto);
                 if (file_exists($oldPhotoPath)) {

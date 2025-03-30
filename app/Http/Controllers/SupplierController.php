@@ -110,7 +110,17 @@ class SupplierController extends Controller
     public function destroy(string $id)
     {
         $supplier = Supplier::find($id);
-        $supplier->delete();
+
+        if ($supplier) {
+            if ($supplier->foto) {
+                $oldPhotoPath = public_path('uploads/photos/' . $supplier->foto);
+                if (file_exists($oldPhotoPath)) {
+                    unlink($oldPhotoPath);
+                }
+            }
+            $supplier->delete();
+            return response()->json(['success' => true, 'message' => 'Supplier berhasil dihapus!']);
+        }
 
         return response(null, 204);
     }
