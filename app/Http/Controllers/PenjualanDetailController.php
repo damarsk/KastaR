@@ -29,7 +29,7 @@ class PenjualanDetailController extends Controller
             } else {
                 return redirect()->route('home');
             }
-        }
+        }session()->forget('id_penjualan');
     }
 
     public function data($id)
@@ -78,8 +78,32 @@ class PenjualanDetailController extends Controller
 
     public function store(Request $request) {
         $produk = Produk::findOrFail($request->id_produk);
+
         if (!$produk) {
-            return response()->json(['status' => '404', 'message' => 'Produk tidak ditemukan']);
+            return response()->json(['status' => '404', 'errStatus' => 'Not Found', 'message' => 'Produk tidak ditemukan']);
+        } else if ($produk->stok <= 0) {
+            return response()->json(['status' => '404', 'errStatus' => 'stok_habis', 'message' => 'Stok produk tersebut habis!']);
+        }
+
+        $detail = new PenjualanDetail();
+        $detail->id_penjualan = $request->id_penjualan;
+        $detail->id_produk = $produk->id_produk;
+        $detail->harga_jual = $produk->harga_jual;
+        $detail->jumlah = 1;
+        $detail->diskon = 0;
+        $detail->subtotal = $produk->harga_jual;
+        $detail->save();
+
+        return response()->json(['status' => '200', 'id' => $detail->id_penjualan_detail]);
+    }
+
+    public function storeEnter(Request $request) {
+        $produk = Produk::where('kode_produk', $request->kode_produk)->first();
+
+        if (!$produk) {
+            return response()->json(['status' => '404', 'errStatus' => 'Not Found', 'message' => 'Produk tidak ditemukan']);
+        } else if ($produk->stok <= 0) {
+            return response()->json(['status' => '404', 'errStatus' => 'stok_habis', 'message' => 'Stok produk tersebut habis!']);
         }
 
         $detail = new PenjualanDetail();

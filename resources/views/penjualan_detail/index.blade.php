@@ -55,9 +55,12 @@
                                             <input type="hidden" name="id_penjualan" id="id_penjualan"
                                                 value="{{ $id_penjualan }}">
                                             <input type="hidden" name="id_produk" id="id_produk">
-                                            <input type="text" class="form-control" name="kode_produk" id="kode_produk">
+                                            <input type="text" class="form-control" name="kode_produk" id="kode_produk"
+                                                onkeypress="tambahProdukEnt(event)">
                                             <button onclick="tampilProduk()" class="btn btn-secondary text-white"
-                                                type="button" id="button-addon2"><i class="fa fa-arrow-right"></i></button>
+                                                type="button" id="button-addon2">
+                                                <i class="fa fa-arrow-right"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -261,7 +264,42 @@
             });
         });
 
-        // PRODUK
+        function tambahProdukEnt(event) {
+            if (event.key == 'Enter') {
+                event.preventDefault();
+                $.post('{{ route('transaksi.storeEnter') }}', $('.form-produk').serialize())
+                    .done((response) => {
+                        $('#kode_produk').focus();
+                        var notyf = new Notyf({
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        if (response.status === '404') {
+                            notyf.error(response);
+                        } else {
+                            notyf.success('Barang berhasil ditambahkan!');
+                            table.ajax.reload(() => loadForm($('#diskon').val()));
+                        }
+                    })
+                    .fail((errors) => {
+                        var notyf = new Notyf({
+                            duration: 2000,
+                            position: {
+                                x: 'right',
+                                y: 'top',
+                            },
+                            dismissible: true
+                        });
+                        notyf.error('Tidak dapat menyimpan data');
+                        return;
+                    });
+            }
+        }
+
         function tampilProduk() {
             $('#modal-produk').modal('show');
         }
@@ -285,8 +323,12 @@
                         },
                         dismissible: true
                     });
-                    notyf.success(response);
-                    table.ajax.reload(() => loadForm($('#diskon').val()));
+                    if (response.errStatus === 'stok_habis') {
+                        notyf.error(response);
+                    } else {
+                        notyf.success('Barang berhasil ditambahkan!');
+                        table.ajax.reload(() => loadForm($('#diskon').val()));
+                    }
                 })
                 .fail((errors) => {
                     var notyf = new Notyf({

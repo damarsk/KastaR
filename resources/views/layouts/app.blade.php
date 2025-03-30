@@ -8,7 +8,6 @@
     <title>@yield('title')</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('land_style/img/logo-circle.png') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
-    {{-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"> --}}
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="{{ asset('dash_style/css/toast/notyf.min.css') }}">
@@ -237,12 +236,6 @@
                                         <a class="sidebar-link" href="{{ route('penjualan.index') }}">
                                             <i class="c-green-500 ti-upload me-2"></i>
                                             Penjualan
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="sidebar-link" href="{{ route('transaksi.index') }}">
-                                            <i class="c-green-500 ti-shopping-cart me-2"></i>
-                                            Transaksi Aktif
                                         </a>
                                     </li>
                                     <li>
