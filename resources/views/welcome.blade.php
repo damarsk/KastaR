@@ -92,53 +92,6 @@
         </div>
     </section>
 
-    <!-- Product Introduction -->
-    <section id="introduction" class="introduction">
-        <h2 class="section-title" data-aos="fade-up">Kenapa Memilih KastaR?</h2>
-        <p data-aos="fade-up" data-aos-delay="200">KastaR adalah sistem kasir pintar modern yang dikembangkan khusus untuk memenuhi kebutuhan bisnis kecil dan menengah di Indonesia.</p>
-
-        <div class="container statistics">
-            <div class="row">
-            <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="statistic-item p-4 border rounded shadow-sm">
-                <div class="feature-icon mb-3">
-                    <i class="bi bi-people"></i>
-                </div>
-                <h3><span class="purecounter" data-purecounter-start="0" data-purecounter-end="5000" data-purecounter-duration="2">0</span>+ Pengguna</h3>
-                <p class="mb-0">Lebih dari 5000 pengguna telah mempercayai KastaR untuk mengelola bisnis mereka.</p>
-                </div>
-            </div>
-            <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="statistic-item p-4 border rounded shadow-sm">
-                <div class="feature-icon mb-3">
-                    <i class="bi bi-shop"></i>
-                </div>
-                <h3><span class="purecounter" data-purecounter-start="0" data-purecounter-end="1200" data-purecounter-duration="2">0</span>+ Toko</h3>
-                <p class="mb-0">Lebih dari 1200 toko menggunakan KastaR untuk operasional sehari-hari.</p>
-                </div>
-            </div>
-            <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
-                <div class="statistic-item p-4 border rounded shadow-sm">
-                <div class="feature-icon mb-3">
-                    <i class="bi bi-cash-stack"></i>
-                </div>
-                <h3><span class="purecounter" data-purecounter-start="0" data-purecounter-end="100000" data-purecounter-duration="2">0</span>+ Transaksi</h3>
-                <p class="mb-0">Lebih dari 100,000 transaksi telah diproses menggunakan KastaR.</p>
-                </div>
-            </div>
-            <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="600">
-                <div class="statistic-item p-4 border rounded shadow-sm">
-                <div class="feature-icon mb-3">
-                    <i class="bi bi-graph-up-arrow"></i>
-                </div>
-                <h3><span class="purecounter" data-purecounter-start="0" data-purecounter-end="200" data-purecounter-duration="2">0</span>+ Pertumbuhan</h3>
-                <p class="mb-0">KastaR membantu bisnis tumbuh dengan cepat dan efisien.</p>
-                </div>
-            </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Benefits Section -->
     <section id="benefits" class="benefits">
         <h2 class="section-title" data-aos="fade-up">Manfaat Utama KastaR</h2>
@@ -184,40 +137,10 @@
         </div>
     </section>
 
-    <!-- How It Works -->
-    <section id="how" class="how-it-works">
-        <h2 class="section-title" data-aos="fade-up">Cara Kerja KastaR</h2>
-        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">Mulai menggunakan KastaR dengan 4 langkah mudah berikut ini.</p>
-
-        <div class="steps">
-            <div class="step" data-aos="fade-up" data-aos-delay="300">
-                <div class="step-number">1</div>
-                <h3>Beli Aplikasi</h3>
-                <p>Hubungi CS untuk mendapatkan lisensi KastaR sesuai dengan kebutuhan bisnis Anda.</p>
-            </div>
-            <div class="step" data-aos="fade-up" data-aos-delay="400">
-                <div class="step-number">2</div>
-                <h3>Sesuaikan Pengaturan</h3>
-                <p>Masukkan data produk, kategori, harga, dan informasi bisnis lainnya sesuai kebutuhan Anda.</p>
-            </div>
-            <div class="step" data-aos="fade-up" data-aos-delay="500">
-                <div class="step-number">3</div>
-                <h3>Mulai Transaksi</h3>
-                <p>Mulai mencatat transaksi penjualan dengan mudah melalui antarmuka yang intuitif dan ramah pengguna.</p>
-            </div>
-            <div class="step" data-aos="fade-up" data-aos-delay="600">
-                <div class="step-number">4</div>
-                <h3>Analisis & Kembangkan</h3>
-                <p>Pantau dan analisis laporan bisnis untuk mengambil keputusan strategis Anda.</p>
-            </div>
-        </div>
-    </section>
-
     <!-- CTA Section -->
     <section id="contact" class="cta">
-        <h2 data-aos="fade-up">Siap Meningkatkan Bisnis Anda?</h2>
-        <p data-aos="fade-up" data-aos-delay="200">Bergabunglah dengan ribuan pemilik bisnis yang telah berhasil mengoptimalkan operasional mereka dengan KastaR. Mulai sekarang dan rasakan perbedaannya!</p>
-        <a href="#" class="btn btn-white" data-aos="fade-up" data-aos-delay="400">Daftar Sekarang untuk Uji Coba Gratis 14 Hari!</a>
+        <h2 data-aos="fade-up">Login Ke Akun Anda</h2>
+        <a href="{{route('auth.index')}}" class="btn btn-white" data-aos="fade-up" data-aos-delay="400">Masuk</a>
     </section>
 
     <!-- Footer Section -->
@@ -250,8 +173,6 @@
                         <li><a href="#home">Beranda</a></li>
                         <li><a href="#features">Fitur Unggulan</a></li>
                         <li><a href="#benefits">Keunggulan</a></li>
-                        <li><a href="#how">Cara Kerja</a></li>
-                        <li><a href="#contact">Kontak</a></li>
                     </ul>
                 </div>
 

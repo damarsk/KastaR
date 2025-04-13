@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,35 +25,52 @@
         td {
             border: 1px solid #000;
             padding: 10px;
-            width: 33.33%; /* Memastikan setiap kolom memiliki lebar yang sama */
-            box-sizing: border-box; /* Memastikan padding dan border termasuk dalam lebar total */
+            width: 33.33%;
+            box-sizing: border-box;
+        }
+
+        tr {
+            display: table-row;
         }
     </style>
 </head>
+
 <body>
     <div>
         <table>
             @php
-                $index = 0;
+                $counter = 0;
+                $totalItems = count($dataproduk);
             @endphp
+
             @foreach ($dataproduk as $produk)
-                @if ($index % 3 == 0)
+                @if ($counter % 3 == 0)
                     <tr>
                 @endif
+
                 <td class="text-center">
-                    <p>{{$produk->nama_produk}} - Rp. {{format_uang($produk->harga_jual)}}</p>
-                    <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($produk->kode_produk, 'C39') }}" alt="{{ $produk->kode_produk }}" width="144" height="57"/>
+                    <p>{{ $produk->nama_produk }} - Rp. {{ format_uang($produk->harga_jual) }}</p>
+                    <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($produk->kode_produk, 'C39') }}"
+                        alt="{{ $produk->kode_produk }}" width="144" height="57" />
                     <br>
                     {{ $produk->kode_produk }}
                 </td>
-                @if (($index + 1) % 3 == 0 || $loop->last)
+
+                @if (($counter + 1) % 3 == 0)
+                    </tr>
+                @elseif ($loop->last)
+                    @for ($i = 0; $i < (3 - ($totalItems % 3)) % 3; $i++)
+                        <td class="text-center"></td>
+                    @endfor
                     </tr>
                 @endif
+
                 @php
-                    $index++;
+                    $counter++;
                 @endphp
             @endforeach
         </table>
     </div>
 </body>
+
 </html>

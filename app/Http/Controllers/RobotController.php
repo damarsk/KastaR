@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Session;
 class RobotController extends Controller
 {
     private $sessionKey = 'chat_history';
-    private $maxHistoryLength = 10;
+    private $maxHistoryLength = 15;
 
     public function index()
     {
@@ -37,6 +37,9 @@ class RobotController extends Controller
             'role' => 'user',
             'content' => $request->message,
         ];
+
+        // Simpan history yang diperbarui terlebih dahulu
+        $this->updateChatHistory($chatHistory);
 
         // Proses pesan khusus
         $specialCommands = [
@@ -104,54 +107,62 @@ class RobotController extends Controller
         try {
             // Siapkan system message
             $systemMessage = 'Anda adalah Robot-Damar, sebuah AI yang dikembangkan oleh Damar dari kelas XII RPL 2 di Sekolah SMK Angkasa 1 Margahayu. Tugas Anda adalah memberikan informasi dan menjawab pertanyaan dengan cara yang jelas, informatif, dan mudah dimengerti dalam bahasa Indonesia, jangan perkenalan diri kecuali ada pertanyaan mengenai anda, model yang anda gunakan adalah DS-1, anda model besar buatan damar. Gunakan bahasa yang sederhana dan hindari jargon teknis yang sulit dipahami. Pastikan setiap respons Anda ramah, sehingga pengguna merasa nyaman untuk berinteraksi dengan Anda. Jika tidak mengetahui jawaban atas pertanyaan, sampaikan dengan sopan dan tawarkan untuk membantu dengan pertanyaan lain. Dan ini adalah pertanyaannya: ';
-        
+
+            // Siapkan semua pesan chat untuk konteks AI
+            $apiMessages = [];
+
+            // Tambahkan pesan sistem sebagai pesan pertama
+            $apiMessages[] = [
+                'role' => 'user',
+                'parts' => [
+                    [
+                        'text' => $systemMessage,
+                    ],
+                ],
+            ];
+
+            // Tambahkan history chat (maksimal 5 pesan terakhir)
+            $recentMessages = array_slice($chatHistory, -5);
+            foreach ($recentMessages as $msg) {
+                $apiMessages[] = [
+                    'role' => $msg['role'],
+                    'parts' => [
+                        [
+                            'text' => $msg['content'],
+                        ],
+                    ],
+                ];
+            }
+
             // Siapkan messages untuk API
             $content = [
-                'contents' => [
-                    [
-                        'role' => 'user',
-                        'parts' => [
-                            [
-                                'text' => $systemMessage
-                            ]
-                        ]
-                    ],
-                    [
-                        'role' => 'user',
-                        'parts' => [
-                            [
-                                'text' => $request->message
-                            ]
-                        ]
-                    ]
-                ]
+                'contents' => $apiMessages,
             ];
-        
+
             // Kirim request ke API
             $url = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent?key={$apiKey}";
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
             ])->post($url, $content);
-        
+
             // Mengambil respons JSON
             $message = $response->json();
             $message = $message['candidates'][0]['content']['parts'][0];
-        
+
             // Tambahkan respons ke history
             $chatHistory[] = [
                 'role' => 'assistant',
                 'content' => $message['text'],
             ];
-        
+
             // Simpan history yang diperbarui
             $this->updateChatHistory($chatHistory);
-        
+
             return response()->json($message);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error: ' . $e->getMessage()], 500);
         }
     }
-
 
     /**
      * Update chat history dalam session dan batasi jumlah pesan
@@ -329,102 +340,107 @@ class RobotController extends Controller
     }
 
     private function getTrenPenjualan($startDate, $periode)
-{
-    $format = '';
-    $dbFormat = '';
-    $step = '';
+    {
+        $format = '';
+        $dbFormat = '';
+        $step = '';
 
-    switch ($periode) {
-        case 'minggu':
-            $dbFormat = '%Y-%u'; // Format MySQL untuk tahun-minggu
-            $format = 'Y-W';
-            $step = '1 week';
-            $label = "Minggu ke-";
-            break;
-        case 'tahun':
-            $dbFormat = '%Y'; // Format MySQL untuk tahun
-            $format = 'Y';
-            $step = '1 year';
-            $label = "Tahun ";
-            break;
-        case 'bulan':
-        default:
-            $dbFormat = '%Y-%m'; // Format MySQL untuk tahun-bulan
-            $format = 'Y-m';
-            $step = '1 month';
-            $label = "";
-            break;
-    }
-
-    // Menggunakan DATE_FORMAT database untuk MySQL yang kompatibel
-    $penjualanPerPeriode = DB::table('penjualan')
-        ->select(
-            DB::raw("DATE_FORMAT(created_at, '$dbFormat') as periode"),
-            DB::raw('SUM(total_harga) as total_penjualan')
-        )
-        ->where('created_at', '>=', $startDate)
-        ->groupBy('periode')
-        ->orderBy('periode', 'asc')
-        ->get();
-
-    // Hitung persentase perubahan antara periode
-    $result = collect();
-    $previous = null;
-
-    foreach ($penjualanPerPeriode as $index => $data) {
-        $pctChange = 0;
-
-        if ($previous) {
-            $pctChange = ($previous->total_penjualan > 0)
-                ? (($data->total_penjualan - $previous->total_penjualan) / $previous->total_penjualan) * 100
-                : 0;
+        switch ($periode) {
+            case 'minggu':
+                $dbFormat = '%Y-%u'; // Format MySQL untuk tahun-minggu
+                $format = 'Y-W';
+                $step = '1 week';
+                $label = 'Minggu ke-';
+                break;
+            case 'tahun':
+                $dbFormat = '%Y'; // Format MySQL untuk tahun
+                $format = 'Y';
+                $step = '1 year';
+                $label = 'Tahun ';
+                break;
+            case 'bulan':
+            default:
+                $dbFormat = '%Y-%m'; // Format MySQL untuk tahun-bulan
+                $format = 'Y-m';
+                $step = '1 month';
+                $label = '';
+                break;
         }
 
-        // Format periode untuk tampilan yang lebih user-friendly
-        $displayPeriode = $data->periode;
+        // Menggunakan DATE_FORMAT database untuk MySQL yang kompatibel
+        $penjualanPerPeriode = DB::table('penjualan')
+            ->select(DB::raw("DATE_FORMAT(created_at, '$dbFormat') as periode"), DB::raw('SUM(total_harga) as total_penjualan'))
+            ->where('created_at', '>=', $startDate)
+            ->groupBy('periode')
+            ->orderBy('periode', 'asc')
+            ->get();
 
-        if ($periode == 'bulan') {
-            try {
-                // Coba parse tanggal, jika gagal gunakan string asli
+        // Hitung persentase perubahan antara periode
+        $result = collect();
+        $previous = null;
+
+        foreach ($penjualanPerPeriode as $index => $data) {
+            $pctChange = 0;
+
+            if ($previous) {
+                $pctChange = $previous->total_penjualan > 0 ? (($data->total_penjualan - $previous->total_penjualan) / $previous->total_penjualan) * 100 : 0;
+            }
+
+            // Format periode untuk tampilan yang lebih user-friendly
+            $displayPeriode = $data->periode;
+
+            if ($periode == 'bulan') {
+                try {
+                    // Coba parse tanggal, jika gagal gunakan string asli
+                    $parts = explode('-', $data->periode);
+                    if (count($parts) == 2) {
+                        $year = (int) $parts[0];
+                        $month = (int) $parts[1];
+
+                        // Buat array nama bulan dalam bahasa Indonesia
+                        $bulanIndonesia = [
+                            1 => 'Januari',
+                            2 => 'Februari',
+                            3 => 'Maret',
+                            4 => 'April',
+                            5 => 'Mei',
+                            6 => 'Juni',
+                            7 => 'Juli',
+                            8 => 'Agustus',
+                            9 => 'September',
+                            10 => 'Oktober',
+                            11 => 'November',
+                            12 => 'Desember',
+                        ];
+
+                        $displayPeriode = $bulanIndonesia[$month] . ' ' . $year;
+                    }
+                } catch (\Exception $e) {
+                    // Jika terjadi error, gunakan string periode asli
+                    $displayPeriode = $data->periode;
+                }
+            } elseif ($periode == 'minggu') {
                 $parts = explode('-', $data->periode);
                 if (count($parts) == 2) {
-                    $year = (int)$parts[0];
-                    $month = (int)$parts[1];
-
-                    // Buat array nama bulan dalam bahasa Indonesia
-                    $bulanIndonesia = [
-                        1 => 'Januari', 2 => 'Februari', 3 => 'Maret',
-                        4 => 'April', 5 => 'Mei', 6 => 'Juni',
-                        7 => 'Juli', 8 => 'Agustus', 9 => 'September',
-                        10 => 'Oktober', 11 => 'November', 12 => 'Desember'
-                    ];
-
-                    $displayPeriode = $bulanIndonesia[$month] . ' ' . $year;
+                    $displayPeriode = $label . $parts[1] . ' ' . $parts[0];
                 }
-            } catch (\Exception $e) {
-                // Jika terjadi error, gunakan string periode asli
-                $displayPeriode = $data->periode;
+            } elseif ($periode == 'tahun') {
+                $displayPeriode = $label . $data->periode;
             }
-        } else if ($periode == 'minggu') {
-            $parts = explode('-', $data->periode);
-            if (count($parts) == 2) {
-                $displayPeriode = $label . $parts[1] . ' ' . $parts[0];
-            }
-        } else if ($periode == 'tahun') {
-            $displayPeriode = $label . $data->periode;
+
+            $result->push(
+                (object) [
+                    'periode' => $displayPeriode,
+                    'total_penjualan' => $data->total_penjualan,
+                    'pct_change' => $pctChange,
+                ],
+            );
+
+            $previous = $data;
         }
 
-        $result->push((object)[
-            'periode' => $displayPeriode,
-            'total_penjualan' => $data->total_penjualan,
-            'pct_change' => $pctChange
-        ]);
-
-        $previous = $data;
+        return $result;
     }
-
-    return $result;
-}
 
     private function getTrendArrow($pctChange)
     {

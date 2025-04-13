@@ -13,6 +13,9 @@ class SettingTableSeeder extends Seeder
      */
     public function run(): void
     {
+        // Membersihkan data yang ada di tabel setting
+        DB::table('setting')->truncate();
+
         DB::table('setting')->insert([
             'id_setting' => 1,
             'nama_perusahaan' => 'DaMart',

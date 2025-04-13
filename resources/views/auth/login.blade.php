@@ -92,15 +92,11 @@
                                     <div class="mt-4">
                                         <div class="d-flex align-items-center mb-3">
                                             <i class="fas fa-check-circle me-3"></i>
-                                            <span>Solusi kasir modern untuk bisnis Anda</span>
+                                            <span>Solusi kasir modern untuk berbisnis</span>
                                         </div>
                                         <div class="d-flex align-items-center mb-3">
                                             <i class="fas fa-check-circle me-3"></i>
                                             <span>Mudah digunakan dan diintegrasikan</span>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <i class="fas fa-check-circle me-3"></i>
-                                            <span>Dukungan 24/7 untuk semua pengguna</span>
                                         </div>
                                     </div>
                                 </div>
