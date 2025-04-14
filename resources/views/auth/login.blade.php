@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KastaR - Login</title>
+    <title>TokoRetail - Login</title>
     <link href="{{ asset('land_style/img/logo-circle.png') }}" rel="icon"  type="image/x-icon">
     <link href="{{ asset('auth_style/css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('auth_style/css/font-awesome/all.min.css') }}" rel="stylesheet">

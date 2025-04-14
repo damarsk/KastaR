@@ -270,6 +270,12 @@
                                     <span class="title">Produk</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="sidebar-link" href="{{ route('supplier.index') }}">
+                                    <span class="icon-holder"><i class="c-brown-300 ti-truck"></i></span>
+                                    <span class="title">Supplier</span>
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="dropdown-toggle" href="javascript:void(0);">
                                     <span class="icon-holder"><i class="c-blue-500 ti-id-badge"></i></span>
@@ -285,12 +291,6 @@
                                             </a>
                                         </li>
                                     @endif
-                                    <li>
-                                        <a class="sidebar-link" href="{{ route('supplier.index') }}">
-                                            <i class="c-blue-500 ti-user me-2"></i>
-                                            Manage Supplier
-                                        </a>
-                                    </li>
                                     <li>
                                         <a class="sidebar-link" href="{{ route('member.index') }}">
                                             <i class="c-blue-500 ti-user me-2"></i>

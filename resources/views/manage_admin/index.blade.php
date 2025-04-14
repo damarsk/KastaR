@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'KastaR - Manage Admin')
+@section('title', 'TokoRetail - Manage Admin')
 
 @section('styles')
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">

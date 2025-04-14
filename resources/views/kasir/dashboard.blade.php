@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'KastaR - Dashboard')
+@section('title', 'TokoRetail - Dashboard')
 @section('styles')
 <style>
 </style>

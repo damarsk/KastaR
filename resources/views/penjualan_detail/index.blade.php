@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'KastaR - Penjualan')
+@section('title', 'TokoRetail - Penjualan')
 @section('styles')
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
     <style>
@@ -160,9 +160,34 @@
     <script src="{{ asset('js-lib/jquery.min.js') }}"></script>
     <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
     <script src="{{ asset('js-lib/validator.min.js') }}"></script>
+    <script src="{{ asset('auth_style/js/toast/notyf.min.js') }}"></script>
     <script>
         let table;
         let tableProduk;
+        
+        // Inisialisasi Notyf
+        const notyf = new Notyf({
+            duration: 5000,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+            types: [
+                {
+                    type: 'error',
+                    background: '#FF0000',
+                    icon: {
+                        className: 'fas fa-times',
+                        tagName: 'i',
+                    }
+                }
+            ]
+        });
+
+        // Cek apakah ada pesan error dari session
+        @if(session('error'))
+            notyf.error("{{ session('error') }}");
+        @endif
 
         $(function() {
             table = $('#tabel-penjualan').DataTable({

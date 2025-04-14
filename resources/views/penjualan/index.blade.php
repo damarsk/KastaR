@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'KastaR - Penjualan')
+@section('title', 'TokoRetail - Penjualan')
 @section('styles')
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
 @endsection

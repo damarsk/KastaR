@@ -80,9 +80,36 @@ class PenjualanController extends Controller
         $penjualan->diskon = $request->diskon;
         $penjualan->bayar = $request->bayar;
         $penjualan->diterima = $request->diterima;
-        $penjualan->update();
-
+        
+        // Validasi stok produk sebelum melakukan update
         $detail = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
+        
+        // Validasi stok untuk semua item
+        $stokValid = true;
+        $errorMessage = '';
+        
+        foreach ($detail as $item) {
+            $produk = Produk::find($item->id_produk);
+            
+            // Cek apakah jumlah item melebihi stok yang tersedia
+            if ($produk && $item->jumlah > $produk->stok) {
+                $stokValid = false;
+                $errorMessage = 'Transaksi gagal! Jumlah Stok '. $produk->nama_produk .' yang tersedia: '. $produk->stok . 'pcs';
+                break;
+            }
+        }
+        
+        // Jika validasi stok gagal, kembalikan dengan pesan error
+        if (!$stokValid) {
+            return redirect()
+                ->route('transaksi.index')
+                ->with('error', $errorMessage);
+        }
+        
+        // Jika validasi berhasil, update penjualan
+        $penjualan->update();
+        
+        // Update detail penjualan dan kurangi stok
         foreach ($detail as $item) {
             $item->diskon = $request->diskon;
             $item->update();

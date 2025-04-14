@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'KastaR - Laporan Pendapatan')
+@section('title', 'TokoRetail - Laporan Pendapatan')
 @section('styles')
     <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dash_style/css/bootstrap/bootstrap-datepicker.min.css') }}">

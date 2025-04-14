@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'KastaR - AI Assistant')
+@section('title', 'TokoRetail - AI Assistant')
 @section('styles')
     <style>
         .chat-container {
