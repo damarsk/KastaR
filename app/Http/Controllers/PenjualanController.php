@@ -84,6 +84,13 @@ class PenjualanController extends Controller
         // Validasi stok produk sebelum melakukan update
         $detail = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
         
+        // Check if no items were added
+        if ($detail->isEmpty()) {
+            return redirect()
+                ->route('transaksi.index')
+                ->with('error', 'Transaksi gagal! Tidak ada barang yang ditambahkan.');
+        }
+        
         // Validasi stok untuk semua item
         $stokValid = true;
         $errorMessage = '';

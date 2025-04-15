@@ -22,7 +22,7 @@
                                 <td>{{$item->nama_produk}}</td>
                                 <td>{{$item->harga_beli}}</td>
                                 <td>
-                                    <button onclick="pilihProduk('{{$item->id_produk}}', '{{$item->kode_produk}}')" class="btn btn-primary btn-sm text-white">
+                                    <button onclick="pilihProduk('{{$item->id_produk}}')" class="btn btn-primary btn-sm text-white">
                                         <i class="fa fa-check"></i>
                                         Pilih
                                     </button>

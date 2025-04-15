@@ -31,7 +31,6 @@
                                     width="100%">
                                     <thead>
                                         <th style="width: 5%">No</th>
-                                        <th style="width: 5%">Foto</th>
                                         <th>Nama</th>
                                         <th>Telepon</th>
                                         <th>Alamat</th>
@@ -64,14 +63,6 @@
                 },
                 columns: [
                     { data: 'DT_RowIndex', orderable: false, searchable: false },
-                    {
-                        data: 'foto', orderable: false, searchable: false,
-                        render: function(data) {
-                            return data ?
-                            `<img src="{{ asset('uploads/photos') }}/${data}" style="object-fit: cover; border-radius: 50%; height: 28px; width: 28px">` :
-                            '<img src="{{ asset('images') }}/unknown-avatar.png" style="object-fit: cover; border-radius: 50%; height: 28px; width: 28px">';
-                        }
-                    },
                     { data: 'nama' },
                     { data: 'telepon' },
                     { data: 'alamat' },
@@ -138,11 +129,7 @@
                     $('#modal-form [name=nama]').val(response.nama);
                     $('#modal-form [name=alamat]').val(response.alamat);
                     $('#modal-form [name=telepon]').val(response.telepon);
-                    if (response.foto) {
-                    $('#photo-preview').attr('src', '{{ asset('uploads/photos') }}/' + response.foto).show();
-                    } else {
-                        $('#photo-preview').hide();
-                    }
+                    // Foto telah dihapus dari model supplier
                 })
                 .fail((errors) => {
                     alert('Tidak dapat menampilkan data');
@@ -178,44 +165,12 @@
         }
 
         $(document).ready(function() {
-            const $photoInput = $('#photo');
-            const $photoPreview = $('#photo-preview');
-            const $removePhotoBtn = $('#remove-photo-btn');
-            const $modalForm = $('#modal-form');
+            // Kode untuk foto telah dihapus karena supplier tidak lagi memiliki foto
 
-            $photoInput.on('change', function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        $photoPreview.attr('src', e.target.result);
-                        $photoPreview.show();
-                        $removePhotoBtn.show();
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    $photoPreview.attr('src', '#');
-                    $photoPreview.hide();
-                    $removePhotoBtn.hide();
-                }
-            });
+            // Kode untuk foto telah dihapus karena supplier tidak lagi memiliki foto
 
-            $removePhotoBtn.on('click', function() {
-                $photoPreview.attr('src', '#');
-                $photoPreview.hide();
-                $removePhotoBtn.hide();
-                $photoInput.val('');
-            });
-
-            $modalForm.on('hidden.bs.modal', function() {
-                $photoInput.val('');
-                $photoPreview.attr('src', '#');
-                $photoPreview.hide();
-                $removePhotoBtn.hide();
-                $('#name').val('');
-                $('#email').val('');
-                $('#password').val('');
-                $('#password_confirmation').val('');
+            $('#modal-form').on('hidden.bs.modal', function() {
+                // Reset form saat modal ditutup
             });
         });
     </script>

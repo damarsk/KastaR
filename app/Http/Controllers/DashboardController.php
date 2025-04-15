@@ -43,7 +43,7 @@ class DashboardController extends Controller
         $icon_profit = $profit > 0 ? 'fa-level-up c-green-500' : 'fa-level-down c-red-500';
 
         $data_tanggal = array();
-        $data_pendapatan = array();
+        $data_profit = array();
 
         while (strtotime($tanggal_awal) <= strtotime($tanggal_akhir)) {
             $data_tanggal[] = (int) substr($tanggal_awal, 8, 2);
@@ -53,7 +53,7 @@ class DashboardController extends Controller
             $total_pengeluaran = Pengeluaran::where('created_at', 'LIKE', "%$tanggal_awal%")->sum('nominal');
 
             $pendapatan = $total_penjualan - $total_pembelian - $total_pengeluaran;
-            $data_pendapatan[] = $pendapatan;
+            $data_profit[] = $pendapatan;
 
             $tanggal_awal = date('Y-m-d', strtotime("+1 day", strtotime($tanggal_awal)));
         }
@@ -61,7 +61,7 @@ class DashboardController extends Controller
         $tanggal_awal = date('Y-m-01');
 
         if (auth()->user()->level >= 1) {
-            return view('admin.dashboard', compact('kategori', 'produk', 'supplier', 'member', 'tanggal_awal', 'tanggal_akhir', 'data_tanggal', 'data_pendapatan', 'profit_percentage', 'icon_profit'));
+            return view('admin.dashboard', compact('kategori', 'produk', 'supplier', 'member', 'tanggal_awal', 'tanggal_akhir', 'data_tanggal', 'data_profit', 'profit_percentage', 'icon_profit'));
         } else {
             return view('kasir.dashboard');
         }

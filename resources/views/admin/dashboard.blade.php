@@ -101,7 +101,7 @@
                 <div class="bd bgc-white">
                     <div class="layers">
                         <div class="layer w-100 pX-20 pT-20">
-                            <h6 class="lh-1">Grafik Pendapatan {{ tanggal_indonesia($tanggal_awal, false) }} s/d
+                            <h6 class="lh-1">Grafik Profit {{ tanggal_indonesia($tanggal_awal, false) }} s/d
                                 {{ tanggal_indonesia($tanggal_akhir, false) }}</h6>
                         </div>
                         <div class="layer w-100 p-20">
@@ -139,8 +139,8 @@
             data: {
                 labels: {{ json_encode($data_tanggal) }},
                 datasets: [{
-                    label: 'Pendapatan',
-                    data: {{ json_encode($data_pendapatan) }},
+                    label: 'Profit',
+                    data: {{ json_encode($data_profit) }},
                     borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     fill: true,

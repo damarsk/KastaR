@@ -59,16 +59,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>  
                 </div>  
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <center>
-                            <label for="photo" class="form-label">Pas Foto 4x3 (Untuk Profil)</label>
-                            <div class="photo-frame">
-                                <img id="photo-preview" src="#" alt="Pratinjau Pas Foto" class="img-fluid">
-                                <button type="button" class="remove-photo" id="remove-photo-btn">&times;</button>
-                                <input type="file" name="foto" class="form-control-file" id="photo" accept="image/*">
-                            </div>
-                        </center>
-                    </div>  
+                      
                     <div class="mb-3">  
                         <label for="nama" class="form-label">Nama</label>  
                         <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan nama" required>  

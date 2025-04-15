@@ -236,7 +236,7 @@
 
             tableProduk = $('#dataProduk').DataTable();
 
-            $(document).on('input', '.quantity', function() {
+            $(document).on('change', '.quantity', function() {
                 let id = $(this).data('id');
                 let jumlah = parseInt($(this).val());
 
@@ -256,14 +256,16 @@
                         '_method': 'put',
                         'jumlah': jumlah
                     })
-                    .done(response => {
-                        $(this).on('mouseout', function() {
+                    .done((response) => {
+                        if (response.status === '404') {
                             table.ajax.reload(() => loadForm($('#diskon').val()));
-                        });
+                            notyf.error(response);
+                        } else {
+                            table.ajax.reload(() => loadForm($('#diskon').val()));
+                        }
                     })
-                    .fail(errors => {
-                        alert('Tidak dapat menyimpan data');
-                        return;
+                    .fail((error) => {
+                        notyf.error('Terjadi kesalahan saat memperbarui data');
                     });
             });
 
@@ -294,7 +296,7 @@
                 event.preventDefault();
                 $.post('{{ route('transaksi.storeEnter') }}', $('.form-produk').serialize())
                     .done((response) => {
-                        $('#kode_produk').focus();
+                        $('#kode_produk').val('').focus();
                         var notyf = new Notyf({
                             duration: 2000,
                             position: {
@@ -329,9 +331,8 @@
             $('#modal-produk').modal('show');
         }
 
-        function pilihProduk(id, kode) {
+        function pilihProduk(id) {
             $('#id_produk').val(id);
-            $('#kode_produk').val(kode);
             $('#modal-produk').modal('hide');
             tambahProduk();
         }

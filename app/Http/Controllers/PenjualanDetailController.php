@@ -29,7 +29,7 @@ class PenjualanDetailController extends Controller
             } else {
                 return redirect()->route('home');
             }
-        }session()->forget('id_penjualan');
+        }
     }
 
     public function data($id)
@@ -85,14 +85,32 @@ class PenjualanDetailController extends Controller
             return response()->json(['status' => '404', 'errStatus' => 'stok_habis', 'message' => 'Stok produk tersebut habis!']);
         }
 
-        $detail = new PenjualanDetail();
-        $detail->id_penjualan = $request->id_penjualan;
-        $detail->id_produk = $produk->id_produk;
-        $detail->harga_jual = $produk->harga_jual;
-        $detail->jumlah = 1;
-        $detail->diskon = 0;
-        $detail->subtotal = $produk->harga_jual;
-        $detail->save();
+        $detail = PenjualanDetail::where('id_penjualan', $request->id_penjualan)
+            ->where('id_produk', $produk->id_produk)
+            ->first();
+
+        if ($detail) {
+            $newJumlah = $detail->jumlah + 1;
+            if ($newJumlah > $produk->stok) {
+                return response()->json([
+                    'status' => '404',
+                    'errStatus' => 'stok_tidak_cukup',
+                    'message' => 'Stok tidak mencukupi! Sisa stok: ' . $produk->stok
+                ]);
+            }
+            $detail->jumlah = $newJumlah;
+            $detail->subtotal = $produk->harga_jual * $newJumlah;
+            $detail->save();
+        } else {
+            $detail = new PenjualanDetail();
+            $detail->id_penjualan = $request->id_penjualan;
+            $detail->id_produk = $produk->id_produk;
+            $detail->harga_jual = $produk->harga_jual;
+            $detail->jumlah = 1;
+            $detail->diskon = 0;
+            $detail->subtotal = $produk->harga_jual;
+            $detail->save();
+        }
 
         return response()->json(['status' => '200', 'id' => $detail->id_penjualan_detail]);
     }
@@ -106,14 +124,32 @@ class PenjualanDetailController extends Controller
             return response()->json(['status' => '404', 'errStatus' => 'stok_habis', 'message' => 'Stok produk tersebut habis!']);
         }
 
-        $detail = new PenjualanDetail();
-        $detail->id_penjualan = $request->id_penjualan;
-        $detail->id_produk = $produk->id_produk;
-        $detail->harga_jual = $produk->harga_jual;
-        $detail->jumlah = 1;
-        $detail->diskon = 0;
-        $detail->subtotal = $produk->harga_jual;
-        $detail->save();
+        $detail = PenjualanDetail::where('id_penjualan', $request->id_penjualan)
+            ->where('id_produk', $produk->id_produk)
+            ->first();
+
+        if ($detail) {
+            $newJumlah = $detail->jumlah + 1;
+            if ($newJumlah > $produk->stok) {
+                return response()->json([
+                    'status' => '404',
+                    'errStatus' => 'stok_tidak_cukup',
+                    'message' => 'Stok tidak mencukupi! Sisa stok: ' . $produk->stok
+                ]);
+            }
+            $detail->jumlah = $newJumlah;
+            $detail->subtotal = $produk->harga_jual * $newJumlah;
+            $detail->save();
+        } else {
+            $detail = new PenjualanDetail();
+            $detail->id_penjualan = $request->id_penjualan;
+            $detail->id_produk = $produk->id_produk;
+            $detail->harga_jual = $produk->harga_jual;
+            $detail->jumlah = 1;
+            $detail->diskon = 0;
+            $detail->subtotal = $produk->harga_jual;
+            $detail->save();
+        }
 
         return response()->json(['status' => '200', 'id' => $detail->id_penjualan_detail]);
     }
@@ -121,6 +157,16 @@ class PenjualanDetailController extends Controller
     public function update(Request $request, $id)
     {
         $detail = PenjualanDetail::findOrFail($id);
+        $produk = Produk::findOrFail($detail->id_produk);
+
+        if ($request->jumlah > $produk->stok) {
+            return response()->json([
+                'status' => '404',
+                'errStatus' => 'stok_tidak_cukup',
+                'message' => 'Stok tidak mencukupi! Sisa stok: ' . $produk->stok
+            ]);
+        }
+
         $detail->jumlah = $request->jumlah;
         $detail->subtotal = $detail->harga_jual * $request->jumlah;
         $detail->update();
