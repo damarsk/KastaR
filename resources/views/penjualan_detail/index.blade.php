@@ -139,7 +139,7 @@
                                             </div>
                                         </div>
                                         <div class="box-footer mt-5">
-                                            <button type="submit"
+                                            <button
                                                 class="btn btn-primary btn-sm pull-right btn-simpan text-white"><i
                                                     class="fa fa-floppy-o"></i> Simpan Transaksi</button>
                                         </div>
@@ -164,6 +164,7 @@
     <script>
         let table;
         let tableProduk;
+        let modalmemberTable;
         
         // Inisialisasi Notyf
         const notyf = new Notyf({
@@ -184,12 +185,11 @@
             ]
         });
 
-        // Cek apakah ada pesan error dari session
-        @if(session('error'))
-            notyf.error("{{ session('error') }}");
-        @endif
-
         $(function() {
+            $('#kode_produk').focus();
+            @if(session('error'))
+                notyf.error("{{ session('error') }}");
+            @endif
             table = $('#tabel-penjualan').DataTable({
                 proccessing: true,
                 autoWidth: false,
@@ -235,6 +235,7 @@
             });
 
             tableProduk = $('#dataProduk').DataTable();
+            modalmemberTable = $('#modalmemberTable').DataTable();
 
             $(document).on('change', '.quantity', function() {
                 let id = $(this).data('id');
@@ -369,8 +370,7 @@
                     return;
                 });
         }
-
-        // MEMBER
+        
         function tampilMember() {
             $('#modal-member').modal('show');
         }

@@ -72,62 +72,72 @@ class PenjualanController extends Controller
         return redirect()->route('transaksi.index');
     }
 
-    public function store(Request $request) {
-        $penjualan = Penjualan::findOrFail($request->id_penjualan);
-        $penjualan->id_member = $request->id_member;
-        $penjualan->total_item = $request->total_item;
-        $penjualan->total_harga = $request->total;
-        $penjualan->diskon = $request->diskon;
-        $penjualan->bayar = $request->bayar;
-        $penjualan->diterima = $request->diterima;
-        
-        // Validasi stok produk sebelum melakukan update
-        $detail = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
-        
-        // Check if no items were added
-        if ($detail->isEmpty()) {
-            return redirect()
-                ->route('transaksi.index')
-                ->with('error', 'Transaksi gagal! Tidak ada barang yang ditambahkan.');
-        }
-        
-        // Validasi stok untuk semua item
-        $stokValid = true;
-        $errorMessage = '';
-        
-        foreach ($detail as $item) {
-            $produk = Produk::find($item->id_produk);
-            
-            // Cek apakah jumlah item melebihi stok yang tersedia
-            if ($produk && $item->jumlah > $produk->stok) {
-                $stokValid = false;
-                $errorMessage = 'Transaksi gagal! Jumlah Stok '. $produk->nama_produk .' yang tersedia: '. $produk->stok . 'pcs';
-                break;
-            }
-        }
-        
-        // Jika validasi stok gagal, kembalikan dengan pesan error
-        if (!$stokValid) {
-            return redirect()
-                ->route('transaksi.index')
-                ->with('error', $errorMessage);
-        }
-        
-        // Jika validasi berhasil, update penjualan
-        $penjualan->update();
-        
-        // Update detail penjualan dan kurangi stok
-        foreach ($detail as $item) {
-            $item->diskon = $request->diskon;
-            $item->update();
-            
-            $produk = Produk::find($item->id_produk);
-            $produk->stok -= $item->jumlah;
-            $produk->update();
-        }
-
-        return redirect()->route('transaksi.selesai');
+public function store(Request $request) {
+    $penjualan = Penjualan::findOrFail($request->id_penjualan);
+    $penjualan->id_member = $request->id_member;
+    $penjualan->total_item = $request->total_item;
+    $penjualan->total_harga = $request->total;
+    $penjualan->diskon = $request->diskon;
+    $penjualan->bayar = $request->bayar;
+    $penjualan->diterima = $request->diterima;
+    
+    // Validasi stok produk sebelum melakukan update
+    $detail = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
+    
+    // Check if no items were added
+    if ($detail->isEmpty()) {
+        return redirect()
+            ->route('transaksi.index')
+            ->with('error', 'Transaksi gagal! Tidak ada barang yang ditambahkan.');
     }
+
+    // Convert values to numeric for proper comparison
+    $bayar = (float)$request->diterima;
+    $totalHarga = (float)$request->bayar;
+
+    // Check if payment is less than total price
+    if ($bayar < $totalHarga) {
+        return redirect()
+            ->route('transaksi.index')
+            ->with('error', 'Transaksi gagal! Jumlah yang dibayarkan (Rp. ' . format_uang($bayar) . ') kurang dari total harga (Rp. ' . format_uang($totalHarga) . ').');
+    }
+    
+    // Validasi stok untuk semua item
+    $stokValid = true;
+    $errorMessage = '';
+    
+    foreach ($detail as $item) {
+        $produk = Produk::find($item->id_produk);
+        // Cek apakah jumlah item melebihi stok yang tersedia
+        if ($produk && $item->jumlah > $produk->stok) {
+            $stokValid = false;
+            $errorMessage = 'Transaksi gagal! Jumlah Stok '. $produk->nama_produk .' yang tersedia: '. $produk->stok . 'pcs';
+            break;
+        }
+    }
+    
+    // Jika validasi stok gagal, kembalikan dengan pesan error
+    if (!$stokValid) {
+        return redirect()
+            ->route('transaksi.index')
+            ->with('error', $errorMessage);
+    }
+    
+    // Jika validasi berhasil, update penjualan
+    $penjualan->update();
+    
+    // Update detail penjualan dan kurangi stok
+    foreach ($detail as $item) {
+        $item->diskon = $request->diskon;
+        $item->update();
+        
+        $produk = Produk::find($item->id_produk);
+        $produk->stok -= $item->jumlah;
+        $produk->update();
+    }
+
+    return redirect()->route('transaksi.selesai');
+}
 
     public function show($id)
     {

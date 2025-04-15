@@ -51,7 +51,7 @@
                 <td class="text-center">
                     <p>{{ $produk->nama_produk }} - Rp. {{ format_uang($produk->harga_jual) }}</p>
                     <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($produk->kode_produk, 'C39') }}"
-                        alt="{{ $produk->kode_produk }}" width="144" height="57" />
+                        alt="{{ $produk->kode_produk }}" width="188" height="57" />
                     <br>
                     {{ $produk->kode_produk }}
                 </td>
