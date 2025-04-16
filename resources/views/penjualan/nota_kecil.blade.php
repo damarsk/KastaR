@@ -7,6 +7,7 @@
     <title>Nota Kecil</title>
 
     <?php
+    $tinggi = !empty($_COOKIE['innerHeight']) ? $_COOKIE['innerHeight'] : '150'; // fallback 150mm
     $style = '
     <style>
         * {
@@ -30,32 +31,27 @@
         @media print {
             @page {
                 margin: 0;
-                size: 75mm 
-    ';
-    ?>
-    <?php 
-    $style .= 
-        ! empty($_COOKIE['innerHeight'])
-            ? $_COOKIE['innerHeight'] .'mm; }'
-            : '}';
-    ?>
-    <?php
-    $style .= '
-            html, body {
-                width: 70mm;
+                size: 58mm ' . $tinggi . 'mm;
             }
+
+            html, body {
+                width: 58mm;
+                margin: 0;
+                padding: 0;
+            }
+
             .btn-print {
                 display: none;
             }
         }
-    </style>
-    ';
+    </style>';
     ?>
 
     {!! $style !!}
 </head>
-<body onload="window.print()">
-    <button class="btn-print" style="position: absolute; right: 1rem; top: rem;" onclick="window.print()">Print</button>
+<body onload="setTimeout(() => window.print(), 500)">
+    <button class="btn-print" style="position: absolute; right: 1rem; top: 1rem;" onclick="window.print()">Print</button>
+
     <div class="text-center">
         <h3 style="margin-bottom: 5px;">{{ strtoupper($setting->nama_perusahaan) }}</h3>
         <p>{{ strtoupper($setting->alamat) }}</p>
@@ -115,15 +111,18 @@
     <p class="text-center">-- TERIMA KASIH --</p>
 
     <script>
+        // Hitung tinggi konten dan simpan dalam cookie
         let body = document.body;
         let html = document.documentElement;
-        let height = Math.max(
-                body.scrollHeight, body.offsetHeight,
-                html.clientHeight, html.scrollHeight, html.offsetHeight
-            );
 
-        document.cookie = "innerHeight=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        document.cookie = "innerHeight="+ ((height + 50) * 0.264583);
+        let height = Math.max(
+            body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight
+        );
+
+        let mmHeight = ((height + 50) * 0.264583).toFixed(2); // px to mm
+        document.cookie = "innerHeight=" + mmHeight;
+        console.log("Tinggi nota:", mmHeight + "mm");
     </script>
 </body>
 </html>
