@@ -46,7 +46,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="bgc-white bd bdrs-3 p-20 mB-20">
-                            <form action="" method="POST" class="form-produk">
+                            <form action="" method="POST" class="form-produk mb-3">
                                 @csrf
                                 <div class="form-group row">
                                     <label for="kode_produk" class="col-lg-2 c-grey-900">Kode Produk</label>
@@ -65,7 +65,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <table id="tabel-penjualan" class="table table-striped table-bordered my-3 transaksi-table"
+                            <table id="tabel-penjualan" class="table table-striped table-bordered transaksi-table"
                                 cellspacing="0" width="100%">
                                 <thead>
                                     <th style="width: 5%">No</th>
@@ -78,7 +78,7 @@
                                     <th width="10%"><i class="fa fa-cog"></i></th>
                                 </thead>
                             </table>
-                            <div class="row">
+                            <div class="row mt-3">
                                 <div class="col-lg-8">
                                     <div class="tampil-bayar bg-cos1 text-white">Rp.</div>
                                     <div class="tampil-terbilang">Rp.</div>
@@ -139,8 +139,7 @@
                                             </div>
                                         </div>
                                         <div class="box-footer mt-5">
-                                            <button
-                                                class="btn btn-primary btn-sm pull-right btn-simpan text-white"><i
+                                            <button class="btn btn-primary btn-sm pull-right btn-simpan text-white"><i
                                                     class="fa fa-floppy-o"></i> Simpan Transaksi</button>
                                         </div>
                                     </form>
@@ -165,7 +164,7 @@
         let table;
         let tableProduk;
         let modalmemberTable;
-        
+
         // Inisialisasi Notyf
         const notyf = new Notyf({
             duration: 5000,
@@ -173,26 +172,27 @@
                 x: 'right',
                 y: 'top',
             },
-            types: [
-                {
-                    type: 'error',
-                    background: '#FF0000',
-                    icon: {
-                        className: 'fas fa-times',
-                        tagName: 'i',
-                    }
+            types: [{
+                type: 'error',
+                background: '#FF0000',
+                icon: {
+                    className: 'fas fa-times',
+                    tagName: 'i',
                 }
-            ]
+            }]
         });
 
         $(function() {
             $('#kode_produk').focus();
-            @if(session('error'))
+            @if (session('error'))
                 notyf.error("{{ session('error') }}");
             @endif
             table = $('#tabel-penjualan').DataTable({
-                proccessing: true,
-                autoWidth: false,
+                processing: true,
+                autoWidth: true,
+                scrollY: '420px',
+                scrollCollapse: true,
+                paging: false,
                 ajax: {
                     url: '{{ route('transaksi.data', $id_penjualan) }}',
                 },
@@ -222,7 +222,7 @@
                     {
                         data: 'aksi',
                         searchable: false,
-                        sortable: false,
+                        sortable: false
                     },
                 ],
                 dom: 'Brt',
@@ -370,7 +370,7 @@
                     return;
                 });
         }
-        
+
         function tampilMember() {
             $('#modal-member').modal('show');
         }
