@@ -17,6 +17,10 @@
                         </div>
                     </div>
                     <div class="mb-3">
+                        <label for="kode_produk" class="form-label">Kode Produk</label>
+                        <input type="text" name="kode_produk" class="form-control" id="kode_produk" placeholder="Masukkan kode produk" autofocus>
+                    </div>
+                    <div class="mb-3">
                         <label for="id_kategori" class="form-label">Kategori</label>
                         <select name="id_kategori" id="id_kategori" class="form-control" required>
                             <option value="">Pilih Kategori</option>

@@ -50,6 +50,7 @@
         </div>
     </main>
     @includeIf('produk.form')
+    @includeIf('produk.formEdit')
 @endsection
 
 @section('scripts')
@@ -143,6 +144,37 @@
                 }
             });
 
+            $('#modal-edit-form').validator().on('submit', function(e) {
+                if (!e.preventDefault()) {
+                    $.post($('#modal-edit-form form').attr('action'), $('#modal-edit-form form').serialize())
+                        .done((response) => {
+                            $('#modal-edit-form').modal('hide')
+                            var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.success(response);;
+                            table.ajax.reload();
+                        })
+                        .fail((errors) => {
+                            var notyf = new Notyf({
+                                duration: 2000,
+                                position: {
+                                    x: 'right',
+                                    y: 'top',
+                                },
+                                dismissible: true
+                            });
+                            notyf.error('Tidak dapat menyimpan data');
+                            return;
+                        });
+                }
+            });
+
             $('[name=select_all]').on('click', function() {
                 $('input[type="checkbox"]').prop('checked', this.checked);
             });
@@ -163,22 +195,22 @@
         }
 
         function editForm(url) {
-            $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Edit Produk');
+            $('#modal-edit-form').modal('show');
+            $('#modal-edit-form .modal-title').text('Edit Produk');
 
-            $('#modal-form form')[0].reset();
-            $('#modal-form form').attr('action', url);
-            $('#modal-form [name=_method]').val('put');
-            $('#modal-form [name=nama_produk]').focus();
+            $('#modal-edit-form form')[0].reset();
+            $('#modal-edit-form form').attr('action', url);
+            $('#modal-edit-form [name=_method]').val('put');
+            $('#modal-edit-form [name=nama_produk]').focus();
 
             $.get(url)
                 .done((response) => {
-                    $('#modal-form [name=nama_produk]').val(response.nama_produk);
-                    $('#modal-form [name=id_kategori]').val(response.id_kategori);
-                    $('#modal-form [name=merk]').val(response.merk);
-                    $('#modal-form [name=harga_beli]').val(response.harga_beli);
-                    $('#modal-form [name=harga_jual]').val(response.harga_jual);
-                    $('#modal-form [name=stok]').val(response.stok);
+                    $('#modal-edit-form [name=nama_produk]').val(response.nama_produk);
+                    $('#modal-edit-form [name=id_kategori]').val(response.id_kategori);
+                    $('#modal-edit-form [name=merk]').val(response.merk);
+                    $('#modal-edit-form [name=harga_beli]').val(response.harga_beli);
+                    $('#modal-edit-form [name=harga_jual]').val(response.harga_jual);
+                    $('#modal-edit-form [name=stok]').val(response.stok);
                 })
                 .fail((errors) => {
                     alert('Tidak dapat menampilkan data');

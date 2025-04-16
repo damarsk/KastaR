@@ -77,10 +77,16 @@ class ProdukController extends Controller
     {
         $request->validate([
             'nama_produk' => 'required|unique:produk,nama_produk',
+            'kode_produk' => 'nullable|unique:produk,kode_produk',
         ]);
 
         $produk = Produk::latest()->first() ?? new Produk();
-        $request['kode_produk'] = 'P'. tambah_nol_didepan((int)$produk->id_produk + 1, 6);
+
+        if(empty($request->kode_produk)) {
+            $request['kode_produk'] = 'P'. tambah_nol_didepan((int)$produk->id_produk + 1, 6);
+        } else {
+            $request['kode_produk'] = $request->kode_produk;
+        }
 
         $produk = Produk::create($request->all());
 
