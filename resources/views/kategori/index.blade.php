@@ -19,6 +19,7 @@
                             <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <thead>
                                     <th style="width: 50px">No</th>
+                                    <th>Kode Kategori</th>
                                     <th>Kategori</th>
                                     <th width="15%"><i class="fa fa-cog"></i></th>
                                 </thead>
@@ -50,6 +51,9 @@
                         data: 'DT_RowIndex',
                         orderable: false,
                         searchable: false
+                    },
+                    {
+                        data: 'kode_kategori'
                     },
                     {
                         data: 'nama_kategori'

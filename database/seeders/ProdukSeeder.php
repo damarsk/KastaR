@@ -13,13 +13,16 @@ class ProdukSeeder extends Seeder
     public function run(): void
     {
         // Membuat kategori
-        $kategori = [
-            ['nama_kategori' => 'Makanan'],
-            ['nama_kategori' => 'Minuman'],
-            ['nama_kategori' => 'Snack'],
-            ['nama_kategori' => 'Perlengkapan Mandi'],
-            ['nama_kategori' => 'Alat Tulis']
-        ];
+        $kategori = [];
+        $kategoriNames = ['Makanan', 'Minuman', 'Snack', 'Perlengkapan Mandi', 'Alat Tulis'];
+        
+        foreach ($kategoriNames as $index => $name) {
+            $kode = 'K' . str_pad($index + 1, 3, '0', STR_PAD_LEFT);
+            $kategori[] = [
+                'kode_kategori' => $kode,
+                'nama_kategori' => $name
+            ];
+        }
 
         DB::table('kategori')->insert($kategori);
 

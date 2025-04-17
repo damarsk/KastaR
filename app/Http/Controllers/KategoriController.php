@@ -50,6 +50,15 @@ class KategoriController extends Controller
         //
     }
 
+    private function generateKodeKategori()
+    {
+        $lastKategori = Kategori::orderBy('id_kategori', 'desc')->first();
+        $lastKode = $lastKategori ? intval(substr($lastKategori->kode_kategori, 1)) : 0;
+        $newKode = 'K' . str_pad($lastKode + 1, 3, '0', STR_PAD_LEFT);
+        
+        return $newKode;
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -60,6 +69,7 @@ class KategoriController extends Controller
         ]);
 
         $kategori = new Kategori();
+        $kategori->kode_kategori = $this->generateKodeKategori();
         $kategori->nama_kategori = $request->nama_kategori;
         $kategori->save();
 

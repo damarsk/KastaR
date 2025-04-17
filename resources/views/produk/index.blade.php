@@ -32,7 +32,8 @@
                                     <thead>
                                         <th><input type="checkbox" name="select_all" id="select_all"></th>
                                         <th style="width: 5%">No</th>
-                                        <th>Kode</th>
+                                        <th>Kode Kategori</th>
+                                        <th>Kode Produk</th>
                                         <th>Nama</th>
                                         <th>Kategori</th>
                                         <th>Merk</th>
@@ -77,6 +78,9 @@
                         data: 'DT_RowIndex',
                         orderable: false,
                         searchable: false
+                    },
+                    {
+                        data: 'kode_kategori',
                     },
                     {
                         data: 'kode_produk'

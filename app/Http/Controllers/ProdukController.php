@@ -21,7 +21,7 @@ class ProdukController extends Controller
     public function data()
     {
         $produk = Produk::leftJoin('kategori', 'produk.id_kategori', '=', 'kategori.id_kategori')
-        ->select('produk.*', 'kategori.nama_kategori')
+        ->select('produk.*', 'kategori.nama_kategori', 'kategori.kode_kategori')
         ->get();
 
         return datatables()
@@ -29,6 +29,9 @@ class ProdukController extends Controller
             ->addIndexColumn()
             ->addColumn('select_all', function ($produk) {
                 return '<input type="checkbox" name="id_produk[]" value="' . $produk->id_produk . '">';
+            })
+            ->addColumn('kode_kategori', function ($produk) {
+                return '<span class="badge text-bg-secondary text-white">'. $produk->kode_kategori. '</span>';
             })
             ->addColumn('kode_produk', function ($produk) {
                 return '<span class="badge text-bg-success text-white">' . $produk->kode_produk . '</span>';
@@ -58,7 +61,7 @@ class ProdukController extends Controller
                 </div>
                 ';
             })
-            ->rawColumns(['aksi', 'select_all', 'kode_produk'])
+            ->rawColumns(['aksi', 'select_all', 'kode_kategori', 'kode_produk'])
             ->make(true);
     }
 
@@ -83,7 +86,9 @@ class ProdukController extends Controller
         $produk = Produk::latest()->first() ?? new Produk();
 
         if(empty($request->kode_produk)) {
-            $request['kode_produk'] = 'P'. tambah_nol_didepan((int)$produk->id_produk + 1, 6);
+            $lastCode = Produk::latest('kode_produk')->first()->kode_produk;
+            $lastNumber = (int) substr($lastCode, 1);
+            $request['kode_produk'] = 'P'. tambah_nol_didepan($lastNumber + 1, 6);
         } else {
             $request['kode_produk'] = $request->kode_produk;
         }
