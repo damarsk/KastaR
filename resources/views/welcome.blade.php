@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TokoRetail</title>
+    <title>KastaR</title>
 
     <link rel="icon" href="{{ asset('land_style/img/logo-circle.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ asset('land_style/vendor/bootstrap/css/bootstrap.min.css') }}">
@@ -20,8 +20,8 @@
     <nav id="home" class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a href="#" class="logo">
-                <img src="{{ asset('land_style/img/logo.svg') }}" alt="TokoRetail Logo">
-                TokoRetail
+                <img src="{{ asset('land_style/img/logo.svg') }}" alt="KastaR Logo">
+                KastaR
             </a>
 
             <div class="menu-toggle">
@@ -48,9 +48,9 @@
             <div class="row gy-4">
                 <!-- Kolom untuk teks -->
                 <div class="col-12 col-md-6 order-2 order-md-1">
-                    <h1 class="display-1 fw-bold text-start">TokoRetail</h1>
+                    <h1 class="display-1 fw-bold text-start">KastaR</h1>
                     <p class="fs-4 text-start">Solusi Kasir Pintar Untuk Bisnis Anda</p>
-                    <p class="text-start">TokoRetail adalah solusi kasir pintar yang dirancang untuk memudahkan pengelolaan transaksi bisnis Anda, membantu meningkatkan efisiensi dan akurasi dalam pencatatan penjualan.</p>
+                    <p class="text-start">KastaR adalah solusi kasir pintar yang dirancang untuk memudahkan pengelolaan transaksi bisnis Anda, membantu meningkatkan efisiensi dan akurasi dalam pencatatan penjualan.</p>
                     <!-- Wrapper untuk tombol agar rata kiri -->
                     <div class="text-start">
                         <a href="https://www.youtube.com/watch?v=QfavjTWfN9M&t=256s" class="glightbox">
@@ -71,7 +71,7 @@
     <!-- Features Section -->
     <section id="features" class="features">
         <h2 class="section-title" data-aos="fade-up">Fitur Utama</h2>
-        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">TokoRetail hadir dengan berbagai fitur unggulan yang dirancang khusus untuk memenuhi kebutuhan bisnis Anda.</p>
+        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">KastaR hadir dengan berbagai fitur unggulan yang dirancang khusus untuk memenuhi kebutuhan bisnis Anda.</p>
 
         <div class="feature-cards">
             <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
@@ -94,8 +94,8 @@
 
     <!-- Benefits Section -->
     <section id="benefits" class="benefits">
-        <h2 class="section-title" data-aos="fade-up">Manfaat Utama TokoRetail</h2>
-        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">Nikmati berbagai keunggulan TokoRetail yang akan membuat pengelolaan bisnis Anda menjadi lebih efisien.</p>
+        <h2 class="section-title" data-aos="fade-up">Manfaat Utama KastaR</h2>
+        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">Nikmati berbagai keunggulan KastaR yang akan membuat pengelolaan bisnis Anda menjadi lebih efisien.</p>
 
         <div class="container benefits-container">
             <div class="benefit-item" data-aos="fade-up" data-aos-delay="300">
@@ -152,11 +152,11 @@
                 <div class="col-lg-4 col-md-6" data-aos="fade-up">
                     <div class="footer-about">
                         <a href="#" class="logo d-flex align-items-center">
-                            <img src="{{ asset('land_style/img/logo-white.svg') }}" alt="TokoRetail Logo">
-                            <h1 class="sitename ms-3 text-light fs-4">TokoRetail</h1>
+                            <img src="{{ asset('land_style/img/logo-white.svg') }}" alt="KastaR Logo">
+                            <h1 class="sitename ms-3 text-light fs-4">KastaR</h1>
                         </a>
                         <p class="mt-3">
-                            TokoRetail adalah solusi kasir pintar yang dirancang untuk membantu bisnis Anda tumbuh lebih cepat dengan teknologi terkini.
+                            KastaR adalah solusi kasir pintar yang dirancang untuk membantu bisnis Anda tumbuh lebih cepat dengan teknologi terkini.
                         </p>
                         <div class="social-links mt-3">
                             <a href="https://instagram.com/damarsyahada" class="text-light me-2"><i class="bi bi-instagram fs-4"></i></a>
@@ -180,7 +180,7 @@
                 <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
                     <h5 class="mb-4 fw-bold text-light">Kontak Kami</h5>
                     <p class="mb-2"><i class="bi bi-geo-alt me-2"></i> Jl. Hercules IV No.123, Kab. Bandung</p>
-                    <p class="mb-2"><i class="bi bi-envelope me-2"></i> support@TokoRetail.com</p>
+                    <p class="mb-2"><i class="bi bi-envelope me-2"></i> support@KastaR.com</p>
                     <p class="mb-2"><i class="bi bi-phone me-2"></i> +62 812-3456-7890</p>
                 </div>
 
@@ -198,7 +198,7 @@
 
             <!-- Copyright -->
             <div class="footer-copyright text-center mt-5">
-                <p>&copy; 2025 <strong>TokoRetail</strong>. All rights reserved.</p>
+                <p>&copy; 2025 <strong>KastaR</strong>. All rights reserved.</p>
             </div>
         </div>
     </footer>

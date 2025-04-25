@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'TokoRetail - Pengaturan')
+@section('title', 'KastaR - Pengaturan')
 @section('styles')
 
 @endsection
